@@ -1,0 +1,70 @@
+name: Publicar artigos do agente
+
+on:
+  repository_dispatch:
+    types: [publicar-artigos]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publicar:
+    name: Importar Markdown e publicar
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do site
+        uses: actions/checkout@v4
+        with:
+          ref: principal
+
+      - name: Checkout do agente autorizado
+        uses: actions/checkout@v4
+        with:
+          repository: michelfreitasdev/ProjetoAgentesDeIA
+          path: .agente-artigos
+          token: ${{ secrets.AGENTE_ARTIGOS_TOKEN || github.token }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Importar artigos salvos pelo agente
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p content/artigos
+          shopt -s nullglob
+
+          sources=(
+            ".agente-artigos/content/artigos"
+            ".agente-artigos/artigos"
+            ".agente-artigos/posts"
+          )
+
+          imported=0
+          for source in "${sources[@]}"; do
+            if [ -d "$source" ]; then
+              for file in "$source"/*.md; do
+                cp "$file" content/artigos/
+                imported=$((imported + 1))
+              done
+            fi
+          done
+
+          echo "Artigos importados: $imported"
+          npm run artigos:process
+
+      - name: Build
+        run: npm run build
+
+      - name: Commitar artigos publicados
+        uses: stefanzweifel/git-auto-commit-action@v6
+        with:
+          branch: principal
+          commit_message: "feat: publica artigos do agente de IA"
+          file_pattern: content/artigos public/llms.txt

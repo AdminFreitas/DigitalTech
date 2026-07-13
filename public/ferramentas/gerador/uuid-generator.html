@@ -1,0 +1,289 @@
+<!-- ==========================================================
+     FERRAMENTA: UUID Generator
+     Uso: cole este bloco dentro do <main> do site DigitalTech.
+     Sem <head>, <body>, header, footer ou menu.
+     CSS/JS isolados sob o prefixo ".dtuuid-".
+     Usa crypto.randomUUID(), API nativa do navegador.
+========================================================== -->
+
+<section class="dtuuid-tool" aria-labelledby="dtuuid-title">
+
+  <header class="dtuuid-tool__head">
+    <h1 id="dtuuid-title" class="dtuuid-tool__title">Gerador de UUID</h1>
+    <p class="dtuuid-tool__desc">
+      Gere identificadores únicos universais (UUID v4) direto no navegador,
+      usando a API criptográfica nativa.
+    </p>
+  </header>
+
+  <!-- Configurações -->
+  <div class="dtuuid-settings">
+    <div class="dtuuid-field">
+      <label for="dtuuidQty">Quantidade</label>
+      <input type="number" id="dtuuidQty" min="1" max="100" value="5">
+    </div>
+
+    <label class="dtuuid-checkbox">
+      <input type="checkbox" id="dtuuidUppercase">
+      Letras maiúsculas
+    </label>
+
+    <label class="dtuuid-checkbox">
+      <input type="checkbox" id="dtuuidHyphens" checked>
+      Manter hífens
+    </label>
+  </div>
+
+  <button class="dtuuid-btn dtuuid-btn--primary" id="dtuuidRun">
+    Gerar UUID
+  </button>
+
+  <!-- Resultado -->
+  <div class="dtuuid-result" id="dtuuidResult" hidden>
+    <div class="dtuuid-result__bar">
+      <span>Resultado</span>
+      <button type="button" class="dtuuid-copybtn" id="dtuuidCopy">Copiar tudo</button>
+    </div>
+    <div class="dtuuid-list" id="dtuuidList"></div>
+  </div>
+
+  <button class="dtuuid-btn dtuuid-btn--download" id="dtuuidDownload" disabled>
+    Baixar lista (.txt)
+  </button>
+
+</section>
+
+<style>
+  .dtuuid-tool {
+    --dtuuid-bg:      #14161c;
+    --dtuuid-surface: #1b1e26;
+    --dtuuid-border:  #2a2e39;
+    --dtuuid-text:    #e6e8ec;
+    --dtuuid-muted:   #8b90a0;
+    --dtuuid-accent:  #22d3c9;
+    --dtuuid-radius:  12px;
+
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1.75rem;
+    background: var(--dtuuid-bg);
+    border: 1px solid var(--dtuuid-border);
+    border-radius: var(--dtuuid-radius);
+    color: var(--dtuuid-text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    box-sizing: border-box;
+  }
+  .dtuuid-tool *, .dtuuid-tool *::before, .dtuuid-tool *::after {
+    box-sizing: inherit;
+  }
+
+  .dtuuid-tool__title {
+    margin: 0 0 0.35rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .dtuuid-tool__desc {
+    margin: 0 0 1.5rem;
+    color: var(--dtuuid-muted);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  /* Configurações */
+  .dtuuid-settings {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .dtuuid-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .dtuuid-field label {
+    font-size: 0.82rem;
+    color: var(--dtuuid-muted);
+  }
+  .dtuuid-field input {
+    width: 90px;
+    background: var(--dtuuid-surface);
+    border: 1px solid var(--dtuuid-border);
+    color: var(--dtuuid-text);
+    border-radius: 8px;
+    padding: 0.5rem 0.6rem;
+    font-size: 0.88rem;
+  }
+  .dtuuid-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--dtuuid-muted);
+    cursor: pointer;
+  }
+  .dtuuid-checkbox input {
+    accent-color: var(--dtuuid-accent);
+  }
+
+  /* Botões */
+  .dtuuid-btn {
+    width: 100%;
+    margin-top: 1.25rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .dtuuid-btn:active { transform: scale(0.99); }
+  .dtuuid-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .dtuuid-btn--primary {
+    background: var(--dtuuid-accent);
+    color: #06231f;
+  }
+  .dtuuid-btn--download {
+    background: transparent;
+    border: 1px solid var(--dtuuid-border);
+    color: var(--dtuuid-text);
+  }
+  .dtuuid-btn--download:not(:disabled):hover {
+    border-color: var(--dtuuid-accent);
+    color: var(--dtuuid-accent);
+  }
+
+  /* Resultado */
+  .dtuuid-result {
+    margin-top: 1rem;
+    background: var(--dtuuid-surface);
+    border: 1px solid var(--dtuuid-border);
+    border-radius: var(--dtuuid-radius);
+    overflow: hidden;
+  }
+  .dtuuid-result__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 0.9rem;
+    border-bottom: 1px solid var(--dtuuid-border);
+    font-size: 0.78rem;
+    color: var(--dtuuid-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .dtuuid-copybtn {
+    background: transparent;
+    border: 1px solid var(--dtuuid-border);
+    color: var(--dtuuid-text);
+    border-radius: 6px;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .dtuuid-copybtn:hover {
+    border-color: var(--dtuuid-accent);
+    color: var(--dtuuid-accent);
+  }
+  .dtuuid-list {
+    max-height: 260px;
+    overflow: auto;
+  }
+  .dtuuid-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    padding: 0.55rem 0.9rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.82rem;
+    border-bottom: 1px solid var(--dtuuid-border);
+  }
+  .dtuuid-item:last-child { border-bottom: none; }
+  .dtuuid-item__copy {
+    background: transparent;
+    border: none;
+    color: var(--dtuuid-muted);
+    cursor: pointer;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+  }
+  .dtuuid-item__copy:hover { color: var(--dtuuid-accent); }
+
+  @media (max-width: 480px) {
+    .dtuuid-tool { padding: 1.25rem; }
+  }
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ==========================================================
+     UUID Generator - 100% client-side (crypto.randomUUID)
+  ========================================================== */
+
+  const qtyInput      = document.getElementById("dtuuidQty");
+  const uppercaseBox   = document.getElementById("dtuuidUppercase");
+  const hyphensBox     = document.getElementById("dtuuidHyphens");
+  const runBtn          = document.getElementById("dtuuidRun");
+  const resultBox       = document.getElementById("dtuuidResult");
+  const listEl          = document.getElementById("dtuuidList");
+  const copyBtn         = document.getElementById("dtuuidCopy");
+  const downloadBtn     = document.getElementById("dtuuidDownload");
+
+  let currentList = [];
+
+  function formatUuid(uuid) {
+    let value = uuid;
+    if (!hyphensBox.checked) value = value.replace(/-/g, "");
+    if (uppercaseBox.checked) value = value.toUpperCase();
+    return value;
+  }
+
+  runBtn.addEventListener("click", () => {
+    const qty = Math.min(100, Math.max(1, Number(qtyInput.value) || 1));
+
+    currentList = Array.from({ length: qty }, () => formatUuid(crypto.randomUUID()));
+
+    listEl.innerHTML = "";
+    currentList.forEach((uuid) => {
+      const item = document.createElement("div");
+      item.className = "dtuuid-item";
+      item.innerHTML = `<span>${uuid}</span><button type="button" class="dtuuid-item__copy">Copiar</button>`;
+      item.querySelector("button").addEventListener("click", () => {
+        navigator.clipboard.writeText(uuid);
+      });
+      listEl.appendChild(item);
+    });
+
+    resultBox.hidden = false;
+    downloadBtn.disabled = false;
+  });
+
+  copyBtn.addEventListener("click", async () => {
+    if (!currentList.length) return;
+    await navigator.clipboard.writeText(currentList.join("\n"));
+    copyBtn.textContent = "Copiado!";
+    setTimeout(() => { copyBtn.textContent = "Copiar tudo"; }, 1500);
+  });
+
+  downloadBtn.addEventListener("click", () => {
+    if (!currentList.length) return;
+    const blob = new Blob([currentList.join("\n")], { type: "text/plain" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "uuids.txt";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(a.href);
+  });
+})();
+</script>

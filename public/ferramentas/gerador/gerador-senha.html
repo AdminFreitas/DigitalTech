@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gerador de senha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#171626; --paper:#F7F1E4; --ink-text:#211F30;
+    --mint:#59D9B3; --red:#FF6B5E; --amber:#F2A93B; --muted:#8B87A6;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; min-height:100vh; background:
+      radial-gradient(circle at 20% -10%, #2a2843 0%, transparent 45%),
+      radial-gradient(circle at 100% 10%, #201f38 0%, transparent 40%),
+      var(--ink);
+    font-family:'IBM Plex Sans', sans-serif; color:var(--paper);
+    display:flex; align-items:center; justify-content:center; padding:32px 16px;
+  }
+  .wrap{ width:100%; max-width:480px; }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.18em;
+    color:var(--mint); text-transform:uppercase; margin:0 0 10px; display:flex; align-items:center; gap:8px;
+  }
+  .eyebrow::before{ content:''; width:18px; height:1px; background:var(--mint); display:inline-block; }
+  h1{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:34px; line-height:1.1; margin:0 0 8px; color:#fff; }
+  p.lead{ color:var(--muted); font-size:14.5px; line-height:1.55; margin:0 0 28px; }
+
+  .receipt{
+    background:var(--paper); color:var(--ink-text); border-radius:6px 6px 2px 2px;
+    padding:26px 24px 22px; transform:rotate(0.4deg);
+    box-shadow:0 22px 40px -18px rgba(0,0,0,.55), 0 2px 0 rgba(0,0,0,.05);
+    position:relative;
+  }
+  .receipt::after{
+    content:''; position:absolute; left:0; right:0; bottom:-1px; height:10px;
+    background-image: radial-gradient(circle at 5px 0, var(--ink) 4px, transparent 4.5px);
+    background-size:14px 10px; background-repeat:repeat-x; background-position:2px 0;
+  }
+
+  .output{
+    display:flex; align-items:center; gap:8px; background:#fffdf7; border:1.5px solid #d9cfb2;
+    border-radius:4px; padding:12px 12px 12px 14px; margin-bottom:8px;
+  }
+  #senha{
+    flex:1; font-family:'IBM Plex Mono', monospace; font-size:17px; letter-spacing:.03em;
+    background:none; border:none; outline:none; color:var(--ink-text); min-width:0;
+  }
+  .iconbtn{
+    background:none; border:1px solid #d9cfb2; border-radius:4px; width:34px; height:34px; flex-shrink:0;
+    cursor:pointer; font-size:15px; display:flex; align-items:center; justify-content:center; color:#635f7a;
+    transition:border-color .15s, color .15s;
+  }
+  .iconbtn:hover{ border-color:var(--mint); color:#1e7a5f; }
+  .iconbtn.copied{ border-color:#1e7a5f; color:#1e7a5f; }
+
+  .strength{ height:6px; border-radius:3px; background:#e9e0c4; overflow:hidden; margin:10px 0 4px; }
+  .strength-fill{ height:100%; width:0%; border-radius:3px; transition:width .2s ease, background .2s ease; }
+  .strength-label{ font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.06em; text-transform:uppercase; color:#8a8398; margin-bottom:18px; }
+
+  .slider-row{ margin-bottom:16px; }
+  .slider-row .top{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+  .slider-row label{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#635f7a; }
+  .slider-row .val{ font-family:'IBM Plex Mono',monospace; font-size:15px; font-weight:600; color:var(--ink-text); }
+  input[type=range]{ width:100%; accent-color:var(--mint); }
+
+  .toggles{ display:grid; grid-template-columns:1fr 1fr; gap:10px 16px; margin-bottom:18px; }
+  .toggle{ display:flex; align-items:center; gap:9px; font-family:'IBM Plex Mono',monospace; font-size:13px; }
+  .toggle input{ accent-color:var(--mint); width:16px; height:16px; }
+
+  button.go{
+    width:100%; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px;
+    background:var(--mint); color:#0e3527; border:none; border-radius:4px; padding:13px 16px;
+    cursor:pointer; letter-spacing:.02em; transition:transform .08s ease;
+  }
+  button.go:active{ transform:translateY(2px); }
+  button.go:hover{ filter:brightness(1.05); }
+
+  .note{ margin-top:22px; font-size:12.5px; line-height:1.6; color:var(--muted); }
+  .note b{ color:#c7c2dd; }
+  a.back{ color:var(--muted); font-size:13px; text-decoration:none; display:inline-block; margin-top:26px; }
+  a.back:hover{ color:var(--mint); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Gerador</p>
+  <h1>Senha segura</h1>
+  <p class="lead">Cria senhas aleatórias usando o gerador criptográfico do navegador — nada é armazenado ou enviado a servidores.</p>
+
+  <div class="receipt">
+    <div class="output">
+      <input type="text" id="senha" readonly>
+      <button class="iconbtn" id="copyBtn" onclick="copiar()" title="Copiar">⧉</button>
+    </div>
+    <div class="strength"><div class="strength-fill" id="strengthFill"></div></div>
+    <div class="strength-label" id="strengthLabel">força: —</div>
+
+    <div class="slider-row">
+      <div class="top"><label for="tamanho">Comprimento</label><span class="val" id="tamanhoVal">16</span></div>
+      <input type="range" id="tamanho" min="6" max="48" value="16">
+    </div>
+
+    <div class="toggles">
+      <label class="toggle"><input type="checkbox" id="maiusculas" checked> Maiúsculas (A-Z)</label>
+      <label class="toggle"><input type="checkbox" id="minusculas" checked> Minúsculas (a-z)</label>
+      <label class="toggle"><input type="checkbox" id="numeros" checked> Números (0-9)</label>
+      <label class="toggle"><input type="checkbox" id="simbolos" checked> Símbolos (!@#$…)</label>
+      <label class="toggle"><input type="checkbox" id="ambiguos"> Evitar caracteres ambíguos (l, 1, O, 0)</label>
+    </div>
+
+    <button class="go" onclick="gerar()">Gerar nova senha</button>
+  </div>
+
+  <p class="note"><b>Como funciona:</b> os caracteres são sorteados com <code>crypto.getRandomValues</code>, o gerador de números aleatórios seguro do navegador — o mesmo tipo usado em operações criptográficas, mais robusto que <code>Math.random()</code>. A força exibida é uma estimativa baseada em comprimento e variedade de caracteres.</p>
+
+  <a class="back" href="#">← Voltar para o blog</a>
+</div>
+
+<script>
+const sets = {
+  maiusculas: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+  minusculas: 'abcdefghijklmnopqrstuvwxyz',
+  numeros: '0123456789',
+  simbolos: '!@#$%^&*()-_=+[]{}<>?/'
+};
+const ambiguosChars = 'lI1O0';
+
+const tamanhoInput = document.getElementById('tamanho');
+const tamanhoVal = document.getElementById('tamanhoVal');
+tamanhoInput.addEventListener('input', ()=>{ tamanhoVal.textContent = tamanhoInput.value; gerar(); });
+['maiusculas','minusculas','numeros','simbolos','ambiguos'].forEach(id=>{
+  document.getElementById(id).addEventListener('change', gerar);
+});
+
+function secureRandomInt(max){
+  const arr = new Uint32Array(1);
+  crypto.getRandomValues(arr);
+  return arr[0] % max;
+}
+
+function gerar(){
+  let pool = '';
+  if(document.getElementById('maiusculas').checked) pool += sets.maiusculas;
+  if(document.getElementById('minusculas').checked) pool += sets.minusculas;
+  if(document.getElementById('numeros').checked) pool += sets.numeros;
+  if(document.getElementById('simbolos').checked) pool += sets.simbolos;
+
+  if(document.getElementById('ambiguos').checked){
+    pool = [...pool].filter(c => !ambiguosChars.includes(c)).join('');
+  }
+
+  if(!pool){
+    document.getElementById('senha').value = 'selecione ao menos um tipo';
+    updateStrength(0, 0);
+    return;
+  }
+
+  const len = Number(tamanhoInput.value);
+  let out = '';
+  for(let i=0;i<len;i++){
+    out += pool[secureRandomInt(pool.length)];
+  }
+  document.getElementById('senha').value = out;
+  updateStrength(len, pool.length);
+}
+
+function updateStrength(len, poolSize){
+  const fill = document.getElementById('strengthFill');
+  const label = document.getElementById('strengthLabel');
+  if(!len){ fill.style.width='0%'; label.textContent='força: —'; return; }
+
+  const entropy = len * Math.log2(poolSize || 1);
+  let pct, text, color;
+  if(entropy < 40){ pct=25; text='fraca'; color='#FF6B5E'; }
+  else if(entropy < 60){ pct=50; text='razoável'; color='#F2A93B'; }
+  else if(entropy < 90){ pct=75; text='forte'; color='#59D9B3'; }
+  else { pct=100; text='muito forte'; color='#1e7a5f'; }
+
+  fill.style.width = pct + '%';
+  fill.style.background = color;
+  label.textContent = `força: ${text} · ${Math.round(entropy)} bits de entropia`;
+}
+
+function copiar(){
+  const senha = document.getElementById('senha').value;
+  navigator.clipboard.writeText(senha).then(()=>{
+    const btn = document.getElementById('copyBtn');
+    const original = btn.textContent;
+    btn.textContent = '✓';
+    btn.classList.add('copied');
+    setTimeout(()=>{ btn.textContent = original; btn.classList.remove('copied'); }, 1400);
+  });
+}
+
+gerar();
+</script>
+</body>
+</html>

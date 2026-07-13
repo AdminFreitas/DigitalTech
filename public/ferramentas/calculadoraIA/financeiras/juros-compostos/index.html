@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora de Juros Compostos Online Grátis | DigitalTech</title>
+  <meta name="description" content="Calcule juros compostos com aportes mensais. Veja quanto seu dinheiro pode render ao longo do tempo, total investido e total em juros." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://digitaltech.digital/calculadoras/financeiras/juros-compostos/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://digitaltech.digital/calculadoras/financeiras/juros-compostos/" />
+  <meta property="og:title"       content="Calculadora de Juros Compostos Online Grátis | DigitalTech" />
+  <meta property="og:description" content="Calcule juros compostos com aportes mensais. Veja quanto seu dinheiro pode render ao longo do tempo, total investido e total em juros." />
+  <meta property="og:image"       content="https://digitaltech.digital/assets/og-image.webp" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- CSS do projeto (adicionado posteriormente) -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://digitaltech.digital/" },
+      { "@type": "ListItem", "position": 2, "name": "Calculadoras", "item": "https://digitaltech.digital/calculadoras/" },
+      { "@type": "ListItem", "position": 3, "name": "Financeiras", "item": "https://digitaltech.digital/calculadoras/financeiras/" },
+      { "@type": "ListItem", "position": 4, "name": "Juros Compostos", "item": "https://digitaltech.digital/calculadoras/financeiras/juros-compostos/" }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<main>
+  <div class="wrap">
+
+    <!-- ── Breadcrumb ───────────────────────────────────────────────── -->
+    <nav class="breadcrumb" aria-label="Localização na página">
+      <a href="/">início</a>
+      <span class="sep">/</span>
+      <a href="/calculadoras/">calculadoras</a>
+      <span class="sep">/</span>
+      <a href="/calculadoras/financeiras/">financeiras</a>
+      <span class="sep">/</span>
+      <span class="current">juros compostos</span>
+    </nav>
+
+    <!-- ── Hero ─────────────────────────────────────────────────────── -->
+    <section class="hero hero-tool">
+      <p class="eyebrow">📊 Financeiras · Calculadora gratuita</p>
+      <h1>Calculadora de <em>Juros Compostos</em></h1>
+      <p>Simule quanto seu dinheiro pode crescer com aportes mensais e juros compostos. Compare o total investido com o total de juros acumulado ao longo do tempo.</p>
+    </section>
+
+    <!-- ── Calculadora ──────────────────────────────────────────────── -->
+    <section class="calculator" aria-labelledby="calc-title">
+      <h2 class="section-title" id="calc-title">📈 Calcular agora</h2>
+
+      <div class="calc-layout">
+
+        <form class="calc-form" id="calc-form" novalidate>
+
+          <div class="field-group">
+            <label for="valor-inicial">Valor inicial</label>
+            <div class="field-control">
+              <input type="number" id="valor-inicial" name="valor-inicial" step="0.01" min="0" inputmode="decimal" placeholder="1.000,00" required />
+              <span class="field-unit">R$</span>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="aporte-mensal">Aporte mensal</label>
+            <div class="field-control">
+              <input type="number" id="aporte-mensal" name="aporte-mensal" step="0.01" min="0" inputmode="decimal" placeholder="200,00" />
+              <span class="field-unit">R$</span>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="taxa-juros">Taxa de juros</label>
+            <div class="field-control">
+              <input type="number" id="taxa-juros" name="taxa-juros" step="0.01" min="0" inputmode="decimal" placeholder="0,8" required />
+              <span class="field-unit">%</span>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="periodo-taxa">Período da taxa</label>
+            <div class="field-control">
+              <select id="periodo-taxa" name="periodo-taxa" required>
+              <option value="mensal" selected>ao mês</option>
+              <option value="anual">ao ano</option>
+            </select>
+              
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="periodo-tempo">Prazo do investimento</label>
+            <div class="field-control">
+              <input type="number" id="periodo-tempo" name="periodo-tempo" step="0.01" min="0" inputmode="decimal" placeholder="60" required />
+              
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="periodo-tempo-unidade">Unidade do prazo</label>
+            <div class="field-control">
+              <select id="periodo-tempo-unidade" name="periodo-tempo-unidade" required>
+              <option value="meses" selected>meses</option>
+              <option value="anos">anos</option>
+            </select>
+              
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" id="btn-calcular" class="btn-primary">Calcular →</button>
+            <button type="reset" id="btn-limpar" class="btn-secondary">Limpar</button>
+          </div>
+        </form>
+
+        <div class="calc-result" id="calc-result" aria-live="polite">
+          <h3 class="result-title">Resultado</h3>
+
+          <div class="result-item result-primary">
+            <span class="result-label">Valor total acumulado</span>
+            <span class="result-value" id="resultado-total">—</span>
+          </div>
+
+          <div class="result-item">
+            <span class="result-label">Total investido</span>
+            <span class="result-value" id="resultado-investido">—</span>
+          </div>
+
+          <div class="result-item">
+            <span class="result-label">Total em juros</span>
+            <span class="result-value" id="resultado-juros">—</span>
+          </div>
+
+          <p class="result-disclaimer">
+            Resultado estimado. Consulte um profissional para decisões importantes.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="evolution-table-wrap">
+        <h3 class="result-title">Evolução mês a mês</h3>
+        <table class="evolution-table" id="tabela-evolucao">
+          <thead>
+            <tr>
+              <th>Mês</th>
+              <th>Investido no mês</th>
+              <th>Juros no mês</th>
+              <th>Saldo acumulado</th>
+            </tr>
+          </thead>
+          <tbody id="tabela-evolucao-body">
+            <!-- Linhas geradas via JS -->
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+    <!-- ── FAQ ───────────────────────────────────────────────────────── -->
+    <section class="faq-section" aria-labelledby="faq-title">
+      <h2 class="section-title" id="faq-title">❓ Perguntas frequentes</h2>
+
+      <details class="faq-item">
+        <summary>Qual a diferença entre juros simples e compostos?</summary>
+        <p>Nos juros simples, o percentual incide apenas sobre o valor inicial. Nos juros compostos, o percentual incide sobre o valor inicial mais os juros já acumulados, gerando crescimento exponencial ao longo do tempo.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Os aportes mensais entram no cálculo dos juros?</summary>
+        <p>Sim. Cada aporte mensal passa a render juros a partir do mês em que é feito, o que acelera o crescimento do total acumulado.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Essa calculadora considera imposto de renda?</summary>
+        <p>Não. O resultado é o valor bruto acumulado. Dependendo do investimento escolhido, pode haver incidência de Imposto de Renda e outras taxas sobre o rendimento.</p>
+      </details>
+
+    </section>
+
+    <!-- ── Conteúdo educativo ───────────────────────────────────────── -->
+    <section class="content-section" aria-label="Sobre esta calculadora">
+      <h2>Como funcionam os juros compostos</h2>
+        <p>Juros compostos são os juros que incidem sobre o valor inicial somado aos juros já acumulados em períodos anteriores — por isso o famoso efeito "juros sobre juros". Quanto maior o prazo, mais forte é esse efeito.</p>
+        <p>Essa calculadora considera aportes mensais constantes, taxa de juros fixa e capitalização mensal. É uma ferramenta de planejamento: útil para comparar cenários de investimento, mas não substitui a simulação exata de produtos financeiros específicos, que podem ter taxas variáveis, impostos e taxas de administração.</p>
+    </section>
+
+    <!-- ── Ferramentas relacionadas ────────────────────────────────── -->
+    <section class="related-section" aria-label="Outras calculadoras">
+      <h2 class="section-title">🔗 Outras calculadoras financeiras</h2>
+      <div class="related-links">
+          <a href="/calculadoras/financeiras/simulador-emprestimo/" class="related-link">Simulador de Empréstimo →</a>
+          <a href="/calculadoras/financeiras/roi/" class="related-link">ROI — Retorno sobre Investimento →</a>
+          <a href="/calculadoras/financeiras/margem-de-lucro/" class="related-link">Margem de Lucro e Markup →</a>
+      </div>
+      <a href="/calculadoras/" class="back-link">← Ver todas as calculadoras</a>
+    </section>
+
+  </div>
+</main>
+
+<!-- JS do projeto (adicionado posteriormente) -->
+<script src="/assets/js/main.js" defer></script>
+<script src="/assets/js/juros-compostos.js" defer></script>
+</body>
+</html>

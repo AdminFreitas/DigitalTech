@@ -1,0 +1,53 @@
+{
+  "categorias": [
+    {
+      "slug": "conversores",
+      "nome": "Conversores",
+      "path": "conversores",
+      "icon": "ArrowLeftRight",
+      "published": true
+    },
+    {
+      "slug": "geradores",
+      "nome": "Geradores",
+      "path": "geradores",
+      "icon": "Wand2",
+      "published": true
+    },
+    {
+      "slug": "pdf",
+      "nome": "PDF",
+      "path": "pdf",
+      "icon": "FileText",
+      "published": true
+    },
+    {
+      "slug": "rede",
+      "nome": "Rede",
+      "path": "rede",
+      "icon": "Network",
+      "published": true
+    },
+    {
+      "slug": "seguranca",
+      "nome": "Segurança",
+      "path": "seguranca",
+      "icon": "Shield",
+      "published": true
+    },
+    {
+      "slug": "calculadoras",
+      "nome": "Calculadoras",
+      "path": "calculadoras",
+      "icon": "Calculator",
+      "published": false
+    },
+    {
+      "slug": "imagens",
+      "nome": "Imagens",
+      "path": "imagens",
+      "icon": "Image",
+      "published": false
+    }
+  ]
+}

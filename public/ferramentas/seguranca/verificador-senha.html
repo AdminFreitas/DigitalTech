@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qual a força da minha senha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#171626; --paper:#F7F1E4; --ink-text:#211F30;
+    --amber:#F2A93B; --mint:#59D9B3; --red:#FF6B5E; --muted:#8B87A6;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; min-height:100vh; background:
+      radial-gradient(circle at 20% -10%, #2a2843 0%, transparent 45%),
+      radial-gradient(circle at 100% 10%, #201f38 0%, transparent 40%),
+      var(--ink);
+    font-family:'IBM Plex Sans', sans-serif; color:var(--paper);
+    display:flex; align-items:center; justify-content:center; padding:32px 16px;
+  }
+  .wrap{ width:100%; max-width:480px; }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.18em;
+    color:var(--amber); text-transform:uppercase; margin:0 0 10px; display:flex; align-items:center; gap:8px;
+  }
+  .eyebrow::before{ content:''; width:18px; height:1px; background:var(--amber); display:inline-block; }
+  h1{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:32px; line-height:1.15; margin:0 0 8px; color:#fff; }
+  p.lead{ color:var(--muted); font-size:14.5px; line-height:1.55; margin:0 0 28px; }
+
+  .receipt{
+    background:var(--paper); color:var(--ink-text); border-radius:6px 6px 2px 2px;
+    padding:26px 24px 22px; transform:rotate(-0.4deg);
+    box-shadow:0 22px 40px -18px rgba(0,0,0,.55), 0 2px 0 rgba(0,0,0,.05);
+    position:relative;
+  }
+  .receipt::after{
+    content:''; position:absolute; left:0; right:0; bottom:-1px; height:10px;
+    background-image: radial-gradient(circle at 5px 0, var(--ink) 4px, transparent 4.5px);
+    background-size:14px 10px; background-repeat:repeat-x; background-position:2px 0;
+  }
+
+  label{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#635f7a; display:block; margin-bottom:8px; }
+  .inputrow{ display:flex; gap:8px; }
+  input[type=password], input[type=text]{
+    flex:1; width:100%; font-family:'IBM Plex Mono', monospace; font-size:18px; letter-spacing:.04em;
+    padding:12px 14px; border:1.5px solid #d9cfb2; border-radius:4px; background:#fffdf7;
+    color:var(--ink-text); outline:none; transition:border-color .15s, box-shadow .15s; min-width:0;
+  }
+  input:focus{ border-color:var(--amber); box-shadow:0 0 0 3px rgba(242,169,59,.25); }
+  .iconbtn{
+    background:none; border:1.5px solid #d9cfb2; border-radius:4px; width:44px; flex-shrink:0;
+    cursor:pointer; font-size:15px; color:#635f7a;
+  }
+  .iconbtn:hover{ border-color:var(--amber); color:#8a5c03; }
+
+  .strength{ height:6px; border-radius:3px; background:#e9e0c4; overflow:hidden; margin:16px 0 6px; }
+  .strength-fill{ height:100%; width:0%; border-radius:3px; transition:width .2s ease, background .2s ease; }
+  .strength-label{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:15px; margin-bottom:2px; }
+  .strength-sub{ font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:#8a8398; margin-bottom:16px; }
+
+  .checklist{ font-family:'IBM Plex Mono',monospace; font-size:12.5px; }
+  .check{ display:flex; align-items:center; gap:8px; padding:5px 0; color:#8a8398; }
+  .check.ok{ color:#1e7a5f; }
+  .check .mark{ width:14px; text-align:center; }
+
+  .warn{
+    margin-top:18px; font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.02em;
+    background:rgba(89,217,179,.16); color:#1e7a5f; padding:10px 12px; border-radius:4px; line-height:1.55;
+  }
+  .warn.bad{ background:rgba(255,107,94,.16); color:#a5352a; }
+  .note{ margin-top:22px; font-size:12.5px; line-height:1.6; color:var(--muted); }
+  .note b{ color:#c7c2dd; }
+  a.back{ color:var(--muted); font-size:13px; text-decoration:none; display:inline-block; margin-top:26px; }
+  a.back:hover{ color:var(--amber); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Diagnóstico</p>
+  <h1>Qual a força da minha senha?</h1>
+  <p class="lead">Nenhum site pode saber sua senha real — o que esta ferramenta faz é <b style="color:#fff">analisar, no seu navegador</b>, quão fácil ou difícil ela seria de quebrar. Nada é enviado, salvo ou registrado.</p>
+
+  <div class="receipt">
+    <label for="senha">Digite a senha</label>
+    <div class="inputrow">
+      <input type="password" id="senha" placeholder="Digite aqui para analisar">
+      <button class="iconbtn" id="toggleBtn" onclick="toggleVer()" title="Mostrar/ocultar">👁</button>
+    </div>
+
+    <div class="strength"><div class="strength-fill" id="strengthFill"></div></div>
+    <div class="strength-label" id="strengthLabel">—</div>
+    <div class="strength-sub" id="strengthSub">digite algo para começar</div>
+
+    <div class="checklist" id="checklist"></div>
+  </div>
+
+  <p class="note"><b>Como funciona:</b> a força é estimada por entropia (comprimento × variedade de caracteres) e por comparação com uma lista local de senhas extremamente comuns (ex.: "123456", "senha123"). O tempo de quebra é uma estimativa aproximada, considerando um ataque de força bruta offline.</p>
+
+  <a class="back" href="#">← Voltar para o blog</a>
+</div>
+
+<script>
+const comuns = ['123456','123456789','12345678','senha','senha123','password','12345','qwerty','abc123','111111',
+  '123123','admin','letmein','welcome','iloveyou','000000','1q2w3e4r','brasil','vasco','flamengo','corinthians',
+  'palmeiras','futebol','amor123','deus123','master','shadow','football','princess','dragon','monkey','sunshine'];
+
+const senhaInput = document.getElementById('senha');
+const toggleBtn = document.getElementById('toggleBtn');
+let visivel = false;
+
+toggleBtn.addEventListener('click', ()=>{});
+function toggleVer(){
+  visivel = !visivel;
+  senhaInput.type = visivel ? 'text' : 'password';
+  toggleBtn.textContent = visivel ? '🙈' : '👁';
+}
+
+senhaInput.addEventListener('input', analisar);
+
+function analisar(){
+  const senha = senhaInput.value;
+  const fill = document.getElementById('strengthFill');
+  const label = document.getElementById('strengthLabel');
+  const sub = document.getElementById('strengthSub');
+  const checklist = document.getElementById('checklist');
+
+  if(!senha){
+    fill.style.width='0%';
+    label.textContent='—';
+    sub.textContent='digite algo para começar';
+    checklist.innerHTML='';
+    return;
+  }
+
+  const temMin = /[a-z]/.test(senha);
+  const temMai = /[A-Z]/.test(senha);
+  const temNum = /[0-9]/.test(senha);
+  const temSim = /[^a-zA-Z0-9]/.test(senha);
+  const len = senha.length;
+
+  let poolSize = 0;
+  if(temMin) poolSize += 26;
+  if(temMai) poolSize += 26;
+  if(temNum) poolSize += 10;
+  if(temSim) poolSize += 32;
+
+  const entropy = len * Math.log2(poolSize || 1);
+  const comumDetectada = comuns.some(c => senha.toLowerCase().includes(c));
+
+  let pct, text, color, guessesPerSec = 1e10; // ataque offline rápido, hash fraco
+  if(comumDetectada || entropy < 28){ pct=15; text='muito fraca'; color='#FF6B5E'; }
+  else if(entropy < 45){ pct=40; text='fraca'; color='#FF6B5E'; }
+  else if(entropy < 65){ pct=65; text='razoável'; color='#F2A93B'; }
+  else if(entropy < 85){ pct=85; text='forte'; color='#59D9B3'; }
+  else { pct=100; text='muito forte'; color='#1e7a5f'; }
+
+  fill.style.width = pct+'%';
+  fill.style.background = color;
+  label.textContent = text.charAt(0).toUpperCase()+text.slice(1);
+  label.style.color = '#211F30';
+
+  const combinacoes = Math.pow(2, entropy);
+  const segundos = combinacoes / guessesPerSec;
+  sub.textContent = comumDetectada
+    ? 'está entre as senhas mais usadas do mundo — quebrada instantaneamente'
+    : `tempo estimado para quebrar por força bruta: ${formatarTempo(segundos)} · ${Math.round(entropy)} bits`;
+
+  checklist.innerHTML = `
+    ${item(len >= 12, `comprimento (${len} caracteres, ideal 12+)`)}
+    ${item(temMai, 'letras maiúsculas')}
+    ${item(temMin, 'letras minúsculas')}
+    ${item(temNum, 'números')}
+    ${item(temSim, 'símbolos (!@#$…)')}
+    ${item(!comumDetectada, 'não está em listas de senhas comuns')}
+  `;
+}
+
+function item(ok, texto){
+  return `<div class="check ${ok?'ok':''}"><span class="mark">${ok?'✓':'○'}</span>${texto}</div>`;
+}
+
+function formatarTempo(segundos){
+  const unidades = [
+    ['século', 3153600000], ['ano', 31536000], ['dia', 86400],
+    ['hora', 3600], ['minuto', 60], ['segundo', 1]
+  ];
+  if(segundos < 1) return 'instantâneo';
+  for(const [nome, s] of unidades){
+    if(segundos >= s){
+      const val = Math.round(segundos / s);
+      return `${val.toLocaleString('pt-BR')} ${nome}${val>1?'s':''}`;
+    }
+  }
+  return 'instantâneo';
+}
+</script>
+</body>
+</html>

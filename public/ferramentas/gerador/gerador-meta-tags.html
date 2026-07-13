@@ -1,0 +1,447 @@
+<!-- ==========================================================
+     FERRAMENTA: Gerador de Meta Tags
+     Uso: cole este bloco dentro do <main> do site DigitalTech.
+     Sem <head>, <body>, header, footer ou menu.
+     CSS/JS isolados sob o prefixo ".dtmeta-".
+========================================================== -->
+
+<section class="dtmeta-tool" aria-labelledby="dtmeta-title">
+
+  <header class="dtmeta-tool__head">
+    <h1 id="dtmeta-title" class="dtmeta-tool__title">Gerador de Meta Tags</h1>
+    <p class="dtmeta-tool__desc">
+      Preencha os campos abaixo e gere as meta tags de SEO e Open Graph
+      prontas para colar no &lt;head&gt; do seu site.
+    </p>
+  </header>
+
+  <!-- Formulário -->
+  <div class="dtmeta-settings">
+
+    <div class="dtmeta-field dtmeta-field--full">
+      <label for="dtmetaTitle">Título da página <span>obrigatório</span></label>
+      <input type="text" id="dtmetaTitle" maxlength="70" placeholder="Ex: Compressor de Imagens Online Grátis">
+      <span class="dtmeta-counter" id="dtmetaTitleCount">0 / 70</span>
+    </div>
+
+    <div class="dtmeta-field dtmeta-field--full">
+      <label for="dtmetaDescription">Descrição <span>obrigatório</span></label>
+      <textarea id="dtmetaDescription" maxlength="160" placeholder="Descreva a página em até 160 caracteres."></textarea>
+      <span class="dtmeta-counter" id="dtmetaDescCount">0 / 160</span>
+    </div>
+
+    <div class="dtmeta-field dtmeta-field--full">
+      <label for="dtmetaUrl">URL da página</label>
+      <input type="url" id="dtmetaUrl" placeholder="https://digitaltech.com.br/ferramenta">
+    </div>
+
+    <div class="dtmeta-field dtmeta-field--full">
+      <label for="dtmetaImage">URL da imagem (Open Graph)</label>
+      <input type="url" id="dtmetaImage" placeholder="https://digitaltech.com.br/imagem.jpg">
+    </div>
+
+    <div class="dtmeta-field">
+      <label for="dtmetaSiteName">Nome do site</label>
+      <input type="text" id="dtmetaSiteName" placeholder="DigitalTech">
+    </div>
+
+    <div class="dtmeta-field">
+      <label for="dtmetaLocale">Idioma</label>
+      <select id="dtmetaLocale">
+        <option value="pt_BR">Português (Brasil)</option>
+        <option value="pt_PT">Português (Portugal)</option>
+        <option value="en_US">Inglês (EUA)</option>
+        <option value="es_ES">Espanhol</option>
+      </select>
+    </div>
+
+    <div class="dtmeta-field">
+      <label for="dtmetaType">Tipo de conteúdo</label>
+      <select id="dtmetaType">
+        <option value="website">Website</option>
+        <option value="article">Artigo</option>
+        <option value="product">Produto</option>
+      </select>
+    </div>
+
+    <div class="dtmeta-field">
+      <label for="dtmetaTwitter">Usuário no X/Twitter</label>
+      <input type="text" id="dtmetaTwitter" placeholder="@digitaltech">
+    </div>
+
+  </div>
+
+  <button class="dtmeta-btn dtmeta-btn--primary" id="dtmetaRun">
+    Gerar meta tags
+  </button>
+
+  <!-- Prévia de como aparece no Google -->
+  <div class="dtmeta-preview" id="dtmetaPreview" hidden>
+    <p class="dtmeta-preview__label">Prévia no Google</p>
+    <p class="dtmeta-preview__url" id="dtmetaPreviewUrl">digitaltech.com.br</p>
+    <p class="dtmeta-preview__title" id="dtmetaPreviewTitle">Título da página</p>
+    <p class="dtmeta-preview__desc" id="dtmetaPreviewDesc">Descrição da página.</p>
+  </div>
+
+  <!-- Resultado -->
+  <div class="dtmeta-result" id="dtmetaResult" hidden>
+    <div class="dtmeta-result__bar">
+      <span>Código gerado</span>
+      <button type="button" class="dtmeta-copybtn" id="dtmetaCopy">Copiar</button>
+    </div>
+    <pre class="dtmeta-output" id="dtmetaOutput"></pre>
+  </div>
+
+  <button class="dtmeta-btn dtmeta-btn--download" id="dtmetaDownload" disabled>
+    Baixar arquivo .html
+  </button>
+
+  <p class="dtmeta-error" id="dtmetaError" hidden></p>
+
+</section>
+
+<style>
+  .dtmeta-tool {
+    --dtmeta-bg:      #14161c;
+    --dtmeta-surface: #1b1e26;
+    --dtmeta-border:  #2a2e39;
+    --dtmeta-text:    #e6e8ec;
+    --dtmeta-muted:   #8b90a0;
+    --dtmeta-accent:  #22d3c9;
+    --dtmeta-danger:  #ff6b6b;
+    --dtmeta-radius:  12px;
+
+    max-width: 680px;
+    margin: 2rem auto;
+    padding: 1.75rem;
+    background: var(--dtmeta-bg);
+    border: 1px solid var(--dtmeta-border);
+    border-radius: var(--dtmeta-radius);
+    color: var(--dtmeta-text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    box-sizing: border-box;
+  }
+  .dtmeta-tool *, .dtmeta-tool *::before, .dtmeta-tool *::after {
+    box-sizing: inherit;
+  }
+
+  .dtmeta-tool__title {
+    margin: 0 0 0.35rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .dtmeta-tool__desc {
+    margin: 0 0 1.5rem;
+    color: var(--dtmeta-muted);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  /* Formulário */
+  .dtmeta-settings {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  .dtmeta-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .dtmeta-field--full {
+    grid-column: 1 / -1;
+  }
+  .dtmeta-field label {
+    font-size: 0.82rem;
+    color: var(--dtmeta-muted);
+    display: flex;
+    justify-content: space-between;
+  }
+  .dtmeta-field label span {
+    font-size: 0.72rem;
+    color: var(--dtmeta-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .dtmeta-field input,
+  .dtmeta-field select,
+  .dtmeta-field textarea {
+    background: var(--dtmeta-surface);
+    border: 1px solid var(--dtmeta-border);
+    color: var(--dtmeta-text);
+    border-radius: 8px;
+    padding: 0.55rem 0.7rem;
+    font-size: 0.88rem;
+    font-family: inherit;
+  }
+  .dtmeta-field textarea {
+    min-height: 70px;
+    resize: vertical;
+  }
+  .dtmeta-field input:focus-visible,
+  .dtmeta-field select:focus-visible,
+  .dtmeta-field textarea:focus-visible {
+    outline: none;
+    border-color: var(--dtmeta-accent);
+  }
+  .dtmeta-counter {
+    align-self: flex-end;
+    font-size: 0.72rem;
+    color: var(--dtmeta-muted);
+  }
+
+  /* Botões */
+  .dtmeta-btn {
+    width: 100%;
+    margin-top: 1.25rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity .15s ease, transform .05s ease;
+  }
+  .dtmeta-btn:active { transform: scale(0.99); }
+  .dtmeta-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .dtmeta-btn--primary {
+    background: var(--dtmeta-accent);
+    color: #06231f;
+  }
+  .dtmeta-btn--download {
+    background: transparent;
+    border-color: var(--dtmeta-border);
+    color: var(--dtmeta-text);
+  }
+  .dtmeta-btn--download:not(:disabled):hover {
+    border-color: var(--dtmeta-accent);
+    color: var(--dtmeta-accent);
+  }
+
+  /* Prévia Google */
+  .dtmeta-preview {
+    margin-top: 1.25rem;
+    padding: 0.9rem 1rem;
+    background: #ffffff;
+    border-radius: 8px;
+  }
+  .dtmeta-preview__label {
+    margin: 0 0 0.5rem;
+    font-size: 0.7rem;
+    color: #6b6b6b;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .dtmeta-preview__url {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #202124;
+  }
+  .dtmeta-preview__title {
+    margin: 0.15rem 0;
+    font-size: 1.05rem;
+    color: #1a0dab;
+    font-family: Arial, sans-serif;
+  }
+  .dtmeta-preview__desc {
+    margin: 0;
+    font-size: 0.83rem;
+    color: #4d5156;
+    font-family: Arial, sans-serif;
+  }
+
+  /* Resultado */
+  .dtmeta-result {
+    margin-top: 1rem;
+    background: var(--dtmeta-surface);
+    border: 1px solid var(--dtmeta-border);
+    border-radius: var(--dtmeta-radius);
+    overflow: hidden;
+  }
+  .dtmeta-result__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 0.9rem;
+    border-bottom: 1px solid var(--dtmeta-border);
+    font-size: 0.78rem;
+    color: var(--dtmeta-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .dtmeta-copybtn {
+    background: transparent;
+    border: 1px solid var(--dtmeta-border);
+    color: var(--dtmeta-text);
+    border-radius: 6px;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .dtmeta-copybtn:hover {
+    border-color: var(--dtmeta-accent);
+    color: var(--dtmeta-accent);
+  }
+  .dtmeta-output {
+    margin: 0;
+    padding: 0.9rem;
+    max-height: 320px;
+    overflow: auto;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.8rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  /* Erro */
+  .dtmeta-error {
+    margin-top: 1rem;
+    padding: 0.6rem 0.8rem;
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--dtmeta-danger) 12%, transparent);
+    color: var(--dtmeta-danger);
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 480px) {
+    .dtmeta-tool { padding: 1.25rem; }
+    .dtmeta-settings { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ==========================================================
+     Gerador de Meta Tags - 100% client-side
+  ========================================================== */
+
+  const titleInput   = document.getElementById("dtmetaTitle");
+  const descInput    = document.getElementById("dtmetaDescription");
+  const urlInput     = document.getElementById("dtmetaUrl");
+  const imageInput   = document.getElementById("dtmetaImage");
+  const siteInput    = document.getElementById("dtmetaSiteName");
+  const localeSelect = document.getElementById("dtmetaLocale");
+  const typeSelect   = document.getElementById("dtmetaType");
+  const twitterInput = document.getElementById("dtmetaTwitter");
+
+  const titleCount = document.getElementById("dtmetaTitleCount");
+  const descCount  = document.getElementById("dtmetaDescCount");
+
+  const runBtn      = document.getElementById("dtmetaRun");
+  const errorEl     = document.getElementById("dtmetaError");
+  const previewBox  = document.getElementById("dtmetaPreview");
+  const previewUrl   = document.getElementById("dtmetaPreviewUrl");
+  const previewTitle = document.getElementById("dtmetaPreviewTitle");
+  const previewDesc  = document.getElementById("dtmetaPreviewDesc");
+  const resultBox   = document.getElementById("dtmetaResult");
+  const outputEl    = document.getElementById("dtmetaOutput");
+  const copyBtn     = document.getElementById("dtmetaCopy");
+  const downloadBtn = document.getElementById("dtmetaDownload");
+
+  let generatedCode = "";
+
+  // Contadores de caracteres em tempo real
+  titleInput.addEventListener("input", () => {
+    titleCount.textContent = titleInput.value.length + " / 70";
+  });
+  descInput.addEventListener("input", () => {
+    descCount.textContent = descInput.value.length + " / 160";
+  });
+
+  // Escapa aspas para uso seguro dentro de atributos HTML
+  function escapeAttr(value) {
+    return value.replace(/"/g, "&quot;");
+  }
+
+  runBtn.addEventListener("click", () => {
+    errorEl.hidden = true;
+
+    const title = titleInput.value.trim();
+    const description = descInput.value.trim();
+    const url = urlInput.value.trim();
+    const image = imageInput.value.trim();
+    const siteName = siteInput.value.trim();
+    const locale = localeSelect.value;
+    const type = typeSelect.value;
+    const twitter = twitterInput.value.trim();
+
+    if (!title || !description) {
+      errorEl.textContent = "Preencha ao menos o título e a descrição.";
+      errorEl.hidden = false;
+      resultBox.hidden = true;
+      previewBox.hidden = true;
+      downloadBtn.disabled = true;
+      return;
+    }
+
+    // Monta as linhas de meta tags apenas com os campos preenchidos
+    const lines = [
+      `<title>${title}</title>`,
+      `<meta name="description" content="${escapeAttr(description)}">`
+    ];
+
+    if (url) lines.push(`<link rel="canonical" href="${escapeAttr(url)}">`);
+
+    lines.push("", "<!-- Open Graph -->");
+    lines.push(`<meta property="og:type" content="${type}">`);
+    lines.push(`<meta property="og:title" content="${escapeAttr(title)}">`);
+    lines.push(`<meta property="og:description" content="${escapeAttr(description)}">`);
+    if (url)      lines.push(`<meta property="og:url" content="${escapeAttr(url)}">`);
+    if (image)    lines.push(`<meta property="og:image" content="${escapeAttr(image)}">`);
+    if (siteName) lines.push(`<meta property="og:site_name" content="${escapeAttr(siteName)}">`);
+    lines.push(`<meta property="og:locale" content="${locale}">`);
+
+    lines.push("", "<!-- Twitter Card -->");
+    lines.push(`<meta name="twitter:card" content="summary_large_image">`);
+    if (twitter) lines.push(`<meta name="twitter:site" content="${escapeAttr(twitter)}">`);
+    lines.push(`<meta name="twitter:title" content="${escapeAttr(title)}">`);
+    lines.push(`<meta name="twitter:description" content="${escapeAttr(description)}">`);
+    if (image)   lines.push(`<meta name="twitter:image" content="${escapeAttr(image)}">`);
+
+    generatedCode = lines.join("\n");
+
+    // Prévia estilo Google
+    previewUrl.textContent = url || "seusite.com.br";
+    previewTitle.textContent = title;
+    previewDesc.textContent = description;
+    previewBox.hidden = false;
+
+    outputEl.textContent = generatedCode;
+    resultBox.hidden = false;
+    downloadBtn.disabled = false;
+  });
+
+  copyBtn.addEventListener("click", async () => {
+    if (!generatedCode) return;
+    try {
+      await navigator.clipboard.writeText(generatedCode);
+      copyBtn.textContent = "Copiado!";
+      setTimeout(() => { copyBtn.textContent = "Copiar"; }, 1500);
+    } catch (err) {
+      errorEl.textContent = "Não foi possível copiar automaticamente. Selecione o texto manualmente.";
+      errorEl.hidden = false;
+    }
+  });
+
+  downloadBtn.addEventListener("click", () => {
+    if (!generatedCode) return;
+    const blob = new Blob([generatedCode], { type: "text/html" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "meta-tags.html";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(a.href);
+  });
+})();
+</script>

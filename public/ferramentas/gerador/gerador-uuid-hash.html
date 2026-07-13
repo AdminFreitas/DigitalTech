@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gerador de UUID e Hash</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#171626; --paper:#F7F1E4; --ink-text:#211F30;
+    --mint:#59D9B3; --red:#FF6B5E; --muted:#8B87A6;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; min-height:100vh; background:
+      radial-gradient(circle at 20% -10%, #2a2843 0%, transparent 45%),
+      radial-gradient(circle at 100% 10%, #201f38 0%, transparent 40%),
+      var(--ink);
+    font-family:'IBM Plex Sans', sans-serif; color:var(--paper);
+    display:flex; align-items:center; justify-content:center; padding:32px 16px;
+  }
+  .wrap{ width:100%; max-width:520px; }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.18em;
+    color:var(--mint); text-transform:uppercase; margin:0 0 10px; display:flex; align-items:center; gap:8px;
+  }
+  .eyebrow::before{ content:''; width:18px; height:1px; background:var(--mint); display:inline-block; }
+  h1{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:32px; line-height:1.15; margin:0 0 8px; color:#fff; }
+  p.lead{ color:var(--muted); font-size:14.5px; line-height:1.55; margin:0 0 24px; }
+
+  .receipt{
+    background:var(--paper); color:var(--ink-text); border-radius:6px 6px 2px 2px;
+    padding:24px 24px 20px; transform:rotate(-0.4deg);
+    box-shadow:0 22px 40px -18px rgba(0,0,0,.55), 0 2px 0 rgba(0,0,0,.05);
+    position:relative; margin-bottom:20px;
+  }
+  .receipt::after{
+    content:''; position:absolute; left:0; right:0; bottom:-1px; height:10px;
+    background-image: radial-gradient(circle at 5px 0, var(--ink) 4px, transparent 4.5px);
+    background-size:14px 10px; background-repeat:repeat-x; background-position:2px 0;
+  }
+  .receipt.b{ transform:rotate(0.4deg); }
+
+  h2.sec{ font-family:'Space Grotesk',sans-serif; font-size:15px; margin:0 0 14px; display:flex; align-items:center; gap:8px; }
+  h2.sec .n{ background:var(--mint); color:#0e3527; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; }
+
+  label{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#635f7a; display:block; margin-bottom:8px; }
+
+  .row{ display:flex; gap:8px; margin-bottom:14px; }
+  select{
+    font-family:'IBM Plex Mono', monospace; font-size:14px; padding:10px 12px; border:1.5px solid #d9cfb2;
+    border-radius:4px; background:#fffdf7; color:var(--ink-text);
+  }
+  button.go{
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:14px;
+    background:var(--mint); color:#0e3527; border:none; border-radius:4px; padding:10px 16px;
+    cursor:pointer; letter-spacing:.02em; white-space:nowrap; transition:transform .08s ease;
+  }
+  button.go:active{ transform:translateY(2px); }
+  button.go:hover{ filter:brightness(1.05); }
+  button.go.full{ width:100%; padding:13px 16px; margin-top:2px; }
+
+  .slip{ font-family:'IBM Plex Mono', monospace; font-size:14px; }
+  .item{
+    display:flex; justify-content:space-between; align-items:center; gap:10px;
+    padding:9px 4px; border-top:1px dashed #cbbf9a;
+  }
+  .item .num{ letter-spacing:.01em; word-break:break-all; }
+  .copybtn{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; background:none; border:1px solid #cbbf9a;
+    border-radius:3px; padding:4px 8px; cursor:pointer; color:#635f7a; flex-shrink:0;
+  }
+  .copybtn:hover{ border-color:var(--mint); color:#1e7a5f; }
+  .copybtn.copied{ color:#1e7a5f; border-color:#1e7a5f; }
+
+  textarea#texto{
+    width:100%; font-family:'IBM Plex Mono', monospace; font-size:13.5px;
+    padding:12px 14px; border:1.5px solid #d9cfb2; border-radius:4px; background:#fffdf7;
+    color:var(--ink-text); outline:none; resize:vertical; min-height:70px; margin-bottom:12px;
+  }
+  textarea#texto:focus{ border-color:var(--mint); box-shadow:0 0 0 3px rgba(89,217,179,.25); outline:none; }
+
+  .hashout{ margin-top:14px; }
+  .hashitem{ margin-bottom:10px; }
+  .hashitem .lbl{ font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; color:#8a8398; margin-bottom:4px; }
+  .hashitem .val{ display:flex; gap:8px; align-items:center; background:#efe7d2; border-radius:4px; padding:8px 10px; font-family:'IBM Plex Mono',monospace; font-size:12px; word-break:break-all; }
+
+  .note{ font-size:12.5px; line-height:1.6; color:var(--muted); }
+  .note b{ color:#c7c2dd; }
+  a.back{ color:var(--muted); font-size:13px; text-decoration:none; display:inline-block; margin-top:6px; }
+  a.back:hover{ color:var(--mint); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Gerador</p>
+  <h1>UUID &amp; Hash</h1>
+  <p class="lead">Duas ferramentas em uma: gerar identificadores únicos (UUID v4) e calcular hashes de qualquer texto.</p>
+
+  <div class="receipt">
+    <h2 class="sec"><span class="n">1</span>Gerador de UUID v4</h2>
+    <div class="row">
+      <select id="qtdUuid">
+        <option value="1">1</option>
+        <option value="3">3</option>
+        <option value="5" selected>5</option>
+        <option value="10">10</option>
+      </select>
+      <button class="go" onclick="gerarUUIDs()">Gerar</button>
+    </div>
+    <div class="slip" id="uuidSlip"></div>
+  </div>
+
+  <div class="receipt b">
+    <h2 class="sec"><span class="n">2</span>Calculadora de Hash</h2>
+    <label for="texto">Texto de entrada</label>
+    <textarea id="texto" spellcheck="false">texto de exemplo</textarea>
+    <button class="go full" onclick="calcularHashes()">Calcular hashes</button>
+    <div class="hashout" id="hashOut"></div>
+  </div>
+
+  <p class="note"><b>Como funciona:</b> tudo roda localmente no navegador — UUIDs usam <code>crypto.randomUUID()</code> (gerador seguro nativo) e os hashes SHA usam a Web Crypto API; o MD5, por não ser suportado nativamente pelos navegadores, usa uma implementação em JavaScript incluída na página. Nenhum dado sai do seu dispositivo.</p>
+
+  <a class="back" href="#">← Voltar para o blog</a>
+</div>
+
+<script>
+/* ---------- UUID ---------- */
+function gerarUUIDs(){
+  const qtd = Number(document.getElementById('qtdUuid').value);
+  const slip = document.getElementById('uuidSlip');
+  slip.innerHTML = '';
+  for(let i=0;i<qtd;i++){
+    const id = crypto.randomUUID();
+    const row = document.createElement('div');
+    row.className = 'item';
+    row.innerHTML = `<span class="num">${id}</span><button class="copybtn" onclick="copiar(this,'${id}')">copiar</button>`;
+    slip.appendChild(row);
+  }
+}
+
+/* ---------- Hash (Web Crypto: SHA-1/256/384/512) ---------- */
+async function sha(algo, texto){
+  const enc = new TextEncoder().encode(texto);
+  const buf = await crypto.subtle.digest(algo, enc);
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+/* ---------- MD5 (implementação pura em JS, sem dependência externa) ---------- */
+function md5(input){
+  function rotl(x,c){ return (x<<c)|(x>>>(32-c)); }
+  function toHex(word){
+    let s='';
+    for(let i=0;i<4;i++) s += ((word>>(i*8))&0xff).toString(16).padStart(2,'0');
+    return s;
+  }
+  const K = [];
+  for(let i=0;i<64;i++) K[i] = Math.floor(Math.abs(Math.sin(i+1)) * 4294967296);
+  const S = [7,12,17,22,7,12,17,22,7,12,17,22,7,12,17,22,
+             5,9,14,20,5,9,14,20,5,9,14,20,5,9,14,20,
+             4,11,16,23,4,11,16,23,4,11,16,23,4,11,16,23,
+             6,10,15,21,6,10,15,21,6,10,15,21,6,10,15,21];
+
+  const bytes = new TextEncoder().encode(input);
+  const bitLen = bytes.length * 8;
+  const padLen = (((bytes.length + 8) >> 6) + 1) << 6;
+  const data = new Uint8Array(padLen);
+  data.set(bytes);
+  data[bytes.length] = 0x80;
+  const view = new DataView(data.buffer);
+  view.setUint32(padLen - 8, bitLen >>> 0, true);
+  view.setUint32(padLen - 4, Math.floor(bitLen / 4294967296), true);
+
+  let a0=0x67452301, b0=0xefcdab89, c0=0x98badcfe, d0=0x10325476;
+
+  for(let chunk=0; chunk<padLen; chunk+=64){
+    const M = [];
+    for(let j=0;j<16;j++) M[j] = view.getUint32(chunk + j*4, true);
+    let A=a0,B=b0,C=c0,D=d0;
+    for(let i=0;i<64;i++){
+      let F,g;
+      if(i<16){ F=(B&C)|(~B&D); g=i; }
+      else if(i<32){ F=(D&B)|(~D&C); g=(5*i+1)%16; }
+      else if(i<48){ F=B^C^D; g=(3*i+5)%16; }
+      else{ F=C^(B|~D); g=(7*i)%16; }
+      F = (F + A + K[i] + M[g]) >>> 0;
+      A=D; D=C; C=B;
+      B = (B + rotl(F, S[i])) >>> 0;
+    }
+    a0=(a0+A)>>>0; b0=(b0+B)>>>0; c0=(c0+C)>>>0; d0=(d0+D)>>>0;
+  }
+  return toHex(a0)+toHex(b0)+toHex(c0)+toHex(d0);
+}
+
+async function calcularHashes(){
+  const texto = document.getElementById('texto').value;
+  const out = document.getElementById('hashOut');
+  out.innerHTML = '<div class="lbl" style="padding:6px 0;">calculando…</div>';
+
+  const md5hex = md5(texto);
+  const sha1 = await sha('SHA-1', texto);
+  const sha256 = await sha('SHA-256', texto);
+  const sha512 = await sha('SHA-512', texto);
+
+  const items = [
+    ['MD5', md5hex],
+    ['SHA-1', sha1],
+    ['SHA-256', sha256],
+    ['SHA-512', sha512],
+  ];
+
+  out.innerHTML = items.map(([label, val]) => `
+    <div class="hashitem">
+      <div class="lbl">${label}</div>
+      <div class="val"><span style="flex:1;">${val}</span><button class="copybtn" onclick="copiar(this,'${val}')">copiar</button></div>
+    </div>
+  `).join('');
+}
+
+function copiar(btn, text){
+  navigator.clipboard.writeText(text).then(()=>{
+    const original = btn.textContent;
+    btn.textContent = 'copiado ✓';
+    btn.classList.add('copied');
+    setTimeout(()=>{ btn.textContent = original; btn.classList.remove('copied'); }, 1400);
+  });
+}
+
+gerarUUIDs();
+calcularHashes();
+</script>
+</body>
+</html>

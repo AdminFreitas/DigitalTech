@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "mysql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1783476280366,
+      "tag": "0000_fearless_komodo",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1783476518119,
+      "tag": "0001_careless_sunset_bain",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1783480432711,
+      "tag": "0002_dark_jimmy_woo",
+      "breakpoints": true
+    }
+  ]
+}

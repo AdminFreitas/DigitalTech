@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conversor Markdown para HTML</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.2/marked.min.js"></script>
+<style>
+  :root{
+    --ink:#171626; --paper:#F7F1E4; --ink-text:#211F30;
+    --mint:#59D9B3; --red:#FF6B5E; --muted:#8B87A6;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; min-height:100vh; background:
+      radial-gradient(circle at 20% -10%, #2a2843 0%, transparent 45%),
+      radial-gradient(circle at 100% 10%, #201f38 0%, transparent 40%),
+      var(--ink);
+    font-family:'IBM Plex Sans', sans-serif; color:var(--paper);
+    display:flex; align-items:center; justify-content:center; padding:32px 16px;
+  }
+  .wrap{ width:100%; max-width:560px; }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.18em;
+    color:var(--mint); text-transform:uppercase; margin:0 0 10px; display:flex; align-items:center; gap:8px;
+  }
+  .eyebrow::before{ content:''; width:18px; height:1px; background:var(--mint); display:inline-block; }
+  h1{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:32px; line-height:1.15; margin:0 0 8px; color:#fff; }
+  p.lead{ color:var(--muted); font-size:14.5px; line-height:1.55; margin:0 0 28px; }
+
+  .receipt{
+    background:var(--paper); color:var(--ink-text); border-radius:6px 6px 2px 2px;
+    padding:26px 24px 22px; transform:rotate(0.4deg);
+    box-shadow:0 22px 40px -18px rgba(0,0,0,.55), 0 2px 0 rgba(0,0,0,.05);
+    position:relative;
+  }
+  .receipt::after{
+    content:''; position:absolute; left:0; right:0; bottom:-1px; height:10px;
+    background-image: radial-gradient(circle at 5px 0, var(--ink) 4px, transparent 4.5px);
+    background-size:14px 10px; background-repeat:repeat-x; background-position:2px 0;
+  }
+  label{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#635f7a; display:block; margin-bottom:8px; }
+  textarea#md{
+    width:100%; font-family:'IBM Plex Mono', monospace; font-size:13.5px; line-height:1.5;
+    padding:12px 14px; border:1.5px solid #d9cfb2; border-radius:4px; background:#fffdf7;
+    color:var(--ink-text); outline:none; resize:vertical; min-height:150px;
+    transition:border-color .15s, box-shadow .15s;
+  }
+  textarea#md:focus{ border-color:var(--mint); box-shadow:0 0 0 3px rgba(89,217,179,.25); }
+
+  .tabs{ display:flex; gap:6px; margin:16px 0 10px; }
+  .tab{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:.04em; text-transform:uppercase;
+    background:#efe7d2; border:none; border-radius:4px; padding:8px 14px; cursor:pointer; color:#635f7a;
+  }
+  .tab.active{ background:var(--mint); color:#0e3527; font-weight:600; }
+
+  .panel{ display:none; }
+  .panel.active{ display:block; }
+  .preview{
+    background:#fffdf7; border:1.5px solid #d9cfb2; border-radius:4px; padding:16px 18px;
+    min-height:150px; font-size:14.5px; line-height:1.6; overflow-x:auto;
+  }
+  .preview h1,.preview h2,.preview h3{ font-family:'Space Grotesk',sans-serif; margin-top:0; }
+  .preview code{ background:#efe7d2; padding:1px 5px; border-radius:3px; font-family:'IBM Plex Mono',monospace; font-size:.9em; }
+  .preview pre{ background:#211F30; color:#f0ead9; padding:12px 14px; border-radius:4px; overflow-x:auto; }
+  .preview pre code{ background:none; color:inherit; }
+  .preview a{ color:#1e7a5f; }
+  .preview blockquote{ border-left:3px solid var(--mint); margin:0; padding-left:14px; color:#635f7a; }
+  .preview table{ border-collapse:collapse; width:100%; }
+  .preview th,.preview td{ border:1px solid #d9cfb2; padding:6px 10px; text-align:left; }
+
+  textarea#htmlOut{
+    width:100%; font-family:'IBM Plex Mono', monospace; font-size:12.5px; line-height:1.55;
+    padding:14px; border:1.5px solid #d9cfb2; border-radius:4px; background:#fffdf7;
+    color:var(--ink-text); min-height:150px; resize:vertical;
+  }
+  .copybtn{
+    margin-top:10px; font-family:'IBM Plex Mono',monospace; font-size:12px; background:none;
+    border:1px solid #cbbf9a; border-radius:4px; padding:7px 14px; cursor:pointer; color:#635f7a;
+  }
+  .copybtn:hover{ border-color:var(--mint); color:#1e7a5f; }
+  .copybtn.copied{ color:#1e7a5f; border-color:#1e7a5f; }
+
+  .note{ margin-top:22px; font-size:12.5px; line-height:1.6; color:var(--muted); }
+  .note b{ color:#c7c2dd; }
+  a.back{ color:var(--muted); font-size:13px; text-decoration:none; display:inline-block; margin-top:26px; }
+  a.back:hover{ color:var(--mint); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Conversor</p>
+  <h1>Markdown → HTML</h1>
+  <p class="lead">Digite ou cole Markdown e veja a prévia renderizada e o código HTML gerado, em tempo real, direto no navegador.</p>
+
+  <div class="receipt">
+    <label for="md">Markdown</label>
+    <textarea id="md" spellcheck="false"># Título
+
+Um **texto em negrito** e um *itálico*.
+
+- item 1
+- item 2
+
+> uma citação
+
+[link para o blog](https://exemplo.com)</textarea>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="preview" onclick="showTab('preview')">Visualização</button>
+      <button class="tab" data-tab="html" onclick="showTab('html')">Código HTML</button>
+    </div>
+
+    <div class="panel active" id="panel-preview">
+      <div class="preview" id="preview"></div>
+    </div>
+    <div class="panel" id="panel-html">
+      <textarea id="htmlOut" readonly></textarea>
+      <button class="copybtn" onclick="copiarHtml()">Copiar HTML</button>
+    </div>
+  </div>
+
+  <p class="note"><b>Como funciona:</b> a conversão roda inteiramente no seu navegador usando a biblioteca aberta <b>marked.js</b> — o texto não é enviado a nenhum servidor.</p>
+
+  <a class="back" href="#">← Voltar para o blog</a>
+</div>
+
+<script>
+const mdInput = document.getElementById('md');
+const preview = document.getElementById('preview');
+const htmlOut = document.getElementById('htmlOut');
+
+function render(){
+  const html = marked.parse(mdInput.value);
+  preview.innerHTML = html;
+  htmlOut.value = html;
+}
+mdInput.addEventListener('input', render);
+
+function showTab(name){
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
+  document.querySelectorAll('.panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + name));
+}
+
+function copiarHtml(){
+  navigator.clipboard.writeText(htmlOut.value).then(()=>{
+    const btn = document.querySelector('.copybtn');
+    const original = btn.textContent;
+    btn.textContent = 'copiado ✓';
+    btn.classList.add('copied');
+    setTimeout(()=>{ btn.textContent = original; btn.classList.remove('copied'); }, 1400);
+  });
+}
+render();
+</script>
+</body>
+</html>

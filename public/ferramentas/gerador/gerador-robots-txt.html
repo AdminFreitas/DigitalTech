@@ -1,0 +1,394 @@
+<!-- ==========================================================
+     FERRAMENTA: Gerador de Robots.txt
+     Uso: cole este bloco dentro do <main> do site DigitalTech.
+     Sem <head>, <body>, header, footer ou menu.
+     CSS/JS isolados sob o prefixo ".dtrobots-".
+========================================================== -->
+
+<section class="dtrobots-tool" aria-labelledby="dtrobots-title">
+
+  <header class="dtrobots-tool__head">
+    <h1 id="dtrobots-title" class="dtrobots-tool__title">Gerador de Robots.txt</h1>
+    <p class="dtrobots-tool__desc">
+      Monte o arquivo robots.txt do seu site definindo regras de acesso
+      para os robôs de busca, sem precisar escrever a sintaxe na mão.
+    </p>
+  </header>
+
+  <!-- Regra padrão -->
+  <div class="dtrobots-settings">
+
+    <div class="dtrobots-field">
+      <label for="dtrobotsAgent">User-agent</label>
+      <select id="dtrobotsAgent">
+        <option value="*">* (todos os robôs)</option>
+        <option value="Googlebot">Googlebot</option>
+        <option value="Bingbot">Bingbot</option>
+        <option value="GPTBot">GPTBot</option>
+      </select>
+    </div>
+
+    <div class="dtrobots-field">
+      <label for="dtrobotsPolicy">Regra geral</label>
+      <select id="dtrobotsPolicy">
+        <option value="allow">Permitir todo o site</option>
+        <option value="disallow">Bloquear todo o site</option>
+      </select>
+    </div>
+
+  </div>
+
+  <!-- Caminhos personalizados -->
+  <div class="dtrobots-paths">
+    <div class="dtrobots-paths__bar">
+      <label>Caminhos específicos (opcional)</label>
+      <button type="button" class="dtrobots-addbtn" id="dtrobotsAdd">+ Adicionar caminho</button>
+    </div>
+
+    <div class="dtrobots-rows" id="dtrobotsRows">
+      <!-- Linhas de caminho geradas via JS -->
+    </div>
+  </div>
+
+  <div class="dtrobots-field dtrobots-field--full">
+    <label for="dtrobotsSitemap">URL do sitemap (opcional)</label>
+    <input type="url" id="dtrobotsSitemap" placeholder="https://digitaltech.com.br/sitemap.xml">
+  </div>
+
+  <button class="dtrobots-btn dtrobots-btn--primary" id="dtrobotsRun">
+    Gerar robots.txt
+  </button>
+
+  <!-- Resultado -->
+  <div class="dtrobots-result" id="dtrobotsResult" hidden>
+    <div class="dtrobots-result__bar">
+      <span>Resultado</span>
+      <button type="button" class="dtrobots-copybtn" id="dtrobotsCopy">Copiar</button>
+    </div>
+    <pre class="dtrobots-output" id="dtrobotsOutput"></pre>
+  </div>
+
+  <button class="dtrobots-btn dtrobots-btn--download" id="dtrobotsDownload" disabled>
+    Baixar robots.txt
+  </button>
+
+</section>
+
+<style>
+  .dtrobots-tool {
+    --dtrobots-bg:      #14161c;
+    --dtrobots-surface: #1b1e26;
+    --dtrobots-border:  #2a2e39;
+    --dtrobots-text:    #e6e8ec;
+    --dtrobots-muted:   #8b90a0;
+    --dtrobots-accent:  #22d3c9;
+    --dtrobots-danger:  #ff6b6b;
+    --dtrobots-radius:  12px;
+
+    max-width: 640px;
+    margin: 2rem auto;
+    padding: 1.75rem;
+    background: var(--dtrobots-bg);
+    border: 1px solid var(--dtrobots-border);
+    border-radius: var(--dtrobots-radius);
+    color: var(--dtrobots-text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    box-sizing: border-box;
+  }
+  .dtrobots-tool *, .dtrobots-tool *::before, .dtrobots-tool *::after {
+    box-sizing: inherit;
+  }
+
+  .dtrobots-tool__title {
+    margin: 0 0 0.35rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .dtrobots-tool__desc {
+    margin: 0 0 1.5rem;
+    color: var(--dtrobots-muted);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+
+  /* Formulário */
+  .dtrobots-settings {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+  .dtrobots-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .dtrobots-field--full {
+    margin-top: 1.25rem;
+  }
+  .dtrobots-field label {
+    font-size: 0.82rem;
+    color: var(--dtrobots-muted);
+  }
+  .dtrobots-field input,
+  .dtrobots-field select {
+    background: var(--dtrobots-surface);
+    border: 1px solid var(--dtrobots-border);
+    color: var(--dtrobots-text);
+    border-radius: 8px;
+    padding: 0.55rem 0.7rem;
+    font-size: 0.88rem;
+    font-family: inherit;
+  }
+  .dtrobots-field input:focus-visible,
+  .dtrobots-field select:focus-visible {
+    outline: none;
+    border-color: var(--dtrobots-accent);
+  }
+
+  /* Caminhos personalizados */
+  .dtrobots-paths__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.6rem;
+  }
+  .dtrobots-paths__bar label {
+    font-size: 0.82rem;
+    color: var(--dtrobots-muted);
+  }
+  .dtrobots-addbtn {
+    background: transparent;
+    border: 1px solid var(--dtrobots-border);
+    color: var(--dtrobots-accent);
+    border-radius: 6px;
+    padding: 0.35rem 0.7rem;
+    font-size: 0.78rem;
+    cursor: pointer;
+  }
+  .dtrobots-addbtn:hover {
+    border-color: var(--dtrobots-accent);
+  }
+  .dtrobots-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .dtrobots-row {
+    display: grid;
+    grid-template-columns: 110px 1fr 32px;
+    gap: 0.5rem;
+  }
+  .dtrobots-row select,
+  .dtrobots-row input {
+    background: var(--dtrobots-surface);
+    border: 1px solid var(--dtrobots-border);
+    color: var(--dtrobots-text);
+    border-radius: 8px;
+    padding: 0.5rem 0.6rem;
+    font-size: 0.85rem;
+    font-family: inherit;
+  }
+  .dtrobots-row input:focus-visible,
+  .dtrobots-row select:focus-visible {
+    outline: none;
+    border-color: var(--dtrobots-accent);
+  }
+  .dtrobots-row__remove {
+    background: transparent;
+    border: 1px solid var(--dtrobots-border);
+    color: var(--dtrobots-danger);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    line-height: 1;
+  }
+  .dtrobots-row__remove:hover {
+    border-color: var(--dtrobots-danger);
+  }
+
+  /* Botões */
+  .dtrobots-btn {
+    width: 100%;
+    margin-top: 1.25rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity .15s ease, transform .05s ease;
+  }
+  .dtrobots-btn:active { transform: scale(0.99); }
+  .dtrobots-btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .dtrobots-btn--primary {
+    background: var(--dtrobots-accent);
+    color: #06231f;
+  }
+  .dtrobots-btn--download {
+    background: transparent;
+    border-color: var(--dtrobots-border);
+    color: var(--dtrobots-text);
+  }
+  .dtrobots-btn--download:not(:disabled):hover {
+    border-color: var(--dtrobots-accent);
+    color: var(--dtrobots-accent);
+  }
+
+  /* Resultado */
+  .dtrobots-result {
+    margin-top: 1rem;
+    background: var(--dtrobots-surface);
+    border: 1px solid var(--dtrobots-border);
+    border-radius: var(--dtrobots-radius);
+    overflow: hidden;
+  }
+  .dtrobots-result__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 0.9rem;
+    border-bottom: 1px solid var(--dtrobots-border);
+    font-size: 0.78rem;
+    color: var(--dtrobots-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .dtrobots-copybtn {
+    background: transparent;
+    border: 1px solid var(--dtrobots-border);
+    color: var(--dtrobots-text);
+    border-radius: 6px;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.75rem;
+    cursor: pointer;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .dtrobots-copybtn:hover {
+    border-color: var(--dtrobots-accent);
+    color: var(--dtrobots-accent);
+  }
+  .dtrobots-output {
+    margin: 0;
+    padding: 0.9rem;
+    max-height: 300px;
+    overflow: auto;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  @media (max-width: 480px) {
+    .dtrobots-tool { padding: 1.25rem; }
+    .dtrobots-settings { grid-template-columns: 1fr; }
+    .dtrobots-row { grid-template-columns: 90px 1fr 28px; }
+  }
+</style>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ==========================================================
+     Gerador de Robots.txt - 100% client-side
+  ========================================================== */
+
+  const agentSelect  = document.getElementById("dtrobotsAgent");
+  const policySelect = document.getElementById("dtrobotsPolicy");
+  const rowsWrap      = document.getElementById("dtrobotsRows");
+  const addBtn        = document.getElementById("dtrobotsAdd");
+  const sitemapInput  = document.getElementById("dtrobotsSitemap");
+  const runBtn         = document.getElementById("dtrobotsRun");
+  const resultBox      = document.getElementById("dtrobotsResult");
+  const outputEl       = document.getElementById("dtrobotsOutput");
+  const copyBtn        = document.getElementById("dtrobotsCopy");
+  const downloadBtn    = document.getElementById("dtrobotsDownload");
+
+  let generatedText = "";
+  let rowCount = 0;
+
+  // Cria uma nova linha de caminho (Allow/Disallow + campo de texto)
+  function addRow(type, path) {
+    rowCount++;
+    const row = document.createElement("div");
+    row.className = "dtrobots-row";
+    row.innerHTML = `
+      <select class="dtrobots-row__type">
+        <option value="Disallow" ${type === "Disallow" ? "selected" : ""}>Disallow</option>
+        <option value="Allow" ${type === "Allow" ? "selected" : ""}>Allow</option>
+      </select>
+      <input type="text" class="dtrobots-row__path" placeholder="/admin/" value="${path || ""}">
+      <button type="button" class="dtrobots-row__remove" aria-label="Remover caminho">×</button>
+    `;
+    row.querySelector(".dtrobots-row__remove").addEventListener("click", () => row.remove());
+    rowsWrap.appendChild(row);
+  }
+
+  // Duas linhas de exemplo já preenchidas para facilitar o uso
+  addRow("Disallow", "/admin/");
+  addRow("Disallow", "/carrinho/");
+
+  addBtn.addEventListener("click", () => addRow("Disallow", ""));
+
+  runBtn.addEventListener("click", () => {
+    const agent = agentSelect.value;
+    const policy = policySelect.value;
+    const sitemap = sitemapInput.value.trim();
+
+    const lines = [`User-agent: ${agent}`];
+
+    if (policy === "disallow") {
+      lines.push("Disallow: /");
+    } else {
+      lines.push("Allow: /");
+
+      // Adiciona apenas as linhas de caminho preenchidas
+      const rows = rowsWrap.querySelectorAll(".dtrobots-row");
+      rows.forEach((row) => {
+        const type = row.querySelector(".dtrobots-row__type").value;
+        const path = row.querySelector(".dtrobots-row__path").value.trim();
+        if (path) lines.push(`${type}: ${path}`);
+      });
+    }
+
+    if (sitemap) {
+      lines.push("", `Sitemap: ${sitemap}`);
+    }
+
+    generatedText = lines.join("\n");
+    outputEl.textContent = generatedText;
+    resultBox.hidden = false;
+    downloadBtn.disabled = false;
+  });
+
+  copyBtn.addEventListener("click", async () => {
+    if (!generatedText) return;
+    try {
+      await navigator.clipboard.writeText(generatedText);
+      copyBtn.textContent = "Copiado!";
+      setTimeout(() => { copyBtn.textContent = "Copiar"; }, 1500);
+    } catch (err) {
+      // Falha silenciosa: usuário pode selecionar o texto manualmente
+    }
+  });
+
+  downloadBtn.addEventListener("click", () => {
+    if (!generatedText) return;
+    const blob = new Blob([generatedText], { type: "text/plain" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "robots.txt";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(a.href);
+  });
+})();
+</script>

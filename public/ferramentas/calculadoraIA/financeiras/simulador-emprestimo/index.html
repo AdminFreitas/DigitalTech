@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simulador de Empréstimo Online — Tabela PRICE | DigitalTech</title>
+  <meta name="description" content="Simule o valor da parcela do seu empréstimo pelo sistema PRICE. Veja o total pago, o total de juros e o custo real do crédito." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://digitaltech.digital/calculadoras/financeiras/simulador-emprestimo/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://digitaltech.digital/calculadoras/financeiras/simulador-emprestimo/" />
+  <meta property="og:title"       content="Simulador de Empréstimo Online — Tabela PRICE | DigitalTech" />
+  <meta property="og:description" content="Simule o valor da parcela do seu empréstimo pelo sistema PRICE. Veja o total pago, o total de juros e o custo real do crédito." />
+  <meta property="og:image"       content="https://digitaltech.digital/assets/og-image.webp" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- CSS do projeto (adicionado posteriormente) -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Início", "item": "https://digitaltech.digital/" },
+      { "@type": "ListItem", "position": 2, "name": "Calculadoras", "item": "https://digitaltech.digital/calculadoras/" },
+      { "@type": "ListItem", "position": 3, "name": "Financeiras", "item": "https://digitaltech.digital/calculadoras/financeiras/" },
+      { "@type": "ListItem", "position": 4, "name": "Simulador de Empréstimo", "item": "https://digitaltech.digital/calculadoras/financeiras/simulador-emprestimo/" }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<main>
+  <div class="wrap">
+
+    <!-- ── Breadcrumb ───────────────────────────────────────────────── -->
+    <nav class="breadcrumb" aria-label="Localização na página">
+      <a href="/">início</a>
+      <span class="sep">/</span>
+      <a href="/calculadoras/">calculadoras</a>
+      <span class="sep">/</span>
+      <a href="/calculadoras/financeiras/">financeiras</a>
+      <span class="sep">/</span>
+      <span class="current">simulador de empréstimo</span>
+    </nav>
+
+    <!-- ── Hero ─────────────────────────────────────────────────────── -->
+    <section class="hero hero-tool">
+      <p class="eyebrow">📊 Financeiras · Calculadora gratuita</p>
+      <h1>Simulador de <em>Empréstimo</em></h1>
+      <p>Calcule o valor da parcela, o total pago e o total de juros do seu empréstimo pelo sistema de amortização PRICE (parcelas fixas).</p>
+    </section>
+
+    <!-- ── Calculadora ──────────────────────────────────────────────── -->
+    <section class="calculator" aria-labelledby="calc-title">
+      <h2 class="section-title" id="calc-title">🏦 Calcular agora</h2>
+
+      <div class="calc-layout">
+
+        <form class="calc-form" id="calc-form" novalidate>
+
+          <div class="field-group">
+            <label for="valor-emprestimo">Valor do empréstimo</label>
+            <div class="field-control">
+              <input type="number" id="valor-emprestimo" name="valor-emprestimo" step="0.01" min="0" inputmode="decimal" placeholder="10.000,00" required />
+              <span class="field-unit">R$</span>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="taxa-juros-mensal">Taxa de juros mensal</label>
+            <div class="field-control">
+              <input type="number" id="taxa-juros-mensal" name="taxa-juros-mensal" step="0.01" min="0" inputmode="decimal" placeholder="1,5" required />
+              <span class="field-unit">%</span>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="numero-parcelas">Número de parcelas</label>
+            <div class="field-control">
+              <input type="number" id="numero-parcelas" name="numero-parcelas" step="0.01" min="0" inputmode="decimal" placeholder="24" required />
+              <span class="field-unit">meses</span>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" id="btn-calcular" class="btn-primary">Calcular →</button>
+            <button type="reset" id="btn-limpar" class="btn-secondary">Limpar</button>
+          </div>
+        </form>
+
+        <div class="calc-result" id="calc-result" aria-live="polite">
+          <h3 class="result-title">Resultado</h3>
+
+          <div class="result-item result-primary">
+            <span class="result-label">Valor da parcela</span>
+            <span class="result-value" id="resultado-parcela">—</span>
+          </div>
+
+          <div class="result-item">
+            <span class="result-label">Total pago</span>
+            <span class="result-value" id="resultado-total-pago">—</span>
+          </div>
+
+          <div class="result-item">
+            <span class="result-label">Total de juros</span>
+            <span class="result-value" id="resultado-total-juros">—</span>
+          </div>
+
+          <p class="result-disclaimer">
+            Resultado estimado. Consulte um profissional para decisões importantes.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="evolution-table-wrap">
+        <h3 class="result-title">Tabela de amortização (PRICE)</h3>
+        <table class="evolution-table" id="tabela-amortizacao">
+          <thead>
+            <tr>
+              <th>Parcela</th>
+              <th>Amortização</th>
+              <th>Juros</th>
+              <th>Saldo devedor</th>
+            </tr>
+          </thead>
+          <tbody id="tabela-amortizacao-body">
+            <!-- Linhas geradas via JS -->
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+    <!-- ── FAQ ───────────────────────────────────────────────────────── -->
+    <section class="faq-section" aria-labelledby="faq-title">
+      <h2 class="section-title" id="faq-title">❓ Perguntas frequentes</h2>
+
+      <details class="faq-item">
+        <summary>O que é o sistema PRICE?</summary>
+        <p>É um sistema de amortização em que todas as parcelas têm o mesmo valor durante todo o contrato, variando apenas a proporção entre juros e amortização em cada parcela.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Essa simulação inclui IOF e outras taxas?</summary>
+        <p>Não. O cálculo considera apenas o valor emprestado e a taxa de juros informada. Para o custo real do empréstimo, verifique o CET (Custo Efetivo Total) informado pela instituição financeira.</p>
+      </details>
+
+      <details class="faq-item">
+        <summary>Qual a diferença entre PRICE e SAC?</summary>
+        <p>No PRICE as parcelas são fixas. No SAC (Sistema de Amortização Constante) a amortização é fixa e a parcela diminui ao longo do tempo, pois os juros incidem sobre um saldo devedor decrescente.</p>
+      </details>
+
+    </section>
+
+    <!-- ── Conteúdo educativo ───────────────────────────────────────── -->
+    <section class="content-section" aria-label="Sobre esta calculadora">
+      <h2>Como funciona o sistema PRICE</h2>
+        <p>No sistema PRICE (também chamado de sistema francês de amortização), as parcelas têm valor fixo do início ao fim do contrato. No começo, a maior parte da parcela é composta por juros; ao final, a maior parte é amortização do valor emprestado.</p>
+        <p>Essa simulação usa taxa de juros fixa informada por você. Bancos e financeiras podem cobrar também IOF, tarifas de cadastro e seguros, que não estão incluídos neste cálculo. Consulte sempre o Custo Efetivo Total (CET) antes de contratar um empréstimo.</p>
+    </section>
+
+    <!-- ── Ferramentas relacionadas ────────────────────────────────── -->
+    <section class="related-section" aria-label="Outras calculadoras">
+      <h2 class="section-title">🔗 Outras calculadoras financeiras</h2>
+      <div class="related-links">
+          <a href="/calculadoras/financeiras/juros-compostos/" class="related-link">Juros Compostos →</a>
+          <a href="/calculadoras/financeiras/roi/" class="related-link">ROI — Retorno sobre Investimento →</a>
+          <a href="/calculadoras/financeiras/margem-de-lucro/" class="related-link">Margem de Lucro e Markup →</a>
+      </div>
+      <a href="/calculadoras/" class="back-link">← Ver todas as calculadoras</a>
+    </section>
+
+  </div>
+</main>
+
+<!-- JS do projeto (adicionado posteriormente) -->
+<script src="/assets/js/main.js" defer></script>
+<script src="/assets/js/simulador-emprestimo.js" defer></script>
+</body>
+</html>

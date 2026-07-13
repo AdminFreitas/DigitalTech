@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Testador de Regex</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#171626; --paper:#F7F1E4; --ink-text:#211F30;
+    --amber:#F2A93B; --mint:#59D9B3; --red:#FF6B5E; --muted:#8B87A6;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; min-height:100vh; background:
+      radial-gradient(circle at 20% -10%, #2a2843 0%, transparent 45%),
+      radial-gradient(circle at 100% 10%, #201f38 0%, transparent 40%),
+      var(--ink);
+    font-family:'IBM Plex Sans', sans-serif; color:var(--paper);
+    display:flex; align-items:center; justify-content:center; padding:32px 16px;
+  }
+  .wrap{ width:100%; max-width:560px; }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.18em;
+    color:var(--amber); text-transform:uppercase; margin:0 0 10px; display:flex; align-items:center; gap:8px;
+  }
+  .eyebrow::before{ content:''; width:18px; height:1px; background:var(--amber); display:inline-block; }
+  h1{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:32px; line-height:1.15; margin:0 0 8px; color:#fff; }
+  p.lead{ color:var(--muted); font-size:14.5px; line-height:1.55; margin:0 0 28px; }
+
+  .receipt{
+    background:var(--paper); color:var(--ink-text); border-radius:6px 6px 2px 2px;
+    padding:26px 24px 22px; transform:rotate(-0.4deg);
+    box-shadow:0 22px 40px -18px rgba(0,0,0,.55), 0 2px 0 rgba(0,0,0,.05);
+    position:relative;
+  }
+  .receipt::after{
+    content:''; position:absolute; left:0; right:0; bottom:-1px; height:10px;
+    background-image: radial-gradient(circle at 5px 0, var(--ink) 4px, transparent 4.5px);
+    background-size:14px 10px; background-repeat:repeat-x; background-position:2px 0;
+  }
+  label{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#635f7a; display:block; margin-bottom:8px; }
+
+  .patternrow{ display:flex; gap:8px; margin-bottom:6px; }
+  .slashwrap{ flex:1; display:flex; align-items:center; background:#fffdf7; border:1.5px solid #d9cfb2; border-radius:4px; padding:0 10px; transition:border-color .15s, box-shadow .15s; }
+  .slashwrap:focus-within{ border-color:var(--amber); box-shadow:0 0 0 3px rgba(242,169,59,.25); }
+  .slashwrap span{ font-family:'IBM Plex Mono',monospace; color:#a39d86; font-size:16px; }
+  #pattern{
+    flex:1; border:none; outline:none; background:none; font-family:'IBM Plex Mono', monospace;
+    font-size:15px; padding:11px 4px; color:var(--ink-text); min-width:0;
+  }
+  #flags{
+    width:64px; font-family:'IBM Plex Mono', monospace; font-size:15px; text-align:center;
+    border:none; outline:none; background:none; color:#1e7a5f; font-weight:600;
+  }
+  .error{ font-family:'IBM Plex Mono',monospace; font-size:12px; color:#a5352a; min-height:16px; margin-bottom:12px; }
+
+  label.testlabel{ margin-top:6px; }
+  #testeWrap{
+    position:relative; border:1.5px solid #d9cfb2; border-radius:4px; background:#fffdf7;
+    min-height:120px;
+  }
+  #testeWrap:focus-within{ border-color:var(--amber); box-shadow:0 0 0 3px rgba(242,169,59,.25); }
+  #highlight, #teste{
+    font-family:'IBM Plex Mono', monospace; font-size:13.5px; line-height:1.6;
+    padding:12px 14px; margin:0; white-space:pre-wrap; word-wrap:break-word;
+  }
+  #highlight{
+    position:absolute; top:0; left:0; right:0; bottom:0; overflow:auto; color:transparent; pointer-events:none;
+  }
+  #highlight mark{ background:rgba(89,217,179,.55); color:transparent; border-radius:2px; }
+  #teste{
+    position:relative; width:100%; height:120px; border:none; outline:none; background:none; resize:vertical;
+    color:var(--ink-text);
+  }
+
+  .summary{ font-family:'IBM Plex Mono',monospace; font-size:12.5px; margin:14px 0 6px; color:#635f7a; }
+  .matchlist{ font-family:'IBM Plex Mono',monospace; font-size:12px; }
+  .match{ padding:8px 4px; border-top:1px dashed #cbbf9a; }
+  .match .idx{ color:#8a8398; margin-right:6px; }
+  .match .full{ font-weight:600; }
+  .groups{ margin-top:4px; padding-left:20px; color:#635f7a; }
+  .groups div{ padding:2px 0; }
+
+  .note{ margin-top:22px; font-size:12.5px; line-height:1.6; color:var(--muted); }
+  .note b{ color:#c7c2dd; }
+  a.back{ color:var(--muted); font-size:13px; text-decoration:none; display:inline-block; margin-top:26px; }
+  a.back:hover{ color:var(--amber); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Diagnóstico</p>
+  <h1>Testador de Regex</h1>
+  <p class="lead">Digite uma expressão regular e um texto de teste — os trechos encontrados são destacados em tempo real.</p>
+
+  <div class="receipt">
+    <label for="pattern">Expressão regular</label>
+    <div class="patternrow">
+      <div class="slashwrap">
+        <span>/</span>
+        <input type="text" id="pattern" value="\b[\w.-]+@[\w.-]+\.\w+\b" spellcheck="false">
+        <span>/</span>
+        <input type="text" id="flags" value="g" maxlength="6" spellcheck="false">
+      </div>
+    </div>
+    <div class="error" id="erro"></div>
+
+    <label class="testlabel" for="teste">Texto de teste</label>
+    <div id="testeWrap">
+      <pre id="highlight"></pre>
+      <textarea id="teste" spellcheck="false">Contato: joao.silva@exemplo.com ou suporte@meublog.com.br para dúvidas.</textarea>
+    </div>
+
+    <div class="summary" id="summary"></div>
+    <div class="matchlist" id="matchlist"></div>
+  </div>
+
+  <p class="note"><b>Como funciona:</b> usa o motor de regex nativo do JavaScript (<code>RegExp</code>), o mesmo disponível no console do navegador — tudo roda localmente, nada é enviado a servidores. Flags comuns: <code>g</code> global, <code>i</code> ignora maiúsculas/minúsculas, <code>m</code> multilinha.</p>
+
+  <a class="back" href="#">← Voltar para o blog</a>
+</div>
+
+<script>
+const patternInput = document.getElementById('pattern');
+const flagsInput = document.getElementById('flags');
+const testeInput = document.getElementById('teste');
+const highlight = document.getElementById('highlight');
+const erro = document.getElementById('erro');
+const summary = document.getElementById('summary');
+const matchlist = document.getElementById('matchlist');
+
+function escapeHtml(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function processar(){
+  const pattern = patternInput.value;
+  let flags = flagsInput.value.replace(/[^gimsuy]/g,'');
+  if(!flags.includes('g')) flags += 'g';
+  const texto = testeInput.value;
+
+  let re;
+  try{
+    re = new RegExp(pattern, flags);
+    erro.textContent = '';
+  }catch(e){
+    erro.textContent = 'Regex inválida: ' + e.message;
+    highlight.innerHTML = escapeHtml(texto);
+    summary.textContent = '';
+    matchlist.innerHTML = '';
+    return;
+  }
+
+  const matches = [...texto.matchAll(re)];
+
+  let lastIndex = 0;
+  let html = '';
+  for(const m of matches){
+    if(m[0] === '') continue;
+    html += escapeHtml(texto.slice(lastIndex, m.index));
+    html += '<mark>' + escapeHtml(m[0]) + '</mark>';
+    lastIndex = m.index + m[0].length;
+  }
+  html += escapeHtml(texto.slice(lastIndex));
+  highlight.innerHTML = html;
+
+  const validMatches = matches.filter(m => m[0] !== '');
+  summary.textContent = validMatches.length === 0
+    ? 'nenhuma correspondência encontrada'
+    : `${validMatches.length} correspondência${validMatches.length>1?'s':''} encontrada${validMatches.length>1?'s':''}`;
+
+  matchlist.innerHTML = validMatches.map((m, i) => {
+    const groups = m.slice(1).map((g, gi) => `<div>grupo ${gi+1}: ${g !== undefined ? escapeHtml(g) : '(vazio)'}</div>`).join('');
+    return `<div class="match"><span class="idx">#${i+1}</span><span class="full">${escapeHtml(m[0])}</span> <span style="color:#a39d86;">(posição ${m.index})</span>${groups ? `<div class="groups">${groups}</div>` : ''}</div>`;
+  }).join('');
+}
+
+function syncScroll(){
+  highlight.scrollTop = testeInput.scrollTop;
+  highlight.scrollLeft = testeInput.scrollLeft;
+}
+
+patternInput.addEventListener('input', processar);
+flagsInput.addEventListener('input', processar);
+testeInput.addEventListener('input', processar);
+testeInput.addEventListener('scroll', syncScroll);
+
+processar();
+</script>
+</body>
+</html>

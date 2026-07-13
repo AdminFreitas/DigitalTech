@@ -1,0 +1,19 @@
+# DIGITALTECH
+
+> Portal brasileiro independente sobre tecnologia: IA, engenharia de software, dados e cibersegurança.
+
+Author: Michel Freitas
+Site: https://digitaltech.digital/
+Language: pt-BR
+License: Conteúdo proprietário. Indexação para busca permitida. Reprodução requer atribuição e link canônico.
+
+## Áreas de conteúdo
+- Inteligência Artificial (LLMs, RAG, agentes)
+- Engenharia de Software (Python, TypeScript, arquitetura)
+- Dados (PostgreSQL, streaming, ETL)
+- Cibersegurança (AppSec, OWASP, cloud)
+- Cloud & DevOps
+- Carreira em tech
+
+## Contato
+https://digitaltech.digital/contato

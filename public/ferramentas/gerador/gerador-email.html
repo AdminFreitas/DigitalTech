@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gerador de e-mail para testes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#171626; --paper:#F7F1E4; --ink-text:#211F30;
+    --mint:#59D9B3; --red:#FF6B5E; --muted:#8B87A6;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; min-height:100vh; background:
+      radial-gradient(circle at 20% -10%, #2a2843 0%, transparent 45%),
+      radial-gradient(circle at 100% 10%, #201f38 0%, transparent 40%),
+      var(--ink);
+    font-family:'IBM Plex Sans', sans-serif; color:var(--paper);
+    display:flex; align-items:center; justify-content:center; padding:32px 16px;
+  }
+  .wrap{ width:100%; max-width:480px; }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; letter-spacing:.18em;
+    color:var(--mint); text-transform:uppercase; margin:0 0 10px; display:flex; align-items:center; gap:8px;
+  }
+  .eyebrow::before{ content:''; width:18px; height:1px; background:var(--mint); display:inline-block; }
+  h1{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:34px; line-height:1.1; margin:0 0 8px; color:#fff; }
+  p.lead{ color:var(--muted); font-size:14.5px; line-height:1.55; margin:0 0 28px; }
+
+  .receipt{
+    background:var(--paper); color:var(--ink-text); border-radius:6px 6px 2px 2px;
+    padding:26px 24px 22px; transform:rotate(0.5deg);
+    box-shadow:0 22px 40px -18px rgba(0,0,0,.55), 0 2px 0 rgba(0,0,0,.05);
+    position:relative;
+  }
+  .receipt::after{
+    content:''; position:absolute; left:0; right:0; bottom:-1px; height:10px;
+    background-image: radial-gradient(circle at 5px 0, var(--ink) 4px, transparent 4.5px);
+    background-size:14px 10px; background-repeat:repeat-x; background-position:2px 0;
+  }
+  .controls{ display:flex; gap:10px; align-items:flex-end; margin-bottom:16px; }
+  .field{ flex:1; }
+  label{ font-family:'IBM Plex Mono', monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#635f7a; display:block; margin-bottom:8px; }
+  select{
+    width:100%; font-family:'IBM Plex Mono', monospace; font-size:15px;
+    padding:11px 12px; border:1.5px solid #d9cfb2; border-radius:4px; background:#fffdf7; color:var(--ink-text);
+  }
+  button.go{
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:14px;
+    background:var(--mint); color:#0e3527; border:none; border-radius:4px; padding:11px 16px;
+    cursor:pointer; letter-spacing:.02em; white-space:nowrap; transition:transform .08s ease;
+  }
+  button.go:active{ transform:translateY(2px); }
+  button.go:hover{ filter:brightness(1.05); }
+
+  .slip{ font-family:'IBM Plex Mono', monospace; font-size:15px; }
+  .item{
+    display:flex; justify-content:space-between; align-items:center; gap:10px;
+    padding:10px 4px; border-top:1px dashed #cbbf9a;
+    animation:rise .22s ease both;
+  }
+  .item:nth-child(1){animation-delay:.02s}
+  .item:nth-child(2){animation-delay:.06s}
+  .item:nth-child(3){animation-delay:.10s}
+  .item:nth-child(4){animation-delay:.14s}
+  .item:nth-child(5){animation-delay:.18s}
+  @keyframes rise{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);} }
+  .item .num{ letter-spacing:.01em; overflow:hidden; text-overflow:ellipsis; }
+  .copybtn{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; background:none; border:1px solid #cbbf9a;
+    border-radius:3px; padding:4px 8px; cursor:pointer; color:#635f7a; flex-shrink:0;
+  }
+  .copybtn:hover{ border-color:var(--mint); color:#1e7a5f; }
+  .copybtn.copied{ color:#1e7a5f; border-color:#1e7a5f; }
+
+  .warn{
+    margin-top:18px; font-family:'IBM Plex Mono',monospace; font-size:11.5px; letter-spacing:.02em;
+    background:rgba(255,107,94,.14); color:#a5352a; padding:10px 12px; border-radius:4px; line-height:1.5;
+  }
+  .note{ margin-top:22px; font-size:12.5px; line-height:1.6; color:var(--muted); }
+  .note b{ color:#c7c2dd; }
+  a.back{ color:var(--muted); font-size:13px; text-decoration:none; display:inline-block; margin-top:26px; }
+  a.back:hover{ color:var(--mint); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">Gerador · dados fictícios</p>
+  <h1>E-mail de teste</h1>
+  <p class="lead">Gera endereços aleatórios em domínios reservados para testes — nunca entregam mensagens de verdade.</p>
+
+  <div class="receipt">
+    <div class="controls">
+      <div class="field">
+        <label for="qtd">Quantidade</label>
+        <select id="qtd">
+          <option value="1">1 endereço</option>
+          <option value="3">3 endereços</option>
+          <option value="5" selected>5 endereços</option>
+          <option value="10">10 endereços</option>
+        </select>
+      </div>
+      <button class="go" onclick="gerar()">Gerar</button>
+    </div>
+    <div class="slip" id="slip"></div>
+    <div class="warn">⚠ Use apenas em formulários e ambientes de teste. Domínios como example.com/example.org são reservados pela IANA e não recebem e-mail real.</div>
+  </div>
+
+  <p class="note"><b>Como funciona:</b> combina um nome, um sobrenome e um sufixo numérico aleatórios com domínios reservados para documentação/teste (example.com, example.org, example.net) — assim o endereço nunca colide com uma conta real.</p>
+
+  <a class="back" href="#">← Voltar para o blog</a>
+</div>
+
+<script>
+const nomes = ['ana','bruno','carla','diego','elisa','fabio','giovana','hugo','isabela','joao','karla','leandro','marina','nicolas','olivia','pedro','queila','rafael','sofia','thiago','ursula','victor','wesley','yasmin','zeca'];
+const sobrenomes = ['silva','souza','oliveira','santos','pereira','costa','ferreira','rodrigues','almeida','nascimento','carvalho','araujo','ribeiro','martins','barbosa'];
+const dominios = ['example.com','example.org','example.net','teste.dev'];
+
+function gerarEmail(){
+  const nome = nomes[Math.floor(Math.random()*nomes.length)];
+  const sobrenome = sobrenomes[Math.floor(Math.random()*sobrenomes.length)];
+  const numero = Math.floor(Math.random()*900)+10;
+  const dominio = dominios[Math.floor(Math.random()*dominios.length)];
+  const separador = Math.random() > 0.5 ? '.' : '';
+  return `${nome}${separador}${sobrenome}${numero}@${dominio}`;
+}
+
+function gerar(){
+  const qtd = Number(document.getElementById('qtd').value);
+  const slip = document.getElementById('slip');
+  slip.innerHTML = '';
+  for(let i=0;i<qtd;i++){
+    const email = gerarEmail();
+    const row = document.createElement('div');
+    row.className = 'item';
+    row.innerHTML = `<span class="num">${email}</span><button class="copybtn" onclick="copiar(this, '${email}')">copiar</button>`;
+    slip.appendChild(row);
+  }
+}
+function copiar(btn, text){
+  navigator.clipboard.writeText(text).then(()=>{
+    const original = btn.textContent;
+    btn.textContent = 'copiado ✓';
+    btn.classList.add('copied');
+    setTimeout(()=>{ btn.textContent = original; btn.classList.remove('copied'); }, 1400);
+  });
+}
+gerar();
+</script>
+</body>
+</html>

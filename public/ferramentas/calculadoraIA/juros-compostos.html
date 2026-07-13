@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora de Juros Compostos Online e Gratuita | DigitalTech</title>
+  <meta name="description" content="Calcule juros compostos gratuitamente: simule aportes mensais, taxa de juros e período. Veja o valor final, total investido e total de juros." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="/">digitaltech<span class="dot">.</span></a>
+      <nav class="site-nav">
+        <a href="/">início</a>
+        <a href="/blog/">blog</a>
+        <a href="/calculadoras/">ferramentas</a>
+        <a href="/contato.html">contato</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+
+      <section class="hero">
+        <p class="eyebrow">Ferramenta · Cálculo financeiro</p>
+        <h1>Calculadora de juros compostos</h1>
+        <p class="lede">Simule quanto seu dinheiro pode crescer com aportes mensais e juros compostos. Sem cadastro, sem planilha — o cálculo roda aqui mesmo, no seu navegador.</p>
+      </section>
+
+      <section class="tool-card">
+        <div class="tool-label">
+          <span><span class="dot-status"></span>entrada de dados</span>
+          <span>juros-compostos.calc</span>
+        </div>
+
+        <form id="form-juros-compostos">
+          <div class="field-grid">
+            <div class="field">
+              <label for="input-principal">Valor inicial</label>
+              <div class="input-row">
+                <span class="prefix">R$</span>
+                <input type="text" id="input-principal" inputmode="decimal" placeholder="1.000,00" required />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="input-aporte">Aporte mensal</label>
+              <div class="input-row">
+                <span class="prefix">R$</span>
+                <input type="text" id="input-aporte" inputmode="decimal" placeholder="200,00" required />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="input-taxa">Taxa de juros (anual)</label>
+              <div class="input-row">
+                <input type="text" id="input-taxa" inputmode="decimal" placeholder="10" required />
+                <span class="suffix">% ao ano</span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="input-periodo">Período</label>
+              <div class="input-row">
+                <input type="number" id="input-periodo" min="1" max="1200" placeholder="60" required />
+                <span class="suffix">meses</span>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-calc">Calcular</button>
+        </form>
+
+        <div class="result-panel" id="resultado-juros">
+          <div class="result-main">
+            <span class="value" id="res-valor-final">R$ 0,00</span>
+            <span class="label">valor final estimado</span>
+          </div>
+
+          <div class="breakdown">
+            <div class="item">
+              <div class="k">Total investido</div>
+              <div class="v" id="res-total-aportado">R$ 0,00</div>
+            </div>
+            <div class="item">
+              <div class="k">Total em juros</div>
+              <div class="v" id="res-total-juros">R$ 0,00</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="content">
+        <h2>Como funciona o cálculo</h2>
+        <p>
+          Juros compostos significam que os juros de cada período passam a fazer parte do capital
+          e também rendem juros no período seguinte — por isso o crescimento acelera com o tempo.
+          Esta calculadora considera aportes mensais constantes e taxa de juros anual, convertida
+          internamente para a taxa equivalente mensal.
+        </p>
+        <p>
+          O resultado é uma estimativa. Ele não considera impostos, taxas de administração ou
+          inflação — fatores que variam conforme o investimento escolhido.
+        </p>
+      </section>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <span>© <span id="ano"></span> DigitalTech</span>
+      <a href="/contato.html">desenvolvimento de sistemas e automações</a>
+    </div>
+  </footer>
+
+  <script>document.getElementById('ano').textContent = new Date().getFullYear();</script>
+  <script src="/calculadoras/juros-compostos.js"></script>
+</body>
+</html>
