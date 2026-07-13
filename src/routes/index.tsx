@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type MouseEvent } from "react";
 import logo from "@/assets/logo-robot.webp";
 import planet from "@/assets/planet.webp";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
