@@ -9,6 +9,8 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermosRouteImport } from './routes/termos'
+import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
 import { Route as FerramentasRouteImport } from './routes/ferramentas'
@@ -42,6 +44,16 @@ import { Route as FerramentasSlugRouteImport } from './routes/ferramentas/$slug'
 import { Route as CategoriasCategoriaRouteImport } from './routes/categorias/$categoria'
 import { Route as ArtigosSlugRouteImport } from './routes/artigos/$slug'
 
+const TermosRoute = TermosRouteImport.update({
+  id: '/termos',
+  path: '/termos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SobreRoute = SobreRouteImport.update({
+  id: '/sobre',
+  path: '/sobre',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -213,6 +225,8 @@ export interface FileRoutesByFullPath {
   '/ferramentas': typeof FerramentasRouteWithChildren
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre': typeof SobreRoute
+  '/termos': typeof TermosRoute
   '/artigos/$slug': typeof ArtigosSlugRoute
   '/categorias/$categoria': typeof CategoriasCategoriaRoute
   '/ferramentas/$slug': typeof FerramentasSlugRoute
@@ -246,6 +260,8 @@ export interface FileRoutesByTo {
   '/contato': typeof ContatoRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre': typeof SobreRoute
+  '/termos': typeof TermosRoute
   '/artigos/$slug': typeof ArtigosSlugRoute
   '/categorias/$categoria': typeof CategoriasCategoriaRoute
   '/ferramentas/$slug': typeof FerramentasSlugRoute
@@ -281,6 +297,8 @@ export interface FileRoutesById {
   '/ferramentas': typeof FerramentasRouteWithChildren
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre': typeof SobreRoute
+  '/termos': typeof TermosRoute
   '/artigos/$slug': typeof ArtigosSlugRoute
   '/categorias/$categoria': typeof CategoriasCategoriaRoute
   '/ferramentas/$slug': typeof FerramentasSlugRoute
@@ -317,6 +335,8 @@ export interface FileRouteTypes {
     | '/ferramentas'
     | '/politica-de-privacidade'
     | '/sitemap.xml'
+    | '/sobre'
+    | '/termos'
     | '/artigos/$slug'
     | '/categorias/$categoria'
     | '/ferramentas/$slug'
@@ -350,6 +370,8 @@ export interface FileRouteTypes {
     | '/contato'
     | '/politica-de-privacidade'
     | '/sitemap.xml'
+    | '/sobre'
+    | '/termos'
     | '/artigos/$slug'
     | '/categorias/$categoria'
     | '/ferramentas/$slug'
@@ -384,6 +406,8 @@ export interface FileRouteTypes {
     | '/ferramentas'
     | '/politica-de-privacidade'
     | '/sitemap.xml'
+    | '/sobre'
+    | '/termos'
     | '/artigos/$slug'
     | '/categorias/$categoria'
     | '/ferramentas/$slug'
@@ -419,6 +443,8 @@ export interface RootRouteChildren {
   FerramentasRoute: typeof FerramentasRouteWithChildren
   PoliticaDePrivacidadeRoute: typeof PoliticaDePrivacidadeRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SobreRoute: typeof SobreRoute
+  TermosRoute: typeof TermosRoute
   ArtigosSlugRoute: typeof ArtigosSlugRoute
   CategoriasCategoriaRoute: typeof CategoriasCategoriaRoute
   NoticiasSlugRoute: typeof NoticiasSlugRoute
@@ -429,6 +455,20 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/termos': {
+      id: '/termos'
+      path: '/termos'
+      fullPath: '/termos'
+      preLoaderRoute: typeof TermosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sobre': {
+      id: '/sobre'
+      path: '/sobre'
+      fullPath: '/sobre'
+      preLoaderRoute: typeof SobreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -714,6 +754,8 @@ const rootRouteChildren: RootRouteChildren = {
   FerramentasRoute: FerramentasRouteWithChildren,
   PoliticaDePrivacidadeRoute: PoliticaDePrivacidadeRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SobreRoute: SobreRoute,
+  TermosRoute: TermosRoute,
   ArtigosSlugRoute: ArtigosSlugRoute,
   CategoriasCategoriaRoute: CategoriasCategoriaRoute,
   NoticiasSlugRoute: NoticiasSlugRoute,
