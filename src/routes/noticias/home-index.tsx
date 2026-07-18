@@ -5,7 +5,7 @@ import planet from "@/assets/planet.webp";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { listarArtigos, formatarData } from "@/lib/content";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/noticias/home-index")({
   head: () => ({
     meta: [
       { title: "DIGITALTECH — Tecnologia em um Minuto" },

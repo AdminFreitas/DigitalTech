@@ -837,6 +837,29 @@ function Home() {
         <Categories />
         <Projects />
         <FAQ />
+
+        <section className="mx-auto max-w-3xl px-6 pb-24">
+          <h2 className="font-display text-xl font-semibold text-[var(--text-primary)] md:text-2xl mb-6">Sobre</h2>
+          <div className="space-y-5 text-[15px] leading-relaxed text-[var(--text-secondary)]">
+            <p>Seja bem-vindo. Se você estava esperando mais um blog genérico feito em WordPress, errou de endereço.</p>
+            <p>Este projeto foi construído na unha, codificado linha por linha, com doses generosas de Inteligência Artificial, quantidades preocupantes de café e pouca inteligência humana.</p>
+            <div>
+              <p className="font-semibold text-[var(--text-primary)] mb-1">O Propósito</p>
+              <p>O DigitalTech é um projeto acadêmico do curso de Análise e Desenvolvimento de Sistemas (ADS). Nasceu da necessidade de colocar a teoria em prática e virou um laboratório vivo de desenvolvimento de software, engenharia de prompt e testes de paciência.</p>
+            </div>
+            <div>
+              <p className="font-semibold text-[var(--text-primary)] mb-3">O que você encontra aqui</p>
+              <ul className="space-y-2">
+                <li><span className="text-[var(--text-primary)] font-medium">Ferramentas Práticas</span> — Utilitários desenvolvidos para resolver problemas reais. Sem frescura, sem cadastro obrigatório.</li>
+                <li><span className="text-[var(--text-primary)] font-medium">Notícias & Artigos</span> — O que está acontecendo de relevante no mundo da tecnologia, novas linguagens, ferramentas e o que o mercado está exigindo.</li>
+                <li><span className="text-[var(--text-primary)] font-medium">Dev aos 40</span> — Histórias reais dos bastidores de quem decidiu entrar na área de tecnologia depois dos 40. Com direito a dores nas costas, código que não compila e a certeza de que sempre tem mais uma coisa para aprender.</li>
+              </ul>
+            </div>
+            <p className="border-t border-[var(--glass-border)] pt-5 text-[13px]">
+              <span className="text-[var(--text-primary)] font-medium">Status do servidor:</span> rodando na base da gambiarra premium, IA e muita determinação. Sinta-se em casa para explorar, usar as ferramentas e olhar o código. Ele está no GitHub, sem vergonha nenhuma.
+            </p>
+          </div>
+        </section>
       </main>
       <CookieBanner />
     </div>

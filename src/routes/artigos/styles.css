@@ -40,7 +40,7 @@
   --bg-secondary: #121826;
   --bg-card: #161f30;
   --primary-cyan: #00d4ff;
-  --header-clearance: 4rem; /* espaco reservado no topo de toda pagina pro Header fixed */
+  --header-clearance: 4rem; /* espaço reservado no topo de toda página pro Header fixed (h-16 = 4rem + folga) */
   --secondary-jade: #3ddc97;
   --accent-amber: #e8b86d;
   --text-primary: #f8fafc;

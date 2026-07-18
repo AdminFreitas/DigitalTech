@@ -1,8 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import logo from "@/assets/logo-robot.webp";
 
-export const Route = createFileRoute("/contato")({
+export const Route = createFileRoute("/contato1")({
   head: () => ({
     meta: [
       { title: "Contato — DIGITALTECH" },
@@ -29,7 +29,21 @@ function ContatoPage() {
 
   return (
     <div className="min-h-screen">
-      <main className="mx-auto max-w-2xl px-6 pt-[var(--header-clearance)] pb-24">
+      <header className="border-b border-[var(--glass-border)]">
+        <div className="mx-auto flex h-16 max-w-3xl items-center justify-between px-6">
+          <Link to="/" className="flex items-center gap-2.5">
+            <img src={logo} alt="" width={26} height={26} />
+            <span className="font-display text-sm font-bold tracking-[0.18em]">DIGITALTECH</span>
+          </Link>
+          <Link
+            to="/"
+            className="text-[13px] text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+          >
+            ← Início
+          </Link>
+        </div>
+      </header>
+      <main className="mx-auto max-w-2xl px-6 pt-16 pb-24">
         <div className="text-[11px] uppercase tracking-[0.22em] text-[var(--text-secondary)]">
           Contato
         </div>

@@ -14,12 +14,14 @@ import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
 import { Route as FerramentasRouteImport } from './routes/ferramentas'
+import { Route as Contato1RouteImport } from './routes/contato1'
 import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProjetosIndexRouteImport } from './routes/projetos/index'
 import { Route as NoticiasIndexRouteImport } from './routes/noticias/index'
 import { Route as FerramentasIndexRouteImport } from './routes/ferramentas/index'
 import { Route as ArtigosIndexRouteImport } from './routes/artigos/index'
+import { Route as NoticiasHomeIndexRouteImport } from './routes/noticias/home-index'
 import { Route as NoticiasSlugRouteImport } from './routes/noticias/$slug'
 import { Route as FerramentasUuidRouteImport } from './routes/ferramentas/uuid'
 import { Route as FerramentasUtmBuilderRouteImport } from './routes/ferramentas/utm-builder'
@@ -69,6 +71,11 @@ const FerramentasRoute = FerramentasRouteImport.update({
   path: '/ferramentas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Contato1Route = Contato1RouteImport.update({
+  id: '/contato1',
+  path: '/contato1',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContatoRoute = ContatoRouteImport.update({
   id: '/contato',
   path: '/contato',
@@ -97,6 +104,11 @@ const FerramentasIndexRoute = FerramentasIndexRouteImport.update({
 const ArtigosIndexRoute = ArtigosIndexRouteImport.update({
   id: '/artigos/',
   path: '/artigos/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NoticiasHomeIndexRoute = NoticiasHomeIndexRouteImport.update({
+  id: '/noticias/home-index',
+  path: '/noticias/home-index',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NoticiasSlugRoute = NoticiasSlugRouteImport.update({
@@ -222,6 +234,7 @@ const ArtigosSlugRoute = ArtigosSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
+  '/contato1': typeof Contato1Route
   '/ferramentas': typeof FerramentasRouteWithChildren
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -250,6 +263,7 @@ export interface FileRoutesByFullPath {
   '/ferramentas/utm-builder': typeof FerramentasUtmBuilderRoute
   '/ferramentas/uuid': typeof FerramentasUuidRoute
   '/noticias/$slug': typeof NoticiasSlugRoute
+  '/noticias/home-index': typeof NoticiasHomeIndexRoute
   '/artigos/': typeof ArtigosIndexRoute
   '/ferramentas/': typeof FerramentasIndexRoute
   '/noticias/': typeof NoticiasIndexRoute
@@ -258,6 +272,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
+  '/contato1': typeof Contato1Route
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
@@ -285,6 +300,7 @@ export interface FileRoutesByTo {
   '/ferramentas/utm-builder': typeof FerramentasUtmBuilderRoute
   '/ferramentas/uuid': typeof FerramentasUuidRoute
   '/noticias/$slug': typeof NoticiasSlugRoute
+  '/noticias/home-index': typeof NoticiasHomeIndexRoute
   '/artigos': typeof ArtigosIndexRoute
   '/ferramentas': typeof FerramentasIndexRoute
   '/noticias': typeof NoticiasIndexRoute
@@ -294,6 +310,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
+  '/contato1': typeof Contato1Route
   '/ferramentas': typeof FerramentasRouteWithChildren
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -322,6 +339,7 @@ export interface FileRoutesById {
   '/ferramentas/utm-builder': typeof FerramentasUtmBuilderRoute
   '/ferramentas/uuid': typeof FerramentasUuidRoute
   '/noticias/$slug': typeof NoticiasSlugRoute
+  '/noticias/home-index': typeof NoticiasHomeIndexRoute
   '/artigos/': typeof ArtigosIndexRoute
   '/ferramentas/': typeof FerramentasIndexRoute
   '/noticias/': typeof NoticiasIndexRoute
@@ -332,6 +350,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/contato'
+    | '/contato1'
     | '/ferramentas'
     | '/politica-de-privacidade'
     | '/sitemap.xml'
@@ -360,6 +379,7 @@ export interface FileRouteTypes {
     | '/ferramentas/utm-builder'
     | '/ferramentas/uuid'
     | '/noticias/$slug'
+    | '/noticias/home-index'
     | '/artigos/'
     | '/ferramentas/'
     | '/noticias/'
@@ -368,6 +388,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/contato'
+    | '/contato1'
     | '/politica-de-privacidade'
     | '/sitemap.xml'
     | '/sobre'
@@ -395,6 +416,7 @@ export interface FileRouteTypes {
     | '/ferramentas/utm-builder'
     | '/ferramentas/uuid'
     | '/noticias/$slug'
+    | '/noticias/home-index'
     | '/artigos'
     | '/ferramentas'
     | '/noticias'
@@ -403,6 +425,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/contato'
+    | '/contato1'
     | '/ferramentas'
     | '/politica-de-privacidade'
     | '/sitemap.xml'
@@ -431,6 +454,7 @@ export interface FileRouteTypes {
     | '/ferramentas/utm-builder'
     | '/ferramentas/uuid'
     | '/noticias/$slug'
+    | '/noticias/home-index'
     | '/artigos/'
     | '/ferramentas/'
     | '/noticias/'
@@ -440,6 +464,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ContatoRoute: typeof ContatoRoute
+  Contato1Route: typeof Contato1Route
   FerramentasRoute: typeof FerramentasRouteWithChildren
   PoliticaDePrivacidadeRoute: typeof PoliticaDePrivacidadeRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -448,6 +473,7 @@ export interface RootRouteChildren {
   ArtigosSlugRoute: typeof ArtigosSlugRoute
   CategoriasCategoriaRoute: typeof CategoriasCategoriaRoute
   NoticiasSlugRoute: typeof NoticiasSlugRoute
+  NoticiasHomeIndexRoute: typeof NoticiasHomeIndexRoute
   ArtigosIndexRoute: typeof ArtigosIndexRoute
   NoticiasIndexRoute: typeof NoticiasIndexRoute
   ProjetosIndexRoute: typeof ProjetosIndexRoute
@@ -490,6 +516,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FerramentasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contato1': {
+      id: '/contato1'
+      path: '/contato1'
+      fullPath: '/contato1'
+      preLoaderRoute: typeof Contato1RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contato': {
       id: '/contato'
       path: '/contato'
@@ -530,6 +563,13 @@ declare module '@tanstack/react-router' {
       path: '/artigos'
       fullPath: '/artigos/'
       preLoaderRoute: typeof ArtigosIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/noticias/home-index': {
+      id: '/noticias/home-index'
+      path: '/noticias/home-index'
+      fullPath: '/noticias/home-index'
+      preLoaderRoute: typeof NoticiasHomeIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/noticias/$slug': {
@@ -751,6 +791,7 @@ const FerramentasRouteWithChildren = FerramentasRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ContatoRoute: ContatoRoute,
+  Contato1Route: Contato1Route,
   FerramentasRoute: FerramentasRouteWithChildren,
   PoliticaDePrivacidadeRoute: PoliticaDePrivacidadeRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
@@ -759,6 +800,7 @@ const rootRouteChildren: RootRouteChildren = {
   ArtigosSlugRoute: ArtigosSlugRoute,
   CategoriasCategoriaRoute: CategoriasCategoriaRoute,
   NoticiasSlugRoute: NoticiasSlugRoute,
+  NoticiasHomeIndexRoute: NoticiasHomeIndexRoute,
   ArtigosIndexRoute: ArtigosIndexRoute,
   NoticiasIndexRoute: NoticiasIndexRoute,
   ProjetosIndexRoute: ProjetosIndexRoute,
