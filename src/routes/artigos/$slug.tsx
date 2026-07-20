@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { buscarArtigo, formatarData } from "@/lib/content";
+import { buscarArtigo, formatarData, type Artigo } from "@/lib/content";
 
 export const Route = createFileRoute("/artigos/$slug")({
   head: ({ params }) => {
@@ -35,11 +35,12 @@ export const Route = createFileRoute("/artigos/$slug")({
 });
 
 function ArtigoPage() {
-  const artigo = Route.useLoaderData();
+  const artigo = Route.useLoaderData() as Artigo;
+  if (!artigo) return null; // o loader já lança notFound() antes disso — guarda em runtime
 
   return (
     <article className="text-[var(--text-primary)]">
-      <div className="mx-auto max-w-3xl px-6 pt-28 pb-24">
+      <div className="mx-auto max-w-3xl px-6 pt-[var(--header-clearance)] pb-24">
         <Link
           to="/artigos"
           className="inline-flex items-center gap-1 text-[13px] font-medium text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]"

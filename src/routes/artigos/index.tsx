@@ -47,7 +47,8 @@ function ArtigosPage() {
 
         {/* Card principal */}
         <Link
-          to={`/artigos/${destaquePrincipal.slug}`}
+          to="/artigos/$slug"
+          params={{ slug: destaquePrincipal.slug }}
           className="group relative lg:col-span-2 rounded-2xl overflow-hidden border border-[var(--glass-border)] block min-h-[300px] lg:min-h-[440px]"
           style={{ background: COVER_GRADIENTS[0] }}
         >
@@ -75,7 +76,8 @@ function ArtigosPage() {
           {destaquesSecundarios.map((a, i) => (
             <Link
               key={a.slug}
-              to={`/artigos/${a.slug}`}
+              to="/artigos/$slug"
+              params={{ slug: a.slug }}
               className={`group relative rounded-xl overflow-hidden border border-[var(--glass-border)] block min-h-[140px] lg:min-h-0 lg:flex-1 ${
                 i === 2 ? "hidden lg:block" : ""
               }`}
@@ -101,7 +103,8 @@ function ArtigosPage() {
           {restante.map((a) => (
             <Link
               key={a.slug}
-              to={`/artigos/${a.slug}`}
+              to="/artigos/$slug"
+              params={{ slug: a.slug }}
               className="card-border group rounded-2xl bg-[rgba(22,31,48,0.55)] p-6 backdrop-blur-md transition-transform duration-300 hover:-translate-y-0.5 block"
             >
               <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--primary-cyan)]">

@@ -56,9 +56,10 @@ function CategoriaPage() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-6 pt-28 pb-24">
+    <div className="mx-auto max-w-6xl px-6 pt-[var(--header-clearance)] pb-24">
       <Link
-        to="/#categorias"
+        to="/"
+        hash="categorias"
         className="text-[13px] text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
       >
         ← Categorias

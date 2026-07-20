@@ -10,21 +10,9 @@ interface ToolLayoutProps {
 export function ToolLayout({ title, description, children }: ToolLayoutProps) {
   return (
     <div className="min-h-screen bg-[#0b1020]">
-      {/* Breadcrumb */}
-      <div className="border-b border-[#161f30] bg-[#0b1020]/50 backdrop-blur-sm">
-        <div className="mx-auto max-w-4xl px-6 py-4">
-          <div className="flex items-center gap-2 text-sm text-[#94a3b8]">
-            <Link to="/ferramentas" className="hover:text-[#00d4ff] transition-colors">
-              Ferramentas
-            </Link>
-            <span>/</span>
-            <span className="text-[#f8fafc]">{title}</span>
-          </div>
-        </div>
-      </div>
 
       {/* Main Content */}
-      <div className="mx-auto max-w-4xl px-6 py-12">
+      <div className="mx-auto max-w-4xl px-6 pt-24 pb-12">
         {/* Header */}
         <div className="mb-12 animate-fade-up">
           <h1 className="mb-4 font-['Plus_Jakarta_Sans'] text-4xl font-bold text-[#f8fafc]">

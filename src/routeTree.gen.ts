@@ -14,14 +14,12 @@ import { Route as SobreRouteImport } from './routes/sobre'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
 import { Route as FerramentasRouteImport } from './routes/ferramentas'
-import { Route as Contato1RouteImport } from './routes/contato1'
 import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProjetosIndexRouteImport } from './routes/projetos/index'
 import { Route as NoticiasIndexRouteImport } from './routes/noticias/index'
 import { Route as FerramentasIndexRouteImport } from './routes/ferramentas/index'
 import { Route as ArtigosIndexRouteImport } from './routes/artigos/index'
-import { Route as NoticiasHomeIndexRouteImport } from './routes/noticias/home-index'
 import { Route as NoticiasSlugRouteImport } from './routes/noticias/$slug'
 import { Route as FerramentasUuidRouteImport } from './routes/ferramentas/uuid'
 import { Route as FerramentasUtmBuilderRouteImport } from './routes/ferramentas/utm-builder'
@@ -36,13 +34,13 @@ import { Route as FerramentasPromptGeneratorRouteImport } from './routes/ferrame
 import { Route as FerramentasPixelHelperRouteImport } from './routes/ferramentas/pixel-helper'
 import { Route as FerramentasOpenGraphRouteImport } from './routes/ferramentas/open-graph'
 import { Route as FerramentasMetaTagsRouteImport } from './routes/ferramentas/meta-tags'
+import { Route as FerramentasMarkdownHtmlRouteImport } from './routes/ferramentas/markdown-html'
 import { Route as FerramentasKeywordDensityRouteImport } from './routes/ferramentas/keyword-density'
 import { Route as FerramentasJsonFormatterRouteImport } from './routes/ferramentas/json-formatter'
 import { Route as FerramentasHashRouteImport } from './routes/ferramentas/hash'
 import { Route as FerramentasColorPickerRouteImport } from './routes/ferramentas/color-picker'
 import { Route as FerramentasCanonicalRouteImport } from './routes/ferramentas/canonical'
 import { Route as FerramentasBase64RouteImport } from './routes/ferramentas/base64'
-import { Route as FerramentasSlugRouteImport } from './routes/ferramentas/$slug'
 import { Route as CategoriasCategoriaRouteImport } from './routes/categorias/$categoria'
 import { Route as ArtigosSlugRouteImport } from './routes/artigos/$slug'
 
@@ -69,11 +67,6 @@ const PoliticaDePrivacidadeRoute = PoliticaDePrivacidadeRouteImport.update({
 const FerramentasRoute = FerramentasRouteImport.update({
   id: '/ferramentas',
   path: '/ferramentas',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const Contato1Route = Contato1RouteImport.update({
-  id: '/contato1',
-  path: '/contato1',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContatoRoute = ContatoRouteImport.update({
@@ -104,11 +97,6 @@ const FerramentasIndexRoute = FerramentasIndexRouteImport.update({
 const ArtigosIndexRoute = ArtigosIndexRouteImport.update({
   id: '/artigos/',
   path: '/artigos/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const NoticiasHomeIndexRoute = NoticiasHomeIndexRouteImport.update({
-  id: '/noticias/home-index',
-  path: '/noticias/home-index',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NoticiasSlugRoute = NoticiasSlugRouteImport.update({
@@ -183,6 +171,11 @@ const FerramentasMetaTagsRoute = FerramentasMetaTagsRouteImport.update({
   path: '/meta-tags',
   getParentRoute: () => FerramentasRoute,
 } as any)
+const FerramentasMarkdownHtmlRoute = FerramentasMarkdownHtmlRouteImport.update({
+  id: '/markdown-html',
+  path: '/markdown-html',
+  getParentRoute: () => FerramentasRoute,
+} as any)
 const FerramentasKeywordDensityRoute =
   FerramentasKeywordDensityRouteImport.update({
     id: '/keyword-density',
@@ -215,11 +208,6 @@ const FerramentasBase64Route = FerramentasBase64RouteImport.update({
   path: '/base64',
   getParentRoute: () => FerramentasRoute,
 } as any)
-const FerramentasSlugRoute = FerramentasSlugRouteImport.update({
-  id: '/$slug',
-  path: '/$slug',
-  getParentRoute: () => FerramentasRoute,
-} as any)
 const CategoriasCategoriaRoute = CategoriasCategoriaRouteImport.update({
   id: '/categorias/$categoria',
   path: '/categorias/$categoria',
@@ -234,7 +222,6 @@ const ArtigosSlugRoute = ArtigosSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
-  '/contato1': typeof Contato1Route
   '/ferramentas': typeof FerramentasRouteWithChildren
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -242,13 +229,13 @@ export interface FileRoutesByFullPath {
   '/termos': typeof TermosRoute
   '/artigos/$slug': typeof ArtigosSlugRoute
   '/categorias/$categoria': typeof CategoriasCategoriaRoute
-  '/ferramentas/$slug': typeof FerramentasSlugRoute
   '/ferramentas/base64': typeof FerramentasBase64Route
   '/ferramentas/canonical': typeof FerramentasCanonicalRoute
   '/ferramentas/color-picker': typeof FerramentasColorPickerRoute
   '/ferramentas/hash': typeof FerramentasHashRoute
   '/ferramentas/json-formatter': typeof FerramentasJsonFormatterRoute
   '/ferramentas/keyword-density': typeof FerramentasKeywordDensityRoute
+  '/ferramentas/markdown-html': typeof FerramentasMarkdownHtmlRoute
   '/ferramentas/meta-tags': typeof FerramentasMetaTagsRoute
   '/ferramentas/open-graph': typeof FerramentasOpenGraphRoute
   '/ferramentas/pixel-helper': typeof FerramentasPixelHelperRoute
@@ -263,7 +250,6 @@ export interface FileRoutesByFullPath {
   '/ferramentas/utm-builder': typeof FerramentasUtmBuilderRoute
   '/ferramentas/uuid': typeof FerramentasUuidRoute
   '/noticias/$slug': typeof NoticiasSlugRoute
-  '/noticias/home-index': typeof NoticiasHomeIndexRoute
   '/artigos/': typeof ArtigosIndexRoute
   '/ferramentas/': typeof FerramentasIndexRoute
   '/noticias/': typeof NoticiasIndexRoute
@@ -272,20 +258,19 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
-  '/contato1': typeof Contato1Route
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
   '/termos': typeof TermosRoute
   '/artigos/$slug': typeof ArtigosSlugRoute
   '/categorias/$categoria': typeof CategoriasCategoriaRoute
-  '/ferramentas/$slug': typeof FerramentasSlugRoute
   '/ferramentas/base64': typeof FerramentasBase64Route
   '/ferramentas/canonical': typeof FerramentasCanonicalRoute
   '/ferramentas/color-picker': typeof FerramentasColorPickerRoute
   '/ferramentas/hash': typeof FerramentasHashRoute
   '/ferramentas/json-formatter': typeof FerramentasJsonFormatterRoute
   '/ferramentas/keyword-density': typeof FerramentasKeywordDensityRoute
+  '/ferramentas/markdown-html': typeof FerramentasMarkdownHtmlRoute
   '/ferramentas/meta-tags': typeof FerramentasMetaTagsRoute
   '/ferramentas/open-graph': typeof FerramentasOpenGraphRoute
   '/ferramentas/pixel-helper': typeof FerramentasPixelHelperRoute
@@ -300,7 +285,6 @@ export interface FileRoutesByTo {
   '/ferramentas/utm-builder': typeof FerramentasUtmBuilderRoute
   '/ferramentas/uuid': typeof FerramentasUuidRoute
   '/noticias/$slug': typeof NoticiasSlugRoute
-  '/noticias/home-index': typeof NoticiasHomeIndexRoute
   '/artigos': typeof ArtigosIndexRoute
   '/ferramentas': typeof FerramentasIndexRoute
   '/noticias': typeof NoticiasIndexRoute
@@ -310,7 +294,6 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/contato': typeof ContatoRoute
-  '/contato1': typeof Contato1Route
   '/ferramentas': typeof FerramentasRouteWithChildren
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -318,13 +301,13 @@ export interface FileRoutesById {
   '/termos': typeof TermosRoute
   '/artigos/$slug': typeof ArtigosSlugRoute
   '/categorias/$categoria': typeof CategoriasCategoriaRoute
-  '/ferramentas/$slug': typeof FerramentasSlugRoute
   '/ferramentas/base64': typeof FerramentasBase64Route
   '/ferramentas/canonical': typeof FerramentasCanonicalRoute
   '/ferramentas/color-picker': typeof FerramentasColorPickerRoute
   '/ferramentas/hash': typeof FerramentasHashRoute
   '/ferramentas/json-formatter': typeof FerramentasJsonFormatterRoute
   '/ferramentas/keyword-density': typeof FerramentasKeywordDensityRoute
+  '/ferramentas/markdown-html': typeof FerramentasMarkdownHtmlRoute
   '/ferramentas/meta-tags': typeof FerramentasMetaTagsRoute
   '/ferramentas/open-graph': typeof FerramentasOpenGraphRoute
   '/ferramentas/pixel-helper': typeof FerramentasPixelHelperRoute
@@ -339,7 +322,6 @@ export interface FileRoutesById {
   '/ferramentas/utm-builder': typeof FerramentasUtmBuilderRoute
   '/ferramentas/uuid': typeof FerramentasUuidRoute
   '/noticias/$slug': typeof NoticiasSlugRoute
-  '/noticias/home-index': typeof NoticiasHomeIndexRoute
   '/artigos/': typeof ArtigosIndexRoute
   '/ferramentas/': typeof FerramentasIndexRoute
   '/noticias/': typeof NoticiasIndexRoute
@@ -350,7 +332,6 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/contato'
-    | '/contato1'
     | '/ferramentas'
     | '/politica-de-privacidade'
     | '/sitemap.xml'
@@ -358,13 +339,13 @@ export interface FileRouteTypes {
     | '/termos'
     | '/artigos/$slug'
     | '/categorias/$categoria'
-    | '/ferramentas/$slug'
     | '/ferramentas/base64'
     | '/ferramentas/canonical'
     | '/ferramentas/color-picker'
     | '/ferramentas/hash'
     | '/ferramentas/json-formatter'
     | '/ferramentas/keyword-density'
+    | '/ferramentas/markdown-html'
     | '/ferramentas/meta-tags'
     | '/ferramentas/open-graph'
     | '/ferramentas/pixel-helper'
@@ -379,7 +360,6 @@ export interface FileRouteTypes {
     | '/ferramentas/utm-builder'
     | '/ferramentas/uuid'
     | '/noticias/$slug'
-    | '/noticias/home-index'
     | '/artigos/'
     | '/ferramentas/'
     | '/noticias/'
@@ -388,20 +368,19 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/contato'
-    | '/contato1'
     | '/politica-de-privacidade'
     | '/sitemap.xml'
     | '/sobre'
     | '/termos'
     | '/artigos/$slug'
     | '/categorias/$categoria'
-    | '/ferramentas/$slug'
     | '/ferramentas/base64'
     | '/ferramentas/canonical'
     | '/ferramentas/color-picker'
     | '/ferramentas/hash'
     | '/ferramentas/json-formatter'
     | '/ferramentas/keyword-density'
+    | '/ferramentas/markdown-html'
     | '/ferramentas/meta-tags'
     | '/ferramentas/open-graph'
     | '/ferramentas/pixel-helper'
@@ -416,7 +395,6 @@ export interface FileRouteTypes {
     | '/ferramentas/utm-builder'
     | '/ferramentas/uuid'
     | '/noticias/$slug'
-    | '/noticias/home-index'
     | '/artigos'
     | '/ferramentas'
     | '/noticias'
@@ -425,7 +403,6 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/contato'
-    | '/contato1'
     | '/ferramentas'
     | '/politica-de-privacidade'
     | '/sitemap.xml'
@@ -433,13 +410,13 @@ export interface FileRouteTypes {
     | '/termos'
     | '/artigos/$slug'
     | '/categorias/$categoria'
-    | '/ferramentas/$slug'
     | '/ferramentas/base64'
     | '/ferramentas/canonical'
     | '/ferramentas/color-picker'
     | '/ferramentas/hash'
     | '/ferramentas/json-formatter'
     | '/ferramentas/keyword-density'
+    | '/ferramentas/markdown-html'
     | '/ferramentas/meta-tags'
     | '/ferramentas/open-graph'
     | '/ferramentas/pixel-helper'
@@ -454,7 +431,6 @@ export interface FileRouteTypes {
     | '/ferramentas/utm-builder'
     | '/ferramentas/uuid'
     | '/noticias/$slug'
-    | '/noticias/home-index'
     | '/artigos/'
     | '/ferramentas/'
     | '/noticias/'
@@ -464,7 +440,6 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ContatoRoute: typeof ContatoRoute
-  Contato1Route: typeof Contato1Route
   FerramentasRoute: typeof FerramentasRouteWithChildren
   PoliticaDePrivacidadeRoute: typeof PoliticaDePrivacidadeRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -473,7 +448,6 @@ export interface RootRouteChildren {
   ArtigosSlugRoute: typeof ArtigosSlugRoute
   CategoriasCategoriaRoute: typeof CategoriasCategoriaRoute
   NoticiasSlugRoute: typeof NoticiasSlugRoute
-  NoticiasHomeIndexRoute: typeof NoticiasHomeIndexRoute
   ArtigosIndexRoute: typeof ArtigosIndexRoute
   NoticiasIndexRoute: typeof NoticiasIndexRoute
   ProjetosIndexRoute: typeof ProjetosIndexRoute
@@ -516,13 +490,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FerramentasRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/contato1': {
-      id: '/contato1'
-      path: '/contato1'
-      fullPath: '/contato1'
-      preLoaderRoute: typeof Contato1RouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/contato': {
       id: '/contato'
       path: '/contato'
@@ -563,13 +530,6 @@ declare module '@tanstack/react-router' {
       path: '/artigos'
       fullPath: '/artigos/'
       preLoaderRoute: typeof ArtigosIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/noticias/home-index': {
-      id: '/noticias/home-index'
-      path: '/noticias/home-index'
-      fullPath: '/noticias/home-index'
-      preLoaderRoute: typeof NoticiasHomeIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/noticias/$slug': {
@@ -670,6 +630,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FerramentasMetaTagsRouteImport
       parentRoute: typeof FerramentasRoute
     }
+    '/ferramentas/markdown-html': {
+      id: '/ferramentas/markdown-html'
+      path: '/markdown-html'
+      fullPath: '/ferramentas/markdown-html'
+      preLoaderRoute: typeof FerramentasMarkdownHtmlRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
     '/ferramentas/keyword-density': {
       id: '/ferramentas/keyword-density'
       path: '/keyword-density'
@@ -712,13 +679,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FerramentasBase64RouteImport
       parentRoute: typeof FerramentasRoute
     }
-    '/ferramentas/$slug': {
-      id: '/ferramentas/$slug'
-      path: '/$slug'
-      fullPath: '/ferramentas/$slug'
-      preLoaderRoute: typeof FerramentasSlugRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
     '/categorias/$categoria': {
       id: '/categorias/$categoria'
       path: '/categorias/$categoria'
@@ -737,13 +697,13 @@ declare module '@tanstack/react-router' {
 }
 
 interface FerramentasRouteChildren {
-  FerramentasSlugRoute: typeof FerramentasSlugRoute
   FerramentasBase64Route: typeof FerramentasBase64Route
   FerramentasCanonicalRoute: typeof FerramentasCanonicalRoute
   FerramentasColorPickerRoute: typeof FerramentasColorPickerRoute
   FerramentasHashRoute: typeof FerramentasHashRoute
   FerramentasJsonFormatterRoute: typeof FerramentasJsonFormatterRoute
   FerramentasKeywordDensityRoute: typeof FerramentasKeywordDensityRoute
+  FerramentasMarkdownHtmlRoute: typeof FerramentasMarkdownHtmlRoute
   FerramentasMetaTagsRoute: typeof FerramentasMetaTagsRoute
   FerramentasOpenGraphRoute: typeof FerramentasOpenGraphRoute
   FerramentasPixelHelperRoute: typeof FerramentasPixelHelperRoute
@@ -761,13 +721,13 @@ interface FerramentasRouteChildren {
 }
 
 const FerramentasRouteChildren: FerramentasRouteChildren = {
-  FerramentasSlugRoute: FerramentasSlugRoute,
   FerramentasBase64Route: FerramentasBase64Route,
   FerramentasCanonicalRoute: FerramentasCanonicalRoute,
   FerramentasColorPickerRoute: FerramentasColorPickerRoute,
   FerramentasHashRoute: FerramentasHashRoute,
   FerramentasJsonFormatterRoute: FerramentasJsonFormatterRoute,
   FerramentasKeywordDensityRoute: FerramentasKeywordDensityRoute,
+  FerramentasMarkdownHtmlRoute: FerramentasMarkdownHtmlRoute,
   FerramentasMetaTagsRoute: FerramentasMetaTagsRoute,
   FerramentasOpenGraphRoute: FerramentasOpenGraphRoute,
   FerramentasPixelHelperRoute: FerramentasPixelHelperRoute,
@@ -791,7 +751,6 @@ const FerramentasRouteWithChildren = FerramentasRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ContatoRoute: ContatoRoute,
-  Contato1Route: Contato1Route,
   FerramentasRoute: FerramentasRouteWithChildren,
   PoliticaDePrivacidadeRoute: PoliticaDePrivacidadeRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
@@ -800,7 +759,6 @@ const rootRouteChildren: RootRouteChildren = {
   ArtigosSlugRoute: ArtigosSlugRoute,
   CategoriasCategoriaRoute: CategoriasCategoriaRoute,
   NoticiasSlugRoute: NoticiasSlugRoute,
-  NoticiasHomeIndexRoute: NoticiasHomeIndexRoute,
   ArtigosIndexRoute: ArtigosIndexRoute,
   NoticiasIndexRoute: NoticiasIndexRoute,
   ProjetosIndexRoute: ProjetosIndexRoute,

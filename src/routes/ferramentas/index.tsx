@@ -1,4 +1,4 @@
-﻿import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/ferramentas/")({
   component: FerramentasPage,
@@ -22,7 +22,7 @@ const grupos = [
     cat: "Geradores",
     cor: "text-[color:var(--secondary-jade)]",
     itens: [
-      { name: "Markdown para HTML", desc: "Cole o texto e copie o HTML.", href: "/ferramentas/gerador/conversor-markdown-html.html" },
+      { name: "Markdown para HTML", desc: "Cole o texto e copie o HTML.", href: "/ferramentas/markdown-html" },
       { name: "Formatador JSON", desc: "Indentacao, minificacao e validacao.", href: "/ferramentas/gerador/json-formatter.html" },
       { name: "Gerador de Cartao", desc: "Dados de cartao para testes.", href: "/ferramentas/gerador/gerador-cartao.html" },
       { name: "Gerador de CPF", desc: "Gere CPFs validos para testes.", href: "/ferramentas/gerador/gerador-cpf.html" },
