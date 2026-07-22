@@ -24,6 +24,7 @@ import { Route as NoticiasSlugRouteImport } from './routes/noticias/$slug'
 import { Route as FerramentasUuidRouteImport } from './routes/ferramentas/uuid'
 import { Route as FerramentasUtmBuilderRouteImport } from './routes/ferramentas/utm-builder'
 import { Route as FerramentasTranslatorRouteImport } from './routes/ferramentas/translator'
+import { Route as FerramentasTestadorRegexRouteImport } from './routes/ferramentas/testador-regex'
 import { Route as FerramentasSummarizerRouteImport } from './routes/ferramentas/summarizer'
 import { Route as FerramentasSitemapRouteImport } from './routes/ferramentas/sitemap'
 import { Route as FerramentasSchemaRouteImport } from './routes/ferramentas/schema'
@@ -33,12 +34,14 @@ import { Route as FerramentasQrCodeGeneratorRouteImport } from './routes/ferrame
 import { Route as FerramentasPromptGeneratorRouteImport } from './routes/ferramentas/prompt-generator'
 import { Route as FerramentasPixelHelperRouteImport } from './routes/ferramentas/pixel-helper'
 import { Route as FerramentasOpenGraphRouteImport } from './routes/ferramentas/open-graph'
+import { Route as FerramentasMeuIpRouteImport } from './routes/ferramentas/meu-ip'
 import { Route as FerramentasMetaTagsRouteImport } from './routes/ferramentas/meta-tags'
 import { Route as FerramentasMarkdownHtmlRouteImport } from './routes/ferramentas/markdown-html'
 import { Route as FerramentasKeywordDensityRouteImport } from './routes/ferramentas/keyword-density'
-import { Route as FerramentasJsonFormatterRouteImport } from './routes/ferramentas/json-formatter'
 import { Route as FerramentasHashRouteImport } from './routes/ferramentas/hash'
+import { Route as FerramentasFormatadorJsonRouteImport } from './routes/ferramentas/formatador-json'
 import { Route as FerramentasColorPickerRouteImport } from './routes/ferramentas/color-picker'
+import { Route as FerramentasChecadorSenhaRouteImport } from './routes/ferramentas/checador-senha'
 import { Route as FerramentasCanonicalRouteImport } from './routes/ferramentas/canonical'
 import { Route as FerramentasBase64RouteImport } from './routes/ferramentas/base64'
 import { Route as CategoriasCategoriaRouteImport } from './routes/categorias/$categoria'
@@ -119,6 +122,12 @@ const FerramentasTranslatorRoute = FerramentasTranslatorRouteImport.update({
   path: '/translator',
   getParentRoute: () => FerramentasRoute,
 } as any)
+const FerramentasTestadorRegexRoute =
+  FerramentasTestadorRegexRouteImport.update({
+    id: '/testador-regex',
+    path: '/testador-regex',
+    getParentRoute: () => FerramentasRoute,
+  } as any)
 const FerramentasSummarizerRoute = FerramentasSummarizerRouteImport.update({
   id: '/summarizer',
   path: '/summarizer',
@@ -166,6 +175,11 @@ const FerramentasOpenGraphRoute = FerramentasOpenGraphRouteImport.update({
   path: '/open-graph',
   getParentRoute: () => FerramentasRoute,
 } as any)
+const FerramentasMeuIpRoute = FerramentasMeuIpRouteImport.update({
+  id: '/meu-ip',
+  path: '/meu-ip',
+  getParentRoute: () => FerramentasRoute,
+} as any)
 const FerramentasMetaTagsRoute = FerramentasMetaTagsRouteImport.update({
   id: '/meta-tags',
   path: '/meta-tags',
@@ -182,22 +196,28 @@ const FerramentasKeywordDensityRoute =
     path: '/keyword-density',
     getParentRoute: () => FerramentasRoute,
   } as any)
-const FerramentasJsonFormatterRoute =
-  FerramentasJsonFormatterRouteImport.update({
-    id: '/json-formatter',
-    path: '/json-formatter',
-    getParentRoute: () => FerramentasRoute,
-  } as any)
 const FerramentasHashRoute = FerramentasHashRouteImport.update({
   id: '/hash',
   path: '/hash',
   getParentRoute: () => FerramentasRoute,
 } as any)
+const FerramentasFormatadorJsonRoute =
+  FerramentasFormatadorJsonRouteImport.update({
+    id: '/formatador-json',
+    path: '/formatador-json',
+    getParentRoute: () => FerramentasRoute,
+  } as any)
 const FerramentasColorPickerRoute = FerramentasColorPickerRouteImport.update({
   id: '/color-picker',
   path: '/color-picker',
   getParentRoute: () => FerramentasRoute,
 } as any)
+const FerramentasChecadorSenhaRoute =
+  FerramentasChecadorSenhaRouteImport.update({
+    id: '/checador-senha',
+    path: '/checador-senha',
+    getParentRoute: () => FerramentasRoute,
+  } as any)
 const FerramentasCanonicalRoute = FerramentasCanonicalRouteImport.update({
   id: '/canonical',
   path: '/canonical',
@@ -231,12 +251,14 @@ export interface FileRoutesByFullPath {
   '/categorias/$categoria': typeof CategoriasCategoriaRoute
   '/ferramentas/base64': typeof FerramentasBase64Route
   '/ferramentas/canonical': typeof FerramentasCanonicalRoute
+  '/ferramentas/checador-senha': typeof FerramentasChecadorSenhaRoute
   '/ferramentas/color-picker': typeof FerramentasColorPickerRoute
+  '/ferramentas/formatador-json': typeof FerramentasFormatadorJsonRoute
   '/ferramentas/hash': typeof FerramentasHashRoute
-  '/ferramentas/json-formatter': typeof FerramentasJsonFormatterRoute
   '/ferramentas/keyword-density': typeof FerramentasKeywordDensityRoute
   '/ferramentas/markdown-html': typeof FerramentasMarkdownHtmlRoute
   '/ferramentas/meta-tags': typeof FerramentasMetaTagsRoute
+  '/ferramentas/meu-ip': typeof FerramentasMeuIpRoute
   '/ferramentas/open-graph': typeof FerramentasOpenGraphRoute
   '/ferramentas/pixel-helper': typeof FerramentasPixelHelperRoute
   '/ferramentas/prompt-generator': typeof FerramentasPromptGeneratorRoute
@@ -246,6 +268,7 @@ export interface FileRoutesByFullPath {
   '/ferramentas/schema': typeof FerramentasSchemaRoute
   '/ferramentas/sitemap': typeof FerramentasSitemapRoute
   '/ferramentas/summarizer': typeof FerramentasSummarizerRoute
+  '/ferramentas/testador-regex': typeof FerramentasTestadorRegexRoute
   '/ferramentas/translator': typeof FerramentasTranslatorRoute
   '/ferramentas/utm-builder': typeof FerramentasUtmBuilderRoute
   '/ferramentas/uuid': typeof FerramentasUuidRoute
@@ -266,12 +289,14 @@ export interface FileRoutesByTo {
   '/categorias/$categoria': typeof CategoriasCategoriaRoute
   '/ferramentas/base64': typeof FerramentasBase64Route
   '/ferramentas/canonical': typeof FerramentasCanonicalRoute
+  '/ferramentas/checador-senha': typeof FerramentasChecadorSenhaRoute
   '/ferramentas/color-picker': typeof FerramentasColorPickerRoute
+  '/ferramentas/formatador-json': typeof FerramentasFormatadorJsonRoute
   '/ferramentas/hash': typeof FerramentasHashRoute
-  '/ferramentas/json-formatter': typeof FerramentasJsonFormatterRoute
   '/ferramentas/keyword-density': typeof FerramentasKeywordDensityRoute
   '/ferramentas/markdown-html': typeof FerramentasMarkdownHtmlRoute
   '/ferramentas/meta-tags': typeof FerramentasMetaTagsRoute
+  '/ferramentas/meu-ip': typeof FerramentasMeuIpRoute
   '/ferramentas/open-graph': typeof FerramentasOpenGraphRoute
   '/ferramentas/pixel-helper': typeof FerramentasPixelHelperRoute
   '/ferramentas/prompt-generator': typeof FerramentasPromptGeneratorRoute
@@ -281,6 +306,7 @@ export interface FileRoutesByTo {
   '/ferramentas/schema': typeof FerramentasSchemaRoute
   '/ferramentas/sitemap': typeof FerramentasSitemapRoute
   '/ferramentas/summarizer': typeof FerramentasSummarizerRoute
+  '/ferramentas/testador-regex': typeof FerramentasTestadorRegexRoute
   '/ferramentas/translator': typeof FerramentasTranslatorRoute
   '/ferramentas/utm-builder': typeof FerramentasUtmBuilderRoute
   '/ferramentas/uuid': typeof FerramentasUuidRoute
@@ -303,12 +329,14 @@ export interface FileRoutesById {
   '/categorias/$categoria': typeof CategoriasCategoriaRoute
   '/ferramentas/base64': typeof FerramentasBase64Route
   '/ferramentas/canonical': typeof FerramentasCanonicalRoute
+  '/ferramentas/checador-senha': typeof FerramentasChecadorSenhaRoute
   '/ferramentas/color-picker': typeof FerramentasColorPickerRoute
+  '/ferramentas/formatador-json': typeof FerramentasFormatadorJsonRoute
   '/ferramentas/hash': typeof FerramentasHashRoute
-  '/ferramentas/json-formatter': typeof FerramentasJsonFormatterRoute
   '/ferramentas/keyword-density': typeof FerramentasKeywordDensityRoute
   '/ferramentas/markdown-html': typeof FerramentasMarkdownHtmlRoute
   '/ferramentas/meta-tags': typeof FerramentasMetaTagsRoute
+  '/ferramentas/meu-ip': typeof FerramentasMeuIpRoute
   '/ferramentas/open-graph': typeof FerramentasOpenGraphRoute
   '/ferramentas/pixel-helper': typeof FerramentasPixelHelperRoute
   '/ferramentas/prompt-generator': typeof FerramentasPromptGeneratorRoute
@@ -318,6 +346,7 @@ export interface FileRoutesById {
   '/ferramentas/schema': typeof FerramentasSchemaRoute
   '/ferramentas/sitemap': typeof FerramentasSitemapRoute
   '/ferramentas/summarizer': typeof FerramentasSummarizerRoute
+  '/ferramentas/testador-regex': typeof FerramentasTestadorRegexRoute
   '/ferramentas/translator': typeof FerramentasTranslatorRoute
   '/ferramentas/utm-builder': typeof FerramentasUtmBuilderRoute
   '/ferramentas/uuid': typeof FerramentasUuidRoute
@@ -341,12 +370,14 @@ export interface FileRouteTypes {
     | '/categorias/$categoria'
     | '/ferramentas/base64'
     | '/ferramentas/canonical'
+    | '/ferramentas/checador-senha'
     | '/ferramentas/color-picker'
+    | '/ferramentas/formatador-json'
     | '/ferramentas/hash'
-    | '/ferramentas/json-formatter'
     | '/ferramentas/keyword-density'
     | '/ferramentas/markdown-html'
     | '/ferramentas/meta-tags'
+    | '/ferramentas/meu-ip'
     | '/ferramentas/open-graph'
     | '/ferramentas/pixel-helper'
     | '/ferramentas/prompt-generator'
@@ -356,6 +387,7 @@ export interface FileRouteTypes {
     | '/ferramentas/schema'
     | '/ferramentas/sitemap'
     | '/ferramentas/summarizer'
+    | '/ferramentas/testador-regex'
     | '/ferramentas/translator'
     | '/ferramentas/utm-builder'
     | '/ferramentas/uuid'
@@ -376,12 +408,14 @@ export interface FileRouteTypes {
     | '/categorias/$categoria'
     | '/ferramentas/base64'
     | '/ferramentas/canonical'
+    | '/ferramentas/checador-senha'
     | '/ferramentas/color-picker'
+    | '/ferramentas/formatador-json'
     | '/ferramentas/hash'
-    | '/ferramentas/json-formatter'
     | '/ferramentas/keyword-density'
     | '/ferramentas/markdown-html'
     | '/ferramentas/meta-tags'
+    | '/ferramentas/meu-ip'
     | '/ferramentas/open-graph'
     | '/ferramentas/pixel-helper'
     | '/ferramentas/prompt-generator'
@@ -391,6 +425,7 @@ export interface FileRouteTypes {
     | '/ferramentas/schema'
     | '/ferramentas/sitemap'
     | '/ferramentas/summarizer'
+    | '/ferramentas/testador-regex'
     | '/ferramentas/translator'
     | '/ferramentas/utm-builder'
     | '/ferramentas/uuid'
@@ -412,12 +447,14 @@ export interface FileRouteTypes {
     | '/categorias/$categoria'
     | '/ferramentas/base64'
     | '/ferramentas/canonical'
+    | '/ferramentas/checador-senha'
     | '/ferramentas/color-picker'
+    | '/ferramentas/formatador-json'
     | '/ferramentas/hash'
-    | '/ferramentas/json-formatter'
     | '/ferramentas/keyword-density'
     | '/ferramentas/markdown-html'
     | '/ferramentas/meta-tags'
+    | '/ferramentas/meu-ip'
     | '/ferramentas/open-graph'
     | '/ferramentas/pixel-helper'
     | '/ferramentas/prompt-generator'
@@ -427,6 +464,7 @@ export interface FileRouteTypes {
     | '/ferramentas/schema'
     | '/ferramentas/sitemap'
     | '/ferramentas/summarizer'
+    | '/ferramentas/testador-regex'
     | '/ferramentas/translator'
     | '/ferramentas/utm-builder'
     | '/ferramentas/uuid'
@@ -560,6 +598,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FerramentasTranslatorRouteImport
       parentRoute: typeof FerramentasRoute
     }
+    '/ferramentas/testador-regex': {
+      id: '/ferramentas/testador-regex'
+      path: '/testador-regex'
+      fullPath: '/ferramentas/testador-regex'
+      preLoaderRoute: typeof FerramentasTestadorRegexRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
     '/ferramentas/summarizer': {
       id: '/ferramentas/summarizer'
       path: '/summarizer'
@@ -623,6 +668,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FerramentasOpenGraphRouteImport
       parentRoute: typeof FerramentasRoute
     }
+    '/ferramentas/meu-ip': {
+      id: '/ferramentas/meu-ip'
+      path: '/meu-ip'
+      fullPath: '/ferramentas/meu-ip'
+      preLoaderRoute: typeof FerramentasMeuIpRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
     '/ferramentas/meta-tags': {
       id: '/ferramentas/meta-tags'
       path: '/meta-tags'
@@ -644,13 +696,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FerramentasKeywordDensityRouteImport
       parentRoute: typeof FerramentasRoute
     }
-    '/ferramentas/json-formatter': {
-      id: '/ferramentas/json-formatter'
-      path: '/json-formatter'
-      fullPath: '/ferramentas/json-formatter'
-      preLoaderRoute: typeof FerramentasJsonFormatterRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
     '/ferramentas/hash': {
       id: '/ferramentas/hash'
       path: '/hash'
@@ -658,11 +703,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FerramentasHashRouteImport
       parentRoute: typeof FerramentasRoute
     }
+    '/ferramentas/formatador-json': {
+      id: '/ferramentas/formatador-json'
+      path: '/formatador-json'
+      fullPath: '/ferramentas/formatador-json'
+      preLoaderRoute: typeof FerramentasFormatadorJsonRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
     '/ferramentas/color-picker': {
       id: '/ferramentas/color-picker'
       path: '/color-picker'
       fullPath: '/ferramentas/color-picker'
       preLoaderRoute: typeof FerramentasColorPickerRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/checador-senha': {
+      id: '/ferramentas/checador-senha'
+      path: '/checador-senha'
+      fullPath: '/ferramentas/checador-senha'
+      preLoaderRoute: typeof FerramentasChecadorSenhaRouteImport
       parentRoute: typeof FerramentasRoute
     }
     '/ferramentas/canonical': {
@@ -699,12 +758,14 @@ declare module '@tanstack/react-router' {
 interface FerramentasRouteChildren {
   FerramentasBase64Route: typeof FerramentasBase64Route
   FerramentasCanonicalRoute: typeof FerramentasCanonicalRoute
+  FerramentasChecadorSenhaRoute: typeof FerramentasChecadorSenhaRoute
   FerramentasColorPickerRoute: typeof FerramentasColorPickerRoute
+  FerramentasFormatadorJsonRoute: typeof FerramentasFormatadorJsonRoute
   FerramentasHashRoute: typeof FerramentasHashRoute
-  FerramentasJsonFormatterRoute: typeof FerramentasJsonFormatterRoute
   FerramentasKeywordDensityRoute: typeof FerramentasKeywordDensityRoute
   FerramentasMarkdownHtmlRoute: typeof FerramentasMarkdownHtmlRoute
   FerramentasMetaTagsRoute: typeof FerramentasMetaTagsRoute
+  FerramentasMeuIpRoute: typeof FerramentasMeuIpRoute
   FerramentasOpenGraphRoute: typeof FerramentasOpenGraphRoute
   FerramentasPixelHelperRoute: typeof FerramentasPixelHelperRoute
   FerramentasPromptGeneratorRoute: typeof FerramentasPromptGeneratorRoute
@@ -714,6 +775,7 @@ interface FerramentasRouteChildren {
   FerramentasSchemaRoute: typeof FerramentasSchemaRoute
   FerramentasSitemapRoute: typeof FerramentasSitemapRoute
   FerramentasSummarizerRoute: typeof FerramentasSummarizerRoute
+  FerramentasTestadorRegexRoute: typeof FerramentasTestadorRegexRoute
   FerramentasTranslatorRoute: typeof FerramentasTranslatorRoute
   FerramentasUtmBuilderRoute: typeof FerramentasUtmBuilderRoute
   FerramentasUuidRoute: typeof FerramentasUuidRoute
@@ -723,12 +785,14 @@ interface FerramentasRouteChildren {
 const FerramentasRouteChildren: FerramentasRouteChildren = {
   FerramentasBase64Route: FerramentasBase64Route,
   FerramentasCanonicalRoute: FerramentasCanonicalRoute,
+  FerramentasChecadorSenhaRoute: FerramentasChecadorSenhaRoute,
   FerramentasColorPickerRoute: FerramentasColorPickerRoute,
+  FerramentasFormatadorJsonRoute: FerramentasFormatadorJsonRoute,
   FerramentasHashRoute: FerramentasHashRoute,
-  FerramentasJsonFormatterRoute: FerramentasJsonFormatterRoute,
   FerramentasKeywordDensityRoute: FerramentasKeywordDensityRoute,
   FerramentasMarkdownHtmlRoute: FerramentasMarkdownHtmlRoute,
   FerramentasMetaTagsRoute: FerramentasMetaTagsRoute,
+  FerramentasMeuIpRoute: FerramentasMeuIpRoute,
   FerramentasOpenGraphRoute: FerramentasOpenGraphRoute,
   FerramentasPixelHelperRoute: FerramentasPixelHelperRoute,
   FerramentasPromptGeneratorRoute: FerramentasPromptGeneratorRoute,
@@ -738,6 +802,7 @@ const FerramentasRouteChildren: FerramentasRouteChildren = {
   FerramentasSchemaRoute: FerramentasSchemaRoute,
   FerramentasSitemapRoute: FerramentasSitemapRoute,
   FerramentasSummarizerRoute: FerramentasSummarizerRoute,
+  FerramentasTestadorRegexRoute: FerramentasTestadorRegexRoute,
   FerramentasTranslatorRoute: FerramentasTranslatorRoute,
   FerramentasUtmBuilderRoute: FerramentasUtmBuilderRoute,
   FerramentasUuidRoute: FerramentasUuidRoute,

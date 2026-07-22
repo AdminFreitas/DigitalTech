@@ -1,7 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { NewsCardPequeno } from "@/components/noticias/NewsCard";
-import { NOTICIAS, CATEGORIAS } from "@/components/noticias/dados";
+import type { Noticia } from "@/components/noticias/dados";
+import { formatarData } from "@/lib/content";
+import { getNoticias, getCategorias } from "@/lib/noticias";
 
 export const Route = createFileRoute("/noticias/")({
   head: () => ({
@@ -13,18 +15,43 @@ export const Route = createFileRoute("/noticias/")({
       },
     ],
   }),
-  component: NoticiasPage,
+  loader: async () => {
+    const [rows, cats] = await Promise.all([getNoticias(), getCategorias()]);
+    const noticias: Noticia[] = rows.map((n) => {
+      const dataISO =
+        n.data_publicacao instanceof Date
+          ? n.data_publicacao.toISOString().slice(0, 10)
+          : String(n.data_publicacao).slice(0, 10);
+      return {
+        slug: n.slug,
+        titulo: n.titulo,
+        resumo: n.resumo,
+        categoria: n.categoria_slug ?? "",
+        categoriaLabel: n.categoria_nome ?? "",
+        fonte: n.fonte ?? "",
+        data: formatarData(dataISO),
+        dataISO,
+        destaque: Boolean(n.destaque),
+        coverImage: n.cover_image ?? "",
+        tempoLeitura: n.tempo_leitura ?? 5,
+      };
+    });
+    const categorias = cats.map((c) => ({ slug: c.slug, label: c.nome }));
+    return { noticias, categorias };
+  },
+  component: NoticiasHome,
 });
 
-function NoticiasPage() {
+function NoticiasHome() {
+  const { noticias, categorias } = Route.useLoaderData();
   const [cat, setCat] = useState("todas");
 
-  const destaquePrincipal = NOTICIAS.find((n) => n.destaque) ?? NOTICIAS[0];
-  const destaquesSecundarios = NOTICIAS.filter((n) => n.slug !== destaquePrincipal?.slug).slice(0, 3);
+  const destaquePrincipal = noticias.find((n) => n.destaque) ?? noticias[0];
+  const destaquesSecundarios = noticias.filter((n) => n.slug !== destaquePrincipal?.slug).slice(0, 3);
 
-  const outras = NOTICIAS.filter(
-    (n) => n.slug !== destaquePrincipal?.slug && (cat === "todas" || n.categoria === cat)
-  ).sort((a, b) => b.dataISO.localeCompare(a.dataISO));
+  const outras = noticias
+    .filter((n) => n.slug !== destaquePrincipal?.slug && (cat === "todas" || n.categoria === cat))
+    .sort((a, b) => b.dataISO.localeCompare(a.dataISO));
 
   if (!destaquePrincipal) {
     return (
@@ -120,7 +147,7 @@ function NoticiasPage() {
           >
             Todas
           </button>
-          {CATEGORIAS.filter((c) => c.slug !== "todas").map((c) => (
+          {categorias.map((c) => (
             <button
               key={c.slug}
               onClick={() => setCat(c.slug)}

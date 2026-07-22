@@ -126,12 +126,12 @@ const tools = [
   {
     name: "Compressor de Imagens",
     desc: "Reduza JPG, PNG e WebP no navegador.",
-    href: "/ferramentas/imagens/compressor.html",
+    href: "/ferramentas/formatador-json",
   },
   {
     name: "Conversor Markdown → HTML",
     desc: "Cole o texto e copie o HTML pronto.",
-    href: "/ferramentas/gerador/conversor-markdown-html.html",
+    href: "/ferramentas/markdown-html",
   },
   {
     name: "Gerador de UUID / Hash",
@@ -141,17 +141,17 @@ const tools = [
   {
     name: "Formatador JSON",
     desc: "Indentação, minificação e validação.",
-    href: "/ferramentas/json-formatter",
+    href: "/ferramentas/formatador-json",
   },
   {
     name: "Testador de Regex",
     desc: "Padrões PCRE com explicação visual.",
-    href: "/ferramentas/gerador/testador-regex.html",
+    href: "/ferramentas/testador-regex",
   },
   {
     name: "Checador de Senha",
     desc: "Entropia, força e vazamentos conhecidos.",
-    href: "/ferramentas/seguranca/verificador-senha.html",
+    href: "/ferramentas/checador-senha",
   },
 ];
 
