@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { cadastrarAssinante } from "@/lib/assinantes";
 import { Link } from "@tanstack/react-router";
 import {
   Github,
@@ -15,6 +16,32 @@ type Canal = "email" | "whatsapp";
 export function Footer() {
   const [canal, setCanal] = useState<Canal>("email");
   const [valor, setValor] = useState("");
+  const [nome, setNome] = useState("");
+  const [enviado, setEnviado] = useState(false);
+  const [erro, setErro] = useState("");
+  const [enviando, setEnviando] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!valor.trim()) { setErro("Preencha o campo obrigatório."); return; }
+    if (canal === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor)) {
+      setErro("E-mail inválido."); return;
+    }
+    setErro(""); setEnviando(true);
+    const resultado = await cadastrarAssinante({
+      data: {
+        nome: nome || "Assinante",
+        email: canal === "email" ? valor : undefined,
+        telefone: canal === "whatsapp" ? valor : undefined,
+        receberEmail: canal === "email",
+        receberWhatsapp: canal === "whatsapp",
+        origem: "footer",
+      }
+    });
+    setEnviando(false);
+    if (resultado.ok) { setEnviado(true); setValor(""); setNome(""); }
+    else { setErro(resultado.mensagem); }
+  };
 
   const scrollTopo = () =>
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -33,7 +60,7 @@ export function Footer() {
               </p>
             </div>
 
-            <form className="space-y-3">
+            <form className="space-y-3" onSubmit={handleSubmit}>
               <div className="flex overflow-hidden rounded-lg border border-[var(--glass-border)] w-fit">
                 <button
                   type="button"
