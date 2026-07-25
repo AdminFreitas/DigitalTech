@@ -1,0 +1,45 @@
+name: Agente de Notícias DigitalTech
+
+on:
+  schedule:
+    # 09:00 e 15:00 (horário de Brasília = UTC-3) -> 12:00 e 18:00 UTC
+    - cron: "0 12,18 * * *"
+  workflow_dispatch: {} # permite rodar manualmente pela aba Actions
+
+jobs:
+  publicar-artigo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Instalar dependências do projeto
+        run: npm ci
+
+      - name: Instalar Ollama
+        run: curl -fsSL https://ollama.com/install.sh | sh
+
+      - name: Iniciar servidor Ollama em segundo plano
+        run: |
+          nohup ollama serve > ollama.log 2>&1 &
+          # espera o servidor responder antes de seguir
+          for i in $(seq 1 15); do
+            curl -s http://localhost:11434 > /dev/null && break
+            sleep 2
+          done
+
+      - name: Baixar o modelo
+        run: ollama pull llama3.2:3b
+
+      - name: Rodar o agente
+        run: npx tsx scripts/agente/index.ts
+        env:
+          OLLAMA_MODEL: llama3.2:3b
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          UNSPLASH_ACCESS_KEY: ${{ secrets.UNSPLASH_ACCESS_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
