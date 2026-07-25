@@ -1,13 +1,44 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { buscarArtigo, formatarData, type Artigo } from "@/lib/content";
+import { formatarData } from "@/lib/content";
+import { getArtigoPorSlug } from "@/lib/artigos";
+
+type ArtigoDb = NonNullable<Awaited<ReturnType<typeof getArtigoPorSlug>>>;
+
+type ArtigoView = {
+  slug: string;
+  title: string;
+  category: string;
+  excerpt: string;
+  date: string;
+  readTime: string;
+  html: string;
+};
+
+function mapArtigo(row: ArtigoDb): ArtigoView {
+  const dataISO =
+    row.data_publicacao instanceof Date
+      ? row.data_publicacao.toISOString().slice(0, 10)
+      : String(row.data_publicacao).slice(0, 10);
+  const tempo = row.tempo_leitura;
+  return {
+    slug: row.slug,
+    title: row.titulo,
+    category: row.categoria,
+    excerpt: row.resumo,
+    date: dataISO,
+    readTime: typeof tempo === "number" ? `${tempo} min` : String(tempo ?? ""),
+    html: String(row.conteudo ?? ""),
+  };
+}
 
 export const Route = createFileRoute("/artigos/$slug")({
-  head: ({ params }) => {
-    const artigo = buscarArtigo(params.slug);
+  head: async ({ params }) => {
+    const row = await getArtigoPorSlug({ data: params.slug });
     const url = `https://digitaltech.digital/artigos/${params.slug}`;
-    if (!artigo) {
+    if (!row) {
       return { meta: [{ title: "Artigo não encontrado — DIGITALTECH" }] };
     }
+    const artigo = mapArtigo(row);
     return {
       meta: [
         { title: `${artigo.title} — DIGITALTECH` },
@@ -26,17 +57,17 @@ export const Route = createFileRoute("/artigos/$slug")({
       links: [{ rel: "canonical", href: url }],
     };
   },
-  loader: ({ params }) => {
-    const artigo = buscarArtigo(params.slug);
-    if (!artigo) throw notFound();
-    return artigo;
+  loader: async ({ params }) => {
+    const row = await getArtigoPorSlug({ data: params.slug });
+    if (!row) throw notFound();
+    return mapArtigo(row);
   },
   component: ArtigoPage,
 });
 
 function ArtigoPage() {
-  const artigo = Route.useLoaderData() as Artigo;
-  if (!artigo) return null; // o loader já lança notFound() antes disso — guarda em runtime
+  const artigo = Route.useLoaderData();
+  if (!artigo) return null;
 
   return (
     <article className="text-[var(--text-primary)]">

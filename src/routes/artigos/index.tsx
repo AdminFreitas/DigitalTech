@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { formatarData, listarArtigos } from "@/lib/content";
+import { formatarData } from "@/lib/content";
+import { getArtigos } from "@/lib/artigos";
 
 export const Route = createFileRoute("/artigos/")({
   head: () => ({
@@ -12,6 +13,24 @@ export const Route = createFileRoute("/artigos/")({
       },
     ],
   }),
+  loader: async () => {
+    const rows = await getArtigos();
+    return rows.map((a) => {
+      const dataISO =
+        a.data_publicacao instanceof Date
+          ? a.data_publicacao.toISOString().slice(0, 10)
+          : String(a.data_publicacao).slice(0, 10);
+      const tempo = a.tempo_leitura;
+      return {
+        slug: a.slug,
+        title: a.titulo,
+        excerpt: a.resumo,
+        category: a.categoria,
+        date: dataISO,
+        readTime: typeof tempo === "number" ? `${tempo} min` : String(tempo ?? ""),
+      };
+    });
+  },
   component: ArtigosPage,
 });
 
@@ -25,7 +44,7 @@ const COVER_GRADIENTS = [
 ];
 
 function ArtigosPage() {
-  const artigos = listarArtigos();
+  const artigos = Route.useLoaderData();
 
   if (artigos.length === 0) {
     return (
