@@ -1,9 +1,10 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useRef, useState, type MouseEvent } from "react";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
 import logo from "@/assets/logo-robot.webp";
 import planet from "@/assets/planet.webp";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { listarArtigos, formatarData } from "@/lib/content";
+import { pesquisar } from "@/lib/pesquisa";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -408,57 +409,100 @@ function Hero() {
 
 function SafeSearch() {
   const [q, setQ] = useState("");
-  const [echo, setEcho] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const results = useMemo(() => pesquisar(q), [q]);
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const params = new URLSearchParams(window.location.search);
-    const busca = params.get("busca");
-    if (busca) setEcho(busca);
-  }, []);
+  const CORES_TIPO: Record<string, string> = {
+    Artigo: "text-[color:var(--primary-cyan)] bg-[color:var(--primary-cyan)]/10",
+    Notícia: "text-[color:var(--secondary-jade)] bg-[color:var(--secondary-jade)]/10",
+    Ferramenta: "text-[color:var(--accent-amber)] bg-[color:var(--accent-amber)]/10",
+  };
+
+  const irPara = (url: string) => {
+    setQ("");
+    setOpen(false);
+    navigate({ to: url });
+  };
 
   return (
-    <form
-      role="search"
-      onSubmit={(e) => {
-        e.preventDefault();
-        const safe = q.trim().slice(0, 120);
-        setEcho(safe || null);
-        const url = new URL(window.location.href);
-        if (safe) url.searchParams.set("busca", safe);
-        else url.searchParams.delete("busca");
-        window.history.replaceState({}, "", url.toString());
-      }}
-      className="mt-6 flex max-w-md items-center gap-2 rounded-full border border-[var(--glass-border)] bg-[rgba(22,31,48,0.5)] px-4 py-2 backdrop-blur-md"
-    >
-      <svg
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        className="text-[var(--text-secondary)]"
+    <div className="relative mt-6 max-w-md">
+      <form
+        role="search"
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (results.length > 0) irPara(results[0].url);
+        }}
+        className="flex items-center gap-2 rounded-full border border-[var(--glass-border)] bg-[rgba(22,31,48,0.5)] px-4 py-2 backdrop-blur-md"
       >
-        <circle cx="11" cy="11" r="7" />
-        <path d="M21 21l-4.3-4.3" />
-      </svg>
-      <input
-        type="search"
-        name="busca"
-        maxLength={120}
-        placeholder="Buscar artigos…"
-        value={q}
-        onChange={(e) => setQ(e.target.value)}
-        className="flex-1 bg-transparent text-[14px] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] outline-none"
-      />
-      <button
-        type="submit"
-        className="text-[12px] uppercase tracking-wider text-[var(--primary-cyan)] hover:text-white transition-colors"
-      >
-        Buscar
-      </button>
-    </form>
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          className="text-[var(--text-secondary)]"
+        >
+          <circle cx="11" cy="11" r="7" />
+          <path d="M21 21l-4.3-4.3" />
+        </svg>
+        <input
+          type="search"
+          name="busca"
+          maxLength={120}
+          placeholder="Buscar artigos…"
+          value={q}
+          onChange={(e) => setQ(e.target.value)}
+          onFocus={() => setOpen(true)}
+          onBlur={() => setOpen(false)}
+          className="flex-1 bg-transparent text-[14px] text-[var(--text-primary)] placeholder:text-[var(--text-muted)] outline-none"
+        />
+        <button
+          type="submit"
+          className="text-[12px] uppercase tracking-wider text-[var(--primary-cyan)] hover:text-white transition-colors"
+        >
+          Buscar
+        </button>
+      </form>
+
+      {open && q.trim() && (
+        <div className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-xl border border-[var(--glass-border)] bg-[rgba(22,31,48,0.95)] p-2 shadow-xl backdrop-blur-md">
+          {results.length === 0 ? (
+            <p className="px-3 py-2 text-[13px] text-[var(--text-secondary)]">
+              Nenhum resultado para "{q}".
+            </p>
+          ) : (
+            <ul className="max-h-72 space-y-1 overflow-y-auto">
+              {results.map((r) => (
+                <li key={r.url}>
+                  <button
+                    type="button"
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() => irPara(r.url)}
+                    className="flex w-full items-start gap-3 rounded-lg p-2.5 text-left transition hover:bg-white/5"
+                  >
+                    <span
+                      className={`mt-0.5 shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${CORES_TIPO[r.tipo]}`}
+                    >
+                      {r.tipo}
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block truncate text-[13px] font-medium text-[var(--text-primary)]">
+                        {r.titulo}
+                      </span>
+                      <span className="block truncate text-[12px] text-[var(--text-secondary)]">
+                        {r.resumo}
+                      </span>
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
+    </div>
   );
 }
 

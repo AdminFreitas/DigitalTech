@@ -21,10 +21,12 @@ import { Route as NoticiasIndexRouteImport } from './routes/noticias/index'
 import { Route as FerramentasIndexRouteImport } from './routes/ferramentas/index'
 import { Route as ArtigosIndexRouteImport } from './routes/artigos/index'
 import { Route as NoticiasSlugRouteImport } from './routes/noticias/$slug'
+import { Route as FerramentasValidadorCpfCnpjRouteImport } from './routes/ferramentas/validador-cpf-cnpj'
 import { Route as FerramentasUuidRouteImport } from './routes/ferramentas/uuid'
 import { Route as FerramentasUtmBuilderRouteImport } from './routes/ferramentas/utm-builder'
 import { Route as FerramentasTranslatorRouteImport } from './routes/ferramentas/translator'
 import { Route as FerramentasTestadorRegexRouteImport } from './routes/ferramentas/testador-regex'
+import { Route as FerramentasTelefoneTemporarioRouteImport } from './routes/ferramentas/telefone-temporario'
 import { Route as FerramentasSummarizerRouteImport } from './routes/ferramentas/summarizer'
 import { Route as FerramentasSitemapRouteImport } from './routes/ferramentas/sitemap'
 import { Route as FerramentasSchemaRouteImport } from './routes/ferramentas/schema'
@@ -39,7 +41,12 @@ import { Route as FerramentasMetaTagsRouteImport } from './routes/ferramentas/me
 import { Route as FerramentasMarkdownHtmlRouteImport } from './routes/ferramentas/markdown-html'
 import { Route as FerramentasKeywordDensityRouteImport } from './routes/ferramentas/keyword-density'
 import { Route as FerramentasHashRouteImport } from './routes/ferramentas/hash'
+import { Route as FerramentasGeradorCpfCnpjRouteImport } from './routes/ferramentas/gerador-cpf-cnpj'
+import { Route as FerramentasGeradorCepRouteImport } from './routes/ferramentas/gerador-cep'
+import { Route as FerramentasGeradorCartaoRouteImport } from './routes/ferramentas/gerador-cartao'
 import { Route as FerramentasFormatadorJsonRouteImport } from './routes/ferramentas/formatador-json'
+import { Route as FerramentasEmailTemporarioRouteImport } from './routes/ferramentas/email-temporario'
+import { Route as FerramentasConversorImagensRouteImport } from './routes/ferramentas/conversor-imagens'
 import { Route as FerramentasColorPickerRouteImport } from './routes/ferramentas/color-picker'
 import { Route as FerramentasChecadorSenhaRouteImport } from './routes/ferramentas/checador-senha'
 import { Route as FerramentasCanonicalRouteImport } from './routes/ferramentas/canonical'
@@ -107,6 +114,12 @@ const NoticiasSlugRoute = NoticiasSlugRouteImport.update({
   path: '/noticias/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FerramentasValidadorCpfCnpjRoute =
+  FerramentasValidadorCpfCnpjRouteImport.update({
+    id: '/validador-cpf-cnpj',
+    path: '/validador-cpf-cnpj',
+    getParentRoute: () => FerramentasRoute,
+  } as any)
 const FerramentasUuidRoute = FerramentasUuidRouteImport.update({
   id: '/uuid',
   path: '/uuid',
@@ -126,6 +139,12 @@ const FerramentasTestadorRegexRoute =
   FerramentasTestadorRegexRouteImport.update({
     id: '/testador-regex',
     path: '/testador-regex',
+    getParentRoute: () => FerramentasRoute,
+  } as any)
+const FerramentasTelefoneTemporarioRoute =
+  FerramentasTelefoneTemporarioRouteImport.update({
+    id: '/telefone-temporario',
+    path: '/telefone-temporario',
     getParentRoute: () => FerramentasRoute,
   } as any)
 const FerramentasSummarizerRoute = FerramentasSummarizerRouteImport.update({
@@ -201,10 +220,39 @@ const FerramentasHashRoute = FerramentasHashRouteImport.update({
   path: '/hash',
   getParentRoute: () => FerramentasRoute,
 } as any)
+const FerramentasGeradorCpfCnpjRoute =
+  FerramentasGeradorCpfCnpjRouteImport.update({
+    id: '/gerador-cpf-cnpj',
+    path: '/gerador-cpf-cnpj',
+    getParentRoute: () => FerramentasRoute,
+  } as any)
+const FerramentasGeradorCepRoute = FerramentasGeradorCepRouteImport.update({
+  id: '/gerador-cep',
+  path: '/gerador-cep',
+  getParentRoute: () => FerramentasRoute,
+} as any)
+const FerramentasGeradorCartaoRoute =
+  FerramentasGeradorCartaoRouteImport.update({
+    id: '/gerador-cartao',
+    path: '/gerador-cartao',
+    getParentRoute: () => FerramentasRoute,
+  } as any)
 const FerramentasFormatadorJsonRoute =
   FerramentasFormatadorJsonRouteImport.update({
     id: '/formatador-json',
     path: '/formatador-json',
+    getParentRoute: () => FerramentasRoute,
+  } as any)
+const FerramentasEmailTemporarioRoute =
+  FerramentasEmailTemporarioRouteImport.update({
+    id: '/email-temporario',
+    path: '/email-temporario',
+    getParentRoute: () => FerramentasRoute,
+  } as any)
+const FerramentasConversorImagensRoute =
+  FerramentasConversorImagensRouteImport.update({
+    id: '/conversor-imagens',
+    path: '/conversor-imagens',
     getParentRoute: () => FerramentasRoute,
   } as any)
 const FerramentasColorPickerRoute = FerramentasColorPickerRouteImport.update({
@@ -253,7 +301,12 @@ export interface FileRoutesByFullPath {
   '/ferramentas/canonical': typeof FerramentasCanonicalRoute
   '/ferramentas/checador-senha': typeof FerramentasChecadorSenhaRoute
   '/ferramentas/color-picker': typeof FerramentasColorPickerRoute
+  '/ferramentas/conversor-imagens': typeof FerramentasConversorImagensRoute
+  '/ferramentas/email-temporario': typeof FerramentasEmailTemporarioRoute
   '/ferramentas/formatador-json': typeof FerramentasFormatadorJsonRoute
+  '/ferramentas/gerador-cartao': typeof FerramentasGeradorCartaoRoute
+  '/ferramentas/gerador-cep': typeof FerramentasGeradorCepRoute
+  '/ferramentas/gerador-cpf-cnpj': typeof FerramentasGeradorCpfCnpjRoute
   '/ferramentas/hash': typeof FerramentasHashRoute
   '/ferramentas/keyword-density': typeof FerramentasKeywordDensityRoute
   '/ferramentas/markdown-html': typeof FerramentasMarkdownHtmlRoute
@@ -268,10 +321,12 @@ export interface FileRoutesByFullPath {
   '/ferramentas/schema': typeof FerramentasSchemaRoute
   '/ferramentas/sitemap': typeof FerramentasSitemapRoute
   '/ferramentas/summarizer': typeof FerramentasSummarizerRoute
+  '/ferramentas/telefone-temporario': typeof FerramentasTelefoneTemporarioRoute
   '/ferramentas/testador-regex': typeof FerramentasTestadorRegexRoute
   '/ferramentas/translator': typeof FerramentasTranslatorRoute
   '/ferramentas/utm-builder': typeof FerramentasUtmBuilderRoute
   '/ferramentas/uuid': typeof FerramentasUuidRoute
+  '/ferramentas/validador-cpf-cnpj': typeof FerramentasValidadorCpfCnpjRoute
   '/noticias/$slug': typeof NoticiasSlugRoute
   '/artigos/': typeof ArtigosIndexRoute
   '/ferramentas/': typeof FerramentasIndexRoute
@@ -291,7 +346,12 @@ export interface FileRoutesByTo {
   '/ferramentas/canonical': typeof FerramentasCanonicalRoute
   '/ferramentas/checador-senha': typeof FerramentasChecadorSenhaRoute
   '/ferramentas/color-picker': typeof FerramentasColorPickerRoute
+  '/ferramentas/conversor-imagens': typeof FerramentasConversorImagensRoute
+  '/ferramentas/email-temporario': typeof FerramentasEmailTemporarioRoute
   '/ferramentas/formatador-json': typeof FerramentasFormatadorJsonRoute
+  '/ferramentas/gerador-cartao': typeof FerramentasGeradorCartaoRoute
+  '/ferramentas/gerador-cep': typeof FerramentasGeradorCepRoute
+  '/ferramentas/gerador-cpf-cnpj': typeof FerramentasGeradorCpfCnpjRoute
   '/ferramentas/hash': typeof FerramentasHashRoute
   '/ferramentas/keyword-density': typeof FerramentasKeywordDensityRoute
   '/ferramentas/markdown-html': typeof FerramentasMarkdownHtmlRoute
@@ -306,10 +366,12 @@ export interface FileRoutesByTo {
   '/ferramentas/schema': typeof FerramentasSchemaRoute
   '/ferramentas/sitemap': typeof FerramentasSitemapRoute
   '/ferramentas/summarizer': typeof FerramentasSummarizerRoute
+  '/ferramentas/telefone-temporario': typeof FerramentasTelefoneTemporarioRoute
   '/ferramentas/testador-regex': typeof FerramentasTestadorRegexRoute
   '/ferramentas/translator': typeof FerramentasTranslatorRoute
   '/ferramentas/utm-builder': typeof FerramentasUtmBuilderRoute
   '/ferramentas/uuid': typeof FerramentasUuidRoute
+  '/ferramentas/validador-cpf-cnpj': typeof FerramentasValidadorCpfCnpjRoute
   '/noticias/$slug': typeof NoticiasSlugRoute
   '/artigos': typeof ArtigosIndexRoute
   '/ferramentas': typeof FerramentasIndexRoute
@@ -331,7 +393,12 @@ export interface FileRoutesById {
   '/ferramentas/canonical': typeof FerramentasCanonicalRoute
   '/ferramentas/checador-senha': typeof FerramentasChecadorSenhaRoute
   '/ferramentas/color-picker': typeof FerramentasColorPickerRoute
+  '/ferramentas/conversor-imagens': typeof FerramentasConversorImagensRoute
+  '/ferramentas/email-temporario': typeof FerramentasEmailTemporarioRoute
   '/ferramentas/formatador-json': typeof FerramentasFormatadorJsonRoute
+  '/ferramentas/gerador-cartao': typeof FerramentasGeradorCartaoRoute
+  '/ferramentas/gerador-cep': typeof FerramentasGeradorCepRoute
+  '/ferramentas/gerador-cpf-cnpj': typeof FerramentasGeradorCpfCnpjRoute
   '/ferramentas/hash': typeof FerramentasHashRoute
   '/ferramentas/keyword-density': typeof FerramentasKeywordDensityRoute
   '/ferramentas/markdown-html': typeof FerramentasMarkdownHtmlRoute
@@ -346,10 +413,12 @@ export interface FileRoutesById {
   '/ferramentas/schema': typeof FerramentasSchemaRoute
   '/ferramentas/sitemap': typeof FerramentasSitemapRoute
   '/ferramentas/summarizer': typeof FerramentasSummarizerRoute
+  '/ferramentas/telefone-temporario': typeof FerramentasTelefoneTemporarioRoute
   '/ferramentas/testador-regex': typeof FerramentasTestadorRegexRoute
   '/ferramentas/translator': typeof FerramentasTranslatorRoute
   '/ferramentas/utm-builder': typeof FerramentasUtmBuilderRoute
   '/ferramentas/uuid': typeof FerramentasUuidRoute
+  '/ferramentas/validador-cpf-cnpj': typeof FerramentasValidadorCpfCnpjRoute
   '/noticias/$slug': typeof NoticiasSlugRoute
   '/artigos/': typeof ArtigosIndexRoute
   '/ferramentas/': typeof FerramentasIndexRoute
@@ -372,7 +441,12 @@ export interface FileRouteTypes {
     | '/ferramentas/canonical'
     | '/ferramentas/checador-senha'
     | '/ferramentas/color-picker'
+    | '/ferramentas/conversor-imagens'
+    | '/ferramentas/email-temporario'
     | '/ferramentas/formatador-json'
+    | '/ferramentas/gerador-cartao'
+    | '/ferramentas/gerador-cep'
+    | '/ferramentas/gerador-cpf-cnpj'
     | '/ferramentas/hash'
     | '/ferramentas/keyword-density'
     | '/ferramentas/markdown-html'
@@ -387,10 +461,12 @@ export interface FileRouteTypes {
     | '/ferramentas/schema'
     | '/ferramentas/sitemap'
     | '/ferramentas/summarizer'
+    | '/ferramentas/telefone-temporario'
     | '/ferramentas/testador-regex'
     | '/ferramentas/translator'
     | '/ferramentas/utm-builder'
     | '/ferramentas/uuid'
+    | '/ferramentas/validador-cpf-cnpj'
     | '/noticias/$slug'
     | '/artigos/'
     | '/ferramentas/'
@@ -410,7 +486,12 @@ export interface FileRouteTypes {
     | '/ferramentas/canonical'
     | '/ferramentas/checador-senha'
     | '/ferramentas/color-picker'
+    | '/ferramentas/conversor-imagens'
+    | '/ferramentas/email-temporario'
     | '/ferramentas/formatador-json'
+    | '/ferramentas/gerador-cartao'
+    | '/ferramentas/gerador-cep'
+    | '/ferramentas/gerador-cpf-cnpj'
     | '/ferramentas/hash'
     | '/ferramentas/keyword-density'
     | '/ferramentas/markdown-html'
@@ -425,10 +506,12 @@ export interface FileRouteTypes {
     | '/ferramentas/schema'
     | '/ferramentas/sitemap'
     | '/ferramentas/summarizer'
+    | '/ferramentas/telefone-temporario'
     | '/ferramentas/testador-regex'
     | '/ferramentas/translator'
     | '/ferramentas/utm-builder'
     | '/ferramentas/uuid'
+    | '/ferramentas/validador-cpf-cnpj'
     | '/noticias/$slug'
     | '/artigos'
     | '/ferramentas'
@@ -449,7 +532,12 @@ export interface FileRouteTypes {
     | '/ferramentas/canonical'
     | '/ferramentas/checador-senha'
     | '/ferramentas/color-picker'
+    | '/ferramentas/conversor-imagens'
+    | '/ferramentas/email-temporario'
     | '/ferramentas/formatador-json'
+    | '/ferramentas/gerador-cartao'
+    | '/ferramentas/gerador-cep'
+    | '/ferramentas/gerador-cpf-cnpj'
     | '/ferramentas/hash'
     | '/ferramentas/keyword-density'
     | '/ferramentas/markdown-html'
@@ -464,10 +552,12 @@ export interface FileRouteTypes {
     | '/ferramentas/schema'
     | '/ferramentas/sitemap'
     | '/ferramentas/summarizer'
+    | '/ferramentas/telefone-temporario'
     | '/ferramentas/testador-regex'
     | '/ferramentas/translator'
     | '/ferramentas/utm-builder'
     | '/ferramentas/uuid'
+    | '/ferramentas/validador-cpf-cnpj'
     | '/noticias/$slug'
     | '/artigos/'
     | '/ferramentas/'
@@ -577,6 +667,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NoticiasSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ferramentas/validador-cpf-cnpj': {
+      id: '/ferramentas/validador-cpf-cnpj'
+      path: '/validador-cpf-cnpj'
+      fullPath: '/ferramentas/validador-cpf-cnpj'
+      preLoaderRoute: typeof FerramentasValidadorCpfCnpjRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
     '/ferramentas/uuid': {
       id: '/ferramentas/uuid'
       path: '/uuid'
@@ -603,6 +700,13 @@ declare module '@tanstack/react-router' {
       path: '/testador-regex'
       fullPath: '/ferramentas/testador-regex'
       preLoaderRoute: typeof FerramentasTestadorRegexRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/telefone-temporario': {
+      id: '/ferramentas/telefone-temporario'
+      path: '/telefone-temporario'
+      fullPath: '/ferramentas/telefone-temporario'
+      preLoaderRoute: typeof FerramentasTelefoneTemporarioRouteImport
       parentRoute: typeof FerramentasRoute
     }
     '/ferramentas/summarizer': {
@@ -703,11 +807,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FerramentasHashRouteImport
       parentRoute: typeof FerramentasRoute
     }
+    '/ferramentas/gerador-cpf-cnpj': {
+      id: '/ferramentas/gerador-cpf-cnpj'
+      path: '/gerador-cpf-cnpj'
+      fullPath: '/ferramentas/gerador-cpf-cnpj'
+      preLoaderRoute: typeof FerramentasGeradorCpfCnpjRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/gerador-cep': {
+      id: '/ferramentas/gerador-cep'
+      path: '/gerador-cep'
+      fullPath: '/ferramentas/gerador-cep'
+      preLoaderRoute: typeof FerramentasGeradorCepRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/gerador-cartao': {
+      id: '/ferramentas/gerador-cartao'
+      path: '/gerador-cartao'
+      fullPath: '/ferramentas/gerador-cartao'
+      preLoaderRoute: typeof FerramentasGeradorCartaoRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
     '/ferramentas/formatador-json': {
       id: '/ferramentas/formatador-json'
       path: '/formatador-json'
       fullPath: '/ferramentas/formatador-json'
       preLoaderRoute: typeof FerramentasFormatadorJsonRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/email-temporario': {
+      id: '/ferramentas/email-temporario'
+      path: '/email-temporario'
+      fullPath: '/ferramentas/email-temporario'
+      preLoaderRoute: typeof FerramentasEmailTemporarioRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/conversor-imagens': {
+      id: '/ferramentas/conversor-imagens'
+      path: '/conversor-imagens'
+      fullPath: '/ferramentas/conversor-imagens'
+      preLoaderRoute: typeof FerramentasConversorImagensRouteImport
       parentRoute: typeof FerramentasRoute
     }
     '/ferramentas/color-picker': {
@@ -760,7 +899,12 @@ interface FerramentasRouteChildren {
   FerramentasCanonicalRoute: typeof FerramentasCanonicalRoute
   FerramentasChecadorSenhaRoute: typeof FerramentasChecadorSenhaRoute
   FerramentasColorPickerRoute: typeof FerramentasColorPickerRoute
+  FerramentasConversorImagensRoute: typeof FerramentasConversorImagensRoute
+  FerramentasEmailTemporarioRoute: typeof FerramentasEmailTemporarioRoute
   FerramentasFormatadorJsonRoute: typeof FerramentasFormatadorJsonRoute
+  FerramentasGeradorCartaoRoute: typeof FerramentasGeradorCartaoRoute
+  FerramentasGeradorCepRoute: typeof FerramentasGeradorCepRoute
+  FerramentasGeradorCpfCnpjRoute: typeof FerramentasGeradorCpfCnpjRoute
   FerramentasHashRoute: typeof FerramentasHashRoute
   FerramentasKeywordDensityRoute: typeof FerramentasKeywordDensityRoute
   FerramentasMarkdownHtmlRoute: typeof FerramentasMarkdownHtmlRoute
@@ -775,10 +919,12 @@ interface FerramentasRouteChildren {
   FerramentasSchemaRoute: typeof FerramentasSchemaRoute
   FerramentasSitemapRoute: typeof FerramentasSitemapRoute
   FerramentasSummarizerRoute: typeof FerramentasSummarizerRoute
+  FerramentasTelefoneTemporarioRoute: typeof FerramentasTelefoneTemporarioRoute
   FerramentasTestadorRegexRoute: typeof FerramentasTestadorRegexRoute
   FerramentasTranslatorRoute: typeof FerramentasTranslatorRoute
   FerramentasUtmBuilderRoute: typeof FerramentasUtmBuilderRoute
   FerramentasUuidRoute: typeof FerramentasUuidRoute
+  FerramentasValidadorCpfCnpjRoute: typeof FerramentasValidadorCpfCnpjRoute
   FerramentasIndexRoute: typeof FerramentasIndexRoute
 }
 
@@ -787,7 +933,12 @@ const FerramentasRouteChildren: FerramentasRouteChildren = {
   FerramentasCanonicalRoute: FerramentasCanonicalRoute,
   FerramentasChecadorSenhaRoute: FerramentasChecadorSenhaRoute,
   FerramentasColorPickerRoute: FerramentasColorPickerRoute,
+  FerramentasConversorImagensRoute: FerramentasConversorImagensRoute,
+  FerramentasEmailTemporarioRoute: FerramentasEmailTemporarioRoute,
   FerramentasFormatadorJsonRoute: FerramentasFormatadorJsonRoute,
+  FerramentasGeradorCartaoRoute: FerramentasGeradorCartaoRoute,
+  FerramentasGeradorCepRoute: FerramentasGeradorCepRoute,
+  FerramentasGeradorCpfCnpjRoute: FerramentasGeradorCpfCnpjRoute,
   FerramentasHashRoute: FerramentasHashRoute,
   FerramentasKeywordDensityRoute: FerramentasKeywordDensityRoute,
   FerramentasMarkdownHtmlRoute: FerramentasMarkdownHtmlRoute,
@@ -802,10 +953,12 @@ const FerramentasRouteChildren: FerramentasRouteChildren = {
   FerramentasSchemaRoute: FerramentasSchemaRoute,
   FerramentasSitemapRoute: FerramentasSitemapRoute,
   FerramentasSummarizerRoute: FerramentasSummarizerRoute,
+  FerramentasTelefoneTemporarioRoute: FerramentasTelefoneTemporarioRoute,
   FerramentasTestadorRegexRoute: FerramentasTestadorRegexRoute,
   FerramentasTranslatorRoute: FerramentasTranslatorRoute,
   FerramentasUtmBuilderRoute: FerramentasUtmBuilderRoute,
   FerramentasUuidRoute: FerramentasUuidRoute,
+  FerramentasValidadorCpfCnpjRoute: FerramentasValidadorCpfCnpjRoute,
   FerramentasIndexRoute: FerramentasIndexRoute,
 }
 

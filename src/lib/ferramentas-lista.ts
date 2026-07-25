@@ -38,7 +38,7 @@ export const GRUPOS_FERRAMENTAS: GrupoFerramentas[] = [
       { name: "Sitemap", desc: "Gerador de sitemap XML para indexação.", to: "/ferramentas/sitemap" },
       { name: "Schema", desc: "Gerador de dados estruturados (Schema.org) para rich snippets.", to: "/ferramentas/schema" },
       { name: "Pixel Helper", desc: "Auxilia na implementação e depuração de pixels de rastreamento.", to: "/ferramentas/pixel-helper" },
-      { name: "UTM Builder", desc: "Crie URLs com parâmetros UTM para rastreamento de campanhas.", to: "/ferramentas/utm-builder" }
+      { name: "UTM Builder", desc: "Crie URLs com parâmetros UTM para rastreamento de campanhas.", to: "/ferramentas/utm-builder" },
       { name: "Validador CPF/CNPJ", desc: "Consulte informações públicas de CPF e CNPJ.", to: "/ferramentas/validador-cpf-cnpj" },
     ],
   },
