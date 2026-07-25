@@ -40,12 +40,16 @@ const grupos = [
       { name: "Gerador de QR Code", desc: "Crie QR Codes instantaneamente.", href: "/ferramentas/qr-code-generator" },
       { name: "Conversor Base64", desc: "Codifique e decodifique Base64.", href: "/ferramentas/base64" },
       { name: "Gerador de Prompts", desc: "Gere prompts para IA.", href: "/ferramentas/prompt-generator" },
+      { name: "Gerador de Cartão", desc: "Cartão de teste, formato válido", href: "/ferramentas/gerador-cartao" },
+      { name: "Gerador de CPF / CNPJ", desc: "Gere CPFs e CNPJs com formatos brasileiros.", href: "/ferramentas/gerador-cpf-cnpj" },
+      { name: "Gerador de CEP", desc: "Gere CEPs com formatos brasileiros.", href: "/ferramentas/gerador-cep" },
     ],
   },
   {
     cat: "Design e Visual",
     cor: "text-purple-400",
     itens: [
+      { name: "Conversor de Imagens", desc: "Converta JPG, PNG e WebP no navegador.", href: "/ferramentas/conversor-imagens" },
       { name: "Color Picker", desc: "Selecione e converta cores.", href: "/ferramentas/color-picker" },
       { name: "Pixel Helper", desc: "Analise pixels e resolucoes.", href: "/ferramentas/pixel-helper" },
     ],
@@ -56,6 +60,7 @@ const grupos = [
     itens: [
       { name: "Checador de Senha", desc: "Analise a forca da sua senha.", href: "/ferramentas/checador-senha" },
       { name: "Meu IP", desc: "Descubra aqui qual é o seu ip", href: "/ferramentas/meu-ip" },
+      { name: "Validador CPF/CNPJ", desc: "Consulte informações públicas de CPF e CNPJ.", href: "/ferramentas/validador-cpf-cnpj" },
     ],
   },
 ];

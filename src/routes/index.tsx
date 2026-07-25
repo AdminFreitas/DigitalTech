@@ -126,7 +126,7 @@ const tools = [
   {
     name: "Compressor de Imagens",
     desc: "Reduza JPG, PNG e WebP no navegador.",
-    href: "/ferramentas/formatador-json",
+    href: "/ferramentas/conversor-imagens",
   },
   {
     name: "Conversor Markdown → HTML",
