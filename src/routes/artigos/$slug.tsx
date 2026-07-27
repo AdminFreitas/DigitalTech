@@ -114,7 +114,7 @@ function ArtigoPage() {
               <figcaption className="mt-2 text-[12px] text-[var(--text-secondary)]">
                 Foto por{" "}
                 {artigo.imageAuthorLink ? (
-                  
+                  <a
                     href={artigo.imageAuthorLink}
                     target="_blank"
                     rel="noopener noreferrer"
