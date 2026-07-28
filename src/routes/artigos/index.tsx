@@ -28,6 +28,7 @@ export const Route = createFileRoute("/artigos/")({
         category: a.categoria,
         date: dataISO,
         readTime: typeof tempo === "number" ? `${tempo} min` : String(tempo ?? ""),
+        imageUrl: a.imagem_url ?? null,
       };
     });
   },
@@ -69,8 +70,15 @@ function ArtigosPage() {
           to="/artigos/$slug"
           params={{ slug: destaquePrincipal.slug }}
           className="group relative lg:col-span-2 rounded-2xl overflow-hidden border border-[var(--glass-border)] block min-h-[300px] lg:min-h-[440px]"
-          style={{ background: COVER_GRADIENTS[0] }}
+          style={destaquePrincipal.imageUrl ? undefined : { background: COVER_GRADIENTS[0] }}
         >
+          {destaquePrincipal.imageUrl && (
+            <img
+              src={destaquePrincipal.imageUrl}
+              alt={destaquePrincipal.title}
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          )}
           <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] via-[var(--bg-primary)]/40 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6">
             <span className="inline-block mb-2 text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full text-[color:var(--primary-cyan)] bg-[color:var(--primary-cyan)]/10 border border-[color:var(--primary-cyan)]/30">
@@ -100,8 +108,15 @@ function ArtigosPage() {
               className={`group relative rounded-xl overflow-hidden border border-[var(--glass-border)] block min-h-[140px] lg:min-h-0 lg:flex-1 ${
                 i === 2 ? "hidden lg:block" : ""
               }`}
-              style={{ background: COVER_GRADIENTS[(i + 1) % COVER_GRADIENTS.length] }}
+              style={a.imageUrl ? undefined : { background: COVER_GRADIENTS[(i + 1) % COVER_GRADIENTS.length] }}
             >
+              {a.imageUrl && (
+                <img
+                  src={a.imageUrl}
+                  alt={a.title}
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              )}
               <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] via-[var(--bg-primary)]/30 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-3">
                 <span className="inline-block mb-1 text-[9px] font-bold uppercase tracking-widest px-1.5 py-0.5 rounded text-[color:var(--secondary-jade)] bg-[color:var(--secondary-jade)]/10">
@@ -124,21 +139,32 @@ function ArtigosPage() {
               key={a.slug}
               to="/artigos/$slug"
               params={{ slug: a.slug }}
-              className="card-border group rounded-2xl bg-[rgba(22,31,48,0.55)] p-6 backdrop-blur-md transition-transform duration-300 hover:-translate-y-0.5 block"
+              className="card-border group rounded-2xl bg-[rgba(22,31,48,0.55)] overflow-hidden backdrop-blur-md transition-transform duration-300 hover:-translate-y-0.5 block"
             >
-              <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--primary-cyan)]">
-                {a.category}
-              </div>
-              <h2 className="mt-2 font-display text-[16px] font-semibold text-[var(--text-primary)] leading-snug group-hover:text-[color:var(--primary-cyan)] transition-colors">
-                {a.title}
-              </h2>
-              <p className="mt-2 text-[13px] text-[var(--text-secondary)] leading-relaxed">
-                {a.excerpt}
-              </p>
-              <div className="mt-4 flex items-center gap-3 text-[12px] text-[var(--text-secondary)]">
-                <time dateTime={a.date}>{formatarData(a.date)}</time>
-                <span className="h-1 w-1 rounded-full bg-[var(--text-secondary)]/40" />
-                <span>{a.readTime} de leitura</span>
+              {a.imageUrl && (
+                <div className="h-36 w-full overflow-hidden">
+                  <img
+                    src={a.imageUrl}
+                    alt={a.title}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              )}
+              <div className="p-6">
+                <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--primary-cyan)]">
+                  {a.category}
+                </div>
+                <h2 className="mt-2 font-display text-[16px] font-semibold text-[var(--text-primary)] leading-snug group-hover:text-[color:var(--primary-cyan)] transition-colors">
+                  {a.title}
+                </h2>
+                <p className="mt-2 text-[13px] text-[var(--text-secondary)] leading-relaxed">
+                  {a.excerpt}
+                </p>
+                <div className="mt-4 flex items-center gap-3 text-[12px] text-[var(--text-secondary)]">
+                  <time dateTime={a.date}>{formatarData(a.date)}</time>
+                  <span className="h-1 w-1 rounded-full bg-[var(--text-secondary)]/40" />
+                  <span>{a.readTime} de leitura</span>
+                </div>
               </div>
             </Link>
           ))}
