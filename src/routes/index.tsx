@@ -3,7 +3,8 @@ import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
 import logo from "@/assets/logo-robot.webp";
 import planet from "@/assets/planet.webp";
 import { SpeedInsights } from "@vercel/speed-insights/react";
-import { listarArtigos, formatarData } from "@/lib/content";
+import { formatarData } from "@/lib/content";
+import { getArtigos } from "@/lib/artigos";
 import { pesquisar } from "@/lib/pesquisa";
 
 export const Route = createFileRoute("/")({
@@ -84,6 +85,25 @@ export const Route = createFileRoute("/")({
       },
     ],
   }),
+  loader: async () => {
+    const rows = await getArtigos();
+    return rows.map((a) => {
+      const dataISO =
+        a.data_publicacao instanceof Date
+          ? a.data_publicacao.toISOString().slice(0, 10)
+          : String(a.data_publicacao).slice(0, 10);
+      const tempo = a.tempo_leitura;
+      return {
+        category: a.categoria,
+        title: a.titulo,
+        excerpt: a.resumo,
+        readTime: typeof tempo === "number" ? `${tempo} min` : String(tempo ?? ""),
+        date: formatarData(dataISO),
+        slug: a.slug,
+        imageUrl: a.imagem_url ?? null,
+      };
+    });
+  },
   component: Home,
 });
 
@@ -96,6 +116,7 @@ type Article = {
   readTime: string;
   date: string;
   cover: string;
+  imageUrl?: string | null;
   slug?: string;
 };
 
@@ -107,21 +128,6 @@ const COVER_GRADIENTS = [
   "linear-gradient(135deg, #161F30 0%, #0B1020 100%)",
   "linear-gradient(135deg, #102046 0%, #0B1020 100%)",
 ];
-
-// Artigos reais vindos de content/artigos/*.md via content.ts — antes disso
-// eram dois arrays hardcoded com "Em breve" fixo, desconectados do conteúdo real.
-const artigosPublicados: Article[] = listarArtigos().map((a, i) => ({
-  category: a.category,
-  title: a.title,
-  excerpt: a.excerpt,
-  readTime: a.readTime,
-  date: formatarData(a.date),
-  cover: COVER_GRADIENTS[i % COVER_GRADIENTS.length],
-  slug: a.slug,
-}));
-
-const featured: Article[] = artigosPublicados.slice(0, 3);
-const recent: Article[] = artigosPublicados.slice(3, 9);
 
 const tools = [
   {
@@ -332,8 +338,7 @@ function Header() {
             <li>
               <Link
                 onClick={() => setOpen(false)}
-                to="/contato"
-                className="block text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+             t-secondary)] hover:text-[var(--text-primary)]"
               >
                 Contato
               </Link>
@@ -347,7 +352,7 @@ function Header() {
 
 /* ------------------------------------------------------------ HERO */
 
-function Hero() {
+function Hero({ totalArtigos }: { totalArtigos: number }) {
   const stageRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const t = window.setTimeout(() => {
@@ -382,7 +387,7 @@ function Hero() {
               Ler edição atual →
             </a>
             <span className="h-px w-10 bg-[var(--glass-border)]" />
-            <span>22 artigos · atualizado hoje</span>
+            <span>{totalArtigos} artigo{totalArtigos !== 1 ? "s" : ""} publicado{totalArtigos !== 1 ? "s" : ""}</span>
           </div>
         </div>
         <div ref={stageRef} className="relative hidden md:block planet-stage">
@@ -483,7 +488,7 @@ function SafeSearch() {
                     className="flex w-full items-start gap-3 rounded-lg p-2.5 text-left transition hover:bg-white/5"
                   >
                     <span
-                      className={`mt-0.5 shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide ${CORES_TIPO[r.tipo]}`}
+                      className={`mt-0.5 shrink-0 rounded-full px-2 py-0x] font-bold uppercase tracking-wide ${CORES_TIPO[r.tipo]}`}
                     >
                       {r.tipo}
                     </span>
@@ -598,9 +603,16 @@ function ArticleCard({ a, large = false }: { a: Article; large?: boolean }) {
   const cardContent = (
     <>
       <div
-        className={`relative w-full overflow-hidden rounded-t-2xl ${large ? "aspect-[16/10]" : "aspect-[16/9]"}`}
-        style={{ background: a.cover }}
+        className={`relative w-full oveflow-hidden rounded-t-2xl ${large ? "aspect-[16/10]" : "aspect-[16/9]"}`}
+        style={a.imageUrl ? undefined : { background: a.cover }}
       >
+        {a.imageUrl && (
+          <img
+            src={a.imageUrl}
+            alt={a.title}
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        )}
         <div className="absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_120%,rgba(0,0,0,0.55),transparent_60%)]" />
         <div className="absolute left-4 top-4 inline-flex items-center rounded-full border border-white/15 bg-black/30 px-2.5 py-1 text-[10px] uppercase tracking-[0.18em] text-white/85 backdrop-blur">
           {a.category}
@@ -642,7 +654,7 @@ function ArticleCard({ a, large = false }: { a: Article; large?: boolean }) {
   );
 }
 
-function Articles() {
+function Articles({ featured, recent }: { featured: Article[]; recent: Article[] }) {
   const ref1 = useReveal<HTMLDivElement>();
   const ref2 = useReveal<HTMLDivElement>();
   return (
@@ -687,7 +699,7 @@ function Categories() {
       <div ref={ref} className="fade-in grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {categories.map((c) => (
           <CategoryCard key={c.name} cat={c} />
-        ))}
+    ))}
       </div>
     </section>
   );
@@ -791,7 +803,7 @@ function CookieBanner() {
 function Footer() {
   return (
     <footer className="site-footer border-t border-[var(--glass-border)]">
-      <div className="footer-inner mx-auto flex max-w-6xl flex-col gap-7 px-6 py-10">
+      <div className="footer-inner mx-auto flex max-w-6xl flex-col gap-7-10">
         <div className="footer-brand">
           <div className="footer-logo flex flex-col">
             <span className="logo-mark font-display text-[15px] font-bold tracking-[0.18em] text-[var(--text-primary)]">
@@ -872,19 +884,27 @@ function Footer() {
 }
 
 function Home() {
+  const artigosDB = Route.useLoaderData();
+  const artigosPublicados: Article[] = artigosDB.map((a, i) => ({
+    ...a,
+    cover: COVER_GRADIENTS[i % COVER_GRADIENTS.length],
+  }));
+  const featured: Article[] = artigosPublicados.slice(0, 3);
+  const recent: Article[] = artigosPublicados.slice(3, 9);
+
   return (
     <div className="min-h-screen">
       <main>
-        <Hero />
+        <Hero totalArtigos={artigosPublicados.length} />
         <Tools />
-        <Articles />
+        <Articles featured={featured} recent={recent} />
         <Categories />
         <Projects />
         <FAQ />
 
         <section className="mx-auto max-w-3xl px-6 pb-24">
           <h2 className="font-display text-xl font-semibold text-[var(--text-primary)] md:text-2xl mb-6">Sobre</h2>
-          <div className="space-y-5 text-[15px] leading-relaxed text-[var(--text-secondary)]">
+          <div className="space-y-5 text-[15px] leading-text-[var(--text-secondary)]">
             <p>Seja bem-vindo. Se você estava esperando mais um blog genérico feito em WordPress, errou de endereço.</p>
             <p>Este projeto foi construído na unha, codificado linha por linha, com doses generosas de Inteligência Artificial, quantidades preocupantes de café e pouca inteligência humana.</p>
             <div>
