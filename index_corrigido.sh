@@ -1,3 +1,9 @@
+#!/bin/bash
+set -e
+
+cd ~/projetos/DigitalTech
+
+cat > src/routes/index.tsx << 'ENDOFFILE'
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
 import logo from "@/assets/logo-robot.webp";
@@ -930,3 +936,11 @@ function Home() {
     </div>
   );
 }
+ENDOFFILE
+
+echo "index.tsx da home corrigido com sucesso."
+git add -A
+git commit -m "fix: home busca artigos do banco Neon (getArtigos) em vez do sistema de markdown estatico"
+git push
+
+echo "Feito. Deploy vai disparar automaticamente na Vercel."
