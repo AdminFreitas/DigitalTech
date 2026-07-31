@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { formatarData } from "@/lib/content";
 import { getArtigos } from "@/lib/artigos";
+import { getCategoriasComFilhas } from "@/lib/categorias";
 
 export const Route = createFileRoute("/artigos/")({
   head: () => ({
@@ -14,8 +16,9 @@ export const Route = createFileRoute("/artigos/")({
     ],
   }),
   loader: async () => {
-    const rows = await getArtigos();
-    return rows.map((a) => {
+    const [rows, categoriasRaiz] = await Promise.all([getArtigos(), getCategoriasComFilhas()]);
+
+    const artigos = rows.map((a: any) => {
       const dataISO =
         a.data_publicacao instanceof Date
           ? a.data_publicacao.toISOString().slice(0, 10)
@@ -26,11 +29,20 @@ export const Route = createFileRoute("/artigos/")({
         title: a.titulo,
         excerpt: a.resumo,
         category: a.categoria,
+        categoriaId: a.categoria_id,
         date: dataISO,
         readTime: typeof tempo === "number" ? `${tempo} min` : String(tempo ?? ""),
         imageUrl: a.imagem_url ?? null,
       };
     });
+
+    const categorias = categoriasRaiz.map((c: any) => ({
+      slug: c.slug,
+      label: c.nome,
+      filhosIds: c.filhosIds,
+    }));
+
+    return { artigos, categorias };
   },
   component: ArtigosPage,
 });
@@ -45,7 +57,8 @@ const COVER_GRADIENTS = [
 ];
 
 function ArtigosPage() {
-  const artigos = Route.useLoaderData();
+  const { artigos, categorias } = Route.useLoaderData();
+  const [cat, setCat] = useState("todas");
 
   if (artigos.length === 0) {
     return (
@@ -57,7 +70,16 @@ function ArtigosPage() {
 
   const destaquePrincipal    = artigos[0];
   const destaquesSecundarios = artigos.slice(1, 4);
-  const restante             = artigos.slice(4);
+
+  const categoriaAtiva = categorias.find((c) => c.slug === cat);
+
+  const restante = artigos
+    .slice(4)
+    .filter((a) => {
+      if (cat === "todas") return true;
+      if (!categoriaAtiva) return true;
+      return categoriaAtiva.filhosIds.includes(a.categoriaId);
+    });
 
   return (
     <div className="mx-auto max-w-6xl px-6 pt-[var(--header-clearance)] pb-24">
@@ -69,7 +91,7 @@ function ArtigosPage() {
         <Link
           to="/artigos/$slug"
           params={{ slug: destaquePrincipal.slug }}
-          className="group relative lg:col-span-2 rounded-2xl overflow-hidden border border-[var(--glass-border)] block min-h-[300px] lg:min-h-[440px]"
+          className="group relative lg:col-span-2 rounded-2xl overflow-hidden border border-[var(--glass-border)] block min-h-[300px] lg:min-h-[440px]"     
           style={destaquePrincipal.imageUrl ? undefined : { background: COVER_GRADIENTS[0] }}
         >
           {destaquePrincipal.imageUrl && (
@@ -131,45 +153,80 @@ function ArtigosPage() {
         </div>
       </div>
 
-      {/* ── RESTANTE ── */}
-      {restante.length > 0 && (
-        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {restante.map((a) => (
-            <Link
-              key={a.slug}
-              to="/artigos/$slug"
-              params={{ slug: a.slug }}
-              className="card-border group rounded-2xl bg-[rgba(22,31,48,0.55)] overflow-hidden backdrop-blur-md transition-transform duration-300 hover:-translate-y-0.5 block"
+      {/* ── RESTANTE, com filtro por categoria-mãe ── */}
+      <div className="mt-14">
+        <div className="flex items-center justify-between mb-5">
+          <h2 className="font-display text-lg font-bold text-[var(--text-primary)]">Mais artigos</h2>
+          <span className="text-xs text-[var(--text-muted)]">{restante.length} artigos</span>
+        </div>
+
+        <div className="flex flex-wrap gap-2 mb-6">
+          <button
+            onClick={() => setCat("todas")}
+            className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+              cat === "todas"
+                ? "bg-[color:var(--primary-cyan)] text-[var(--bg-primary)]"
+                : "bg-[var(--bg-card)] border border-[var(--glass-border)] text-[var(--text-secondary)] hover:border-[color:var(--primary-cyan)]/40 hover:text-white"
+            }`}
+          >
+            Todas
+          </button>
+          {categorias.map((c) => (
+            <button
+              key={c.slug}
+              onClick={() => setCat(c.slug)}
+              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
+                cat === c.slug
+                  ? "bg-[color:var(--primary-cyan)] text-[var(--bg-primary)]"
+                  : "bg-[var(--bg-card)] border border-[var(--glass-border)] text-[var(--text-secondary)] hover:border-[color:var(--primary-cyan)]/40 hover:text-white"
+              }`}
             >
-              {a.imageUrl && (
-                <div className="h-36 w-full overflow-hidden">
-                  <img
-                    src={a.imageUrl}
-                    alt={a.title}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              )}
-              <div className="p-6">
-                <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--primary-cyan)]">
-                  {a.category}
-                </div>
-                <h2 className="mt-2 font-display text-[16px] font-semibold text-[var(--text-primary)] leading-snug group-hover:text-[color:var(--primary-cyan)] transition-colors">
-                  {a.title}
-                </h2>
-                <p className="mt-2 text-[13px] text-[var(--text-secondary)] leading-relaxed">
-                  {a.excerpt}
-                </p>
-                <div className="mt-4 flex items-center gap-3 text-[12px] text-[var(--text-secondary)]">
-                  <time dateTime={a.date}>{formatarData(a.date)}</time>
-                  <span className="h-1 w-1 rounded-full bg-[var(--text-secondary)]/40" />
-                  <span>{a.readTime} de leitura</span>
-                </div>
-              </div>
-            </Link>
+              {c.label}
+            </button>
           ))}
         </div>
-      )}
+
+        {restante.length === 0 ? (
+          <p className="text-[var(--text-muted)] text-sm py-16 text-center">Nenhum artigo nesta categoria ainda.</p>
+        ) : (
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {restante.map((a) => (
+              <Link
+                key={a.slug}
+                to="/artigos/$slug"
+                params={{ slug: a.slug }}
+                className="card-border group rounded-2xl bg-[rgba(22,31,48,0.55)] overflow-hidden backdrop-blur-md transition-transform duration-300 hover:-translate-y-0.5 block"
+              >
+                {a.imageUrl && (
+                  <div className="h-36 w-full overflow-hidden">
+                    <img
+                      src={a.imageUrl}
+                      alt={a.title}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                )}
+                <div className="p-6">
+                  <div className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--primary-cyan)]">
+                    {a.category}
+                  </div>
+                  <h2 className="mt-2 font-display text-[16px] font-semibold text-[var(--text-primary)] leading-snug group-hover:text-[color:var(--primary-cyan)] transition-colors">
+                    {a.title}
+                  </h2>
+                  <p className="mt-2 text-[13px] text-[var(--text-secondary)] leading-relaxed">
+                    {a.excerpt}
+                  </p>
+                  <div className="mt-4 flex items-center gap-3 text-[12px] text-[var(--text-secondary)]">
+                    <time dateTime={a.date}>{formatarData(a.date)}</time>
+                    <span className="h-1 w-1 rounded-full bg-[var(--text-secondary)]/40" />
+                    <span>{a.readTime} de leitura</span>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
 
       {/* ── CONTADOR — rodapé ── */}
       <p className="mt-14 text-center text-[13px] text-[var(--text-secondary)]">

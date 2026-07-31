@@ -2,10 +2,13 @@ import { createServerFn } from "@tanstack/react-start";
 import { sql } from "./db";
 export const getArtigos = createServerFn({ method: "GET" }).handler(async () => {
   const rows = await sql`
-    SELECT id, titulo, slug, resumo, categoria, tempo_leitura, data_publicacao, imagem_url
-    FROM artigos
-    WHERE status = 'publicado'
-    ORDER BY data_publicacao DESC
+    SELECT 
+      a.id, a.titulo, a.slug, a.resumo, a.tempo_leitura, a.data_publicacao, a.imagem_url,
+      c.nome AS categoria, c.slug AS categoria_slug
+    FROM artigos a
+    JOIN categorias c ON c.id = a.categoria_id
+    WHERE a.status = 'publicado'
+    ORDER BY a.data_publicacao DESC
   `;
   return rows;
 });
