@@ -1,8 +1,21 @@
 export type Noticia = {
-  slug: string; titulo: string; resumo: string;
-  categoria: string; categoriaLabel: string;
-  fonte: string; data: string; dataISO: string;
-  destaque: boolean; coverImage: string; tempoLeitura: number;
+  slug: string;
+  titulo: string;
+  resumo: string;
+
+  conteudoMd?: string;
+  conteudoHtml?: string;
+
+  categoria: string;
+  categoriaLabel: string;
+
+  fonte: string;
+  data: string;
+  dataISO: string;
+
+  destaque: boolean;
+  coverImage: string;
+  tempoLeitura: number;
 };
 
 export const NOTICIAS: Noticia[] = [

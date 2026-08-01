@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { marked } from "marked";
 import { NewsCardPequeno } from "@/components/noticias/NewsCard";
 import type { Noticia } from "@/components/noticias/dados";
 import { formatarData } from "@/lib/content";
@@ -13,6 +14,8 @@ function paraNoticia(n: any): Noticia {
     slug: n.slug,
     titulo: n.titulo,
     resumo: n.resumo,
+    conteudoMd: n.conteudo_md ?? "",
+    conteudoHtml: n.conteudo_html ?? "",
     categoria: n.categoria_slug ?? "",
     categoriaLabel: n.categoria_nome ?? "",
     fonte: n.fonte ?? "",
@@ -89,6 +92,10 @@ function NoticiaPage() {
     publisher: { "@type": "Organization", name: "DIGITALTECH" },
   };
 
+  const corpoHtml = noticia.conteudoHtml
+    ? noticia.conteudoHtml
+    : (marked.parse(noticia.conteudoMd ?? "", { async: false }) as string);
+
   return (
     <div className="min-h-screen bg-[var(--bg-primary)]">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -117,12 +124,20 @@ function NoticiaPage() {
         )}
 
         <div className="mt-8 rounded-xl border border-[var(--glass-border)] bg-[var(--bg-card)] p-5">
-          <p className="text-[var(--text-primary)] text-lg leading-relaxed">{noticia.resumo}</p>
-          <p className="mt-4 text-sm text-[var(--text-muted)]">
-            Fonte original:{" "}
-            <span className="text-[var(--text-secondary)] font-medium">{noticia.fonte}</span>
+          <p className="text-[var(--text-primary)] text-lg leading-relaxed font-medium">
+            {noticia.resumo}
           </p>
         </div>
+
+        <div
+          className="prose prose-invert max-w-none mt-8 text-[var(--text-primary)]"
+          dangerouslySetInnerHTML={{ __html: corpoHtml }}
+        />
+
+        <p className="mt-6 text-sm text-[var(--text-muted)]">
+          Fonte original:{" "}
+          <span className="text-[var(--text-secondary)] font-medium">{noticia.fonte}</span>
+        </p>
 
         {relacionadas.length > 0 && (
           <section className="mt-14">
