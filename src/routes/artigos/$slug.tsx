@@ -38,6 +38,11 @@ function mapArtigo(row: ArtigoDb): ArtigoView {
 }
 
 export const Route = createFileRoute("/artigos/$slug")({
+  loader: async ({ params }) => {
+    const row = await getArtigoPorSlug({ data: params.slug });
+    if (!row) throw notFound();
+    return mapArtigo(row);
+  },
   head: async ({ params }) => {
     const row = await getArtigoPorSlug({ data: params.slug });
     const url = `https://digitaltech.digital/artigos/${params.slug}`;
@@ -63,11 +68,6 @@ export const Route = createFileRoute("/artigos/$slug")({
       ],
       links: [{ rel: "canonical", href: url }],
     };
-  },
-  loader: async ({ params }) => {
-    const row = await getArtigoPorSlug({ data: params.slug });
-    if (!row) throw notFound();
-    return mapArtigo(row);
   },
   component: ArtigoPage,
 });

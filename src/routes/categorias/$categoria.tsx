@@ -9,15 +9,6 @@ import {
 } from "@/lib/categorias";
 
 export const Route = createFileRoute("/categorias/$categoria")({
-  head: ({ loaderData }) => ({
-    meta: [
-      {
-        title: loaderData?.categoria
-          ? `${loaderData.categoria.nome} — DIGITALTECH`
-          : "Categoria não encontrada — DIGITALTECH",
-      },
-    ],
-  }),
   loader: async ({ params }) => {
     const categoria = await getCategoriaPorSlug({ data: params.categoria });
     if (!categoria) {
@@ -39,6 +30,15 @@ export const Route = createFileRoute("/categorias/$categoria")({
       noticias: noticiasResult.noticias,
     };
   },
+  head: ({ loaderData }) => ({
+    meta: [
+      {
+        title: loaderData?.categoria
+          ? `${loaderData.categoria.nome} — DIGITALTECH`
+          : "Categoria não encontrada — DIGITALTECH",
+      },
+    ],
+  }),
   component: CategoriaPage,
 });
 
