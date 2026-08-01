@@ -1,12 +1,48 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { NewsCardPequeno } from "@/components/noticias/NewsCard";
-import { NOTICIAS } from "@/components/noticias/dados";
+import type { Noticia } from "@/components/noticias/dados";
+import { formatarData } from "@/lib/content";
+import { getNoticiaPorSlug, getNoticias } from "@/lib/noticias";
+
+function paraNoticia(n: any): Noticia {
+  const dataISO =
+    n.data_publicacao instanceof Date
+      ? n.data_publicacao.toISOString().slice(0, 10)
+      : String(n.data_publicacao).slice(0, 10);
+  return {
+    slug: n.slug,
+    titulo: n.titulo,
+    resumo: n.resumo,
+    categoria: n.categoria_slug ?? "",
+    categoriaLabel: n.categoria_nome ?? "",
+    fonte: n.fonte ?? "",
+    data: formatarData(dataISO),
+    dataISO,
+    destaque: Boolean(n.destaque),
+    coverImage: n.cover_image ?? "",
+    tempoLeitura: n.tempo_leitura ?? 5,
+  };
+}
 
 export const Route = createFileRoute("/noticias/$slug")({
-  head: ({ params }) => {
-    const noticia = NOTICIAS.find((n) => n.slug === params.slug);
+  loader: async ({ params }) => {
+    const row = await getNoticiaPorSlug({ data: params.slug });
+    if (!row) return { noticia: null as Noticia | null, relacionadas: [] as Noticia[] };
+
+    const noticia = paraNoticia(row);
+
+    const todas = await getNoticias();
+    const relacionadas = todas
+      .filter((n) => n.categoria_slug === row.categoria_slug && n.slug !== row.slug)
+      .slice(0, 2)
+      .map(paraNoticia);
+
+    return { noticia, relacionadas };
+  },
+  head: ({ loaderData }) => {
+    const noticia = loaderData?.noticia;
     if (!noticia) return { meta: [{ title: "Notícia não encontrada — DIGITALTECH" }] };
-    const url = `https://digitaltech.digital/noticias/${params.slug}`;
+    const url = `https://digitaltech.digital/noticias/${noticia.slug}`;
     return {
       meta: [
         { title: `${noticia.titulo} — DIGITALTECH` },
@@ -27,11 +63,7 @@ export const Route = createFileRoute("/noticias/$slug")({
 });
 
 function NoticiaPage() {
-  const { slug } = Route.useParams();
-  const noticia = NOTICIAS.find((n) => n.slug === slug);
-  const relacionadas = noticia
-    ? NOTICIAS.filter((n) => n.categoria === noticia.categoria && n.slug !== slug).slice(0, 2)
-    : [];
+  const { noticia, relacionadas } = Route.useLoaderData();
 
   if (!noticia) {
     return (
@@ -52,7 +84,7 @@ function NoticiaPage() {
     "@type": "NewsArticle",
     headline: noticia.titulo,
     description: noticia.resumo,
-    image: [noticia.coverImage],
+    image: noticia.coverImage ? [noticia.coverImage] : [],
     datePublished: noticia.dataISO,
     publisher: { "@type": "Organization", name: "DIGITALTECH" },
   };
@@ -78,11 +110,12 @@ function NoticiaPage() {
           </time>
         </div>
 
-        <div className="mt-6 rounded-2xl overflow-hidden border border-[var(--glass-border)]">
-          <img src={noticia.coverImage} alt={noticia.titulo} className="w-full h-64 object-cover" />
-        </div>
+        {noticia.coverImage && (
+          <div className="mt-6 rounded-2xl overflow-hidden border border-[var(--glass-border)]">
+            <img src={noticia.coverImage} alt={noticia.titulo} className="w-full h-64 object-cover" />
+          </div>
+        )}
 
-        {/* Formato de resumo curado — sem fingir ter uma matéria completa que não existe */}
         <div className="mt-8 rounded-xl border border-[var(--glass-border)] bg-[var(--bg-card)] p-5">
           <p className="text-[var(--text-primary)] text-lg leading-relaxed">{noticia.resumo}</p>
           <p className="mt-4 text-sm text-[var(--text-muted)]">

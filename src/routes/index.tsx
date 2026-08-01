@@ -5,7 +5,10 @@ import planet from "@/assets/planet.webp";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import { formatarData } from "@/lib/content";
 import { getArtigos } from "@/lib/artigos";
+import { getNoticias } from "@/lib/noticias";
 import { pesquisar } from "@/lib/pesquisa";
+import type { Noticia } from "@/components/noticias/dados";
+import { NewsCardPequeno } from "@/components/noticias/NewsCard";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -86,8 +89,9 @@ export const Route = createFileRoute("/")({
     ],
   }),
   loader: async () => {
-    const rows = await getArtigos();
-    return rows.map((a) => {
+    const [artigosRows, noticiasRows] = await Promise.all([getArtigos(), getNoticias()]);
+
+    const artigos = artigosRows.map((a) => {
       const dataISO =
         a.data_publicacao instanceof Date
           ? a.data_publicacao.toISOString().slice(0, 10)
@@ -103,9 +107,33 @@ export const Route = createFileRoute("/")({
         imageUrl: a.imagem_url ?? null,
       };
     });
+
+    const noticias: Noticia[] = noticiasRows.slice(0, 4).map(paraNoticia);
+
+    return { artigos, noticias };
   },
   component: Home,
 });
+
+function paraNoticia(n: any): Noticia {
+  const dataISO =
+    n.data_publicacao instanceof Date
+      ? n.data_publicacao.toISOString().slice(0, 10)
+      : String(n.data_publicacao).slice(0, 10);
+  return {
+    slug: n.slug,
+    titulo: n.titulo,
+    resumo: n.resumo,
+    categoria: n.categoria_slug ?? "",
+    categoriaLabel: n.categoria_nome ?? "",
+    fonte: n.fonte ?? "",
+    data: formatarData(dataISO),
+    dataISO,
+    destaque: Boolean(n.destaque),
+    coverImage: n.cover_image ?? "",
+    tempoLeitura: n.tempo_leitura ?? 5,
+  };
+}
 
 /* ------------------------------------------------------------ DATA */
 
@@ -256,6 +284,7 @@ function Header() {
 
   const links = [
     { href: "#artigos", label: "Artigos" },
+    { href: "#noticias", label: "Notícias" },
     { href: "#ferramentas", label: "Ferramentas" },
     { href: "#categorias", label: "Categorias" },
     { href: "#projetos", label: "Projetos" },
@@ -655,9 +684,8 @@ function ArticleCard({ a, large = false }: { a: Article; large?: boolean }) {
   );
 }
 
-function Articles({ featured, recent }: { featured: Article[]; recent: Article[] }) {
+function ArticlesFeatured({ featured }: { featured: Article[] }) {
   const ref1 = useReveal<HTMLDivElement>();
-  const ref2 = useReveal<HTMLDivElement>();
   return (
     <section id="artigos" className="mx-auto max-w-6xl px-6 pb-24">
       <SectionHeader
@@ -677,14 +705,48 @@ function Articles({ featured, recent }: { featured: Article[]; recent: Article[]
           <ArticleCard key={a.title} a={a} large />
         ))}
       </div>
+    </section>
+  );
+}
 
-      <div className="mt-20">
-        <SectionHeader eyebrow="Recentes" title="Atualizações da semana" />
-        <div ref={ref2} className="fade-in grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {recent.map((a) => (
-            <ArticleCard key={a.title} a={a} />
-          ))}
-        </div>
+function ArticlesRecent({ recent }: { recent: Article[] }) {
+  const ref2 = useReveal<HTMLDivElement>();
+  return (
+    <section className="mx-auto max-w-6xl px-6 pb-24">
+      <SectionHeader eyebrow="Recentes" title="Atualizações da semana" />
+      <div ref={ref2} className="fade-in grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {recent.map((a) => (
+          <ArticleCard key={a.title} a={a} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------ NEWS */
+
+function LatestNews({ noticias }: { noticias: Noticia[] }) {
+  const ref = useReveal<HTMLDivElement>();
+  if (noticias.length === 0) return null;
+
+  return (
+    <section id="noticias" className="mx-auto max-w-6xl px-6 pb-24">
+      <SectionHeader
+        eyebrow="Notícias"
+        title="O que aconteceu agora em tecnologia"
+        right={
+          <Link
+            to="/noticias"
+            className="hidden text-[13px] text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)] md:inline story-link"
+          >
+            Ver todas →
+          </Link>
+        }
+      />
+      <div ref={ref} className="fade-in grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {noticias.map((n) => (
+          <NewsCardPequeno key={n.slug} n={n} />
+        ))}
       </div>
     </section>
   );
@@ -885,7 +947,7 @@ function Footer() {
 }
 
 function Home() {
-  const artigosDB = Route.useLoaderData();
+  const { artigos: artigosDB, noticias } = Route.useLoaderData();
   const artigosPublicados: Article[] = artigosDB.map((a, i) => ({
     ...a,
     cover: COVER_GRADIENTS[i % COVER_GRADIENTS.length],
@@ -897,8 +959,10 @@ function Home() {
     <div className="min-h-screen">
       <main>
         <Hero totalArtigos={artigosPublicados.length} />
+        <ArticlesFeatured featured={featured} />
+        <LatestNews noticias={noticias} />
         <Tools />
-        <Articles featured={featured} recent={recent} />
+        <ArticlesRecent recent={recent} />
         <Categories />
         <Projects />
         <FAQ />
