@@ -9,74 +9,54 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TermosRouteImport } from './routes/termos'
-import { Route as SobreRouteImport } from './routes/sobre'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
-import { Route as FerramentasRouteImport } from './routes/ferramentas'
-import { Route as ContatoRouteImport } from './routes/contato'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ProjetosIndexRouteImport } from './routes/projetos/index'
-import { Route as NoticiasIndexRouteImport } from './routes/noticias/index'
-import { Route as FerramentasIndexRouteImport } from './routes/ferramentas/index'
+import { Route as ContatoRouteImport } from './routes/contato'
+import { Route as FerramentasRouteImport } from './routes/ferramentas'
+import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SobreRouteImport } from './routes/sobre'
+import { Route as TermosRouteImport } from './routes/termos'
 import { Route as ArtigosIndexRouteImport } from './routes/artigos/index'
-import { Route as NoticiasSlugRouteImport } from './routes/noticias/$slug'
-import { Route as FerramentasValidadorCpfCnpjRouteImport } from './routes/ferramentas/validador-cpf-cnpj'
-import { Route as FerramentasUuidRouteImport } from './routes/ferramentas/uuid'
-import { Route as FerramentasUtmBuilderRouteImport } from './routes/ferramentas/utm-builder'
-import { Route as FerramentasTranslatorRouteImport } from './routes/ferramentas/translator'
-import { Route as FerramentasTestadorRegexRouteImport } from './routes/ferramentas/testador-regex'
-import { Route as FerramentasTelefoneTemporarioRouteImport } from './routes/ferramentas/telefone-temporario'
-import { Route as FerramentasSummarizerRouteImport } from './routes/ferramentas/summarizer'
-import { Route as FerramentasSitemapRouteImport } from './routes/ferramentas/sitemap'
-import { Route as FerramentasSchemaRouteImport } from './routes/ferramentas/schema'
-import { Route as FerramentasRobotsRouteImport } from './routes/ferramentas/robots'
-import { Route as FerramentasRewriterRouteImport } from './routes/ferramentas/rewriter'
-import { Route as FerramentasQrCodeGeneratorRouteImport } from './routes/ferramentas/qr-code-generator'
-import { Route as FerramentasPromptGeneratorRouteImport } from './routes/ferramentas/prompt-generator'
-import { Route as FerramentasPixelHelperRouteImport } from './routes/ferramentas/pixel-helper'
-import { Route as FerramentasOpenGraphRouteImport } from './routes/ferramentas/open-graph'
-import { Route as FerramentasMeuIpRouteImport } from './routes/ferramentas/meu-ip'
-import { Route as FerramentasMetaTagsRouteImport } from './routes/ferramentas/meta-tags'
-import { Route as FerramentasMarkdownHtmlRouteImport } from './routes/ferramentas/markdown-html'
-import { Route as FerramentasKeywordDensityRouteImport } from './routes/ferramentas/keyword-density'
-import { Route as FerramentasHashRouteImport } from './routes/ferramentas/hash'
-import { Route as FerramentasGeradorCpfCnpjRouteImport } from './routes/ferramentas/gerador-cpf-cnpj'
-import { Route as FerramentasGeradorCepRouteImport } from './routes/ferramentas/gerador-cep'
-import { Route as FerramentasGeradorCartaoRouteImport } from './routes/ferramentas/gerador-cartao'
-import { Route as FerramentasFormatadorJsonRouteImport } from './routes/ferramentas/formatador-json'
-import { Route as FerramentasEmailTemporarioRouteImport } from './routes/ferramentas/email-temporario'
-import { Route as FerramentasConversorImagensRouteImport } from './routes/ferramentas/conversor-imagens'
-import { Route as FerramentasColorPickerRouteImport } from './routes/ferramentas/color-picker'
-import { Route as FerramentasChecadorSenhaRouteImport } from './routes/ferramentas/checador-senha'
-import { Route as FerramentasCanonicalRouteImport } from './routes/ferramentas/canonical'
-import { Route as FerramentasBase64RouteImport } from './routes/ferramentas/base64'
-import { Route as CategoriasCategoriaRouteImport } from './routes/categorias/$categoria'
 import { Route as ArtigosSlugRouteImport } from './routes/artigos/$slug'
+import { Route as CategoriasCategoriaRouteImport } from './routes/categorias/$categoria'
+import { Route as FerramentasIndexRouteImport } from './routes/ferramentas/index'
+import { Route as FerramentasBase64RouteImport } from './routes/ferramentas/base64'
+import { Route as FerramentasCanonicalRouteImport } from './routes/ferramentas/canonical'
+import { Route as FerramentasChecadorSenhaRouteImport } from './routes/ferramentas/checador-senha'
+import { Route as FerramentasColorPickerRouteImport } from './routes/ferramentas/color-picker'
+import { Route as FerramentasConversorImagensRouteImport } from './routes/ferramentas/conversor-imagens'
+import { Route as FerramentasEmailTemporarioRouteImport } from './routes/ferramentas/email-temporario'
+import { Route as FerramentasFormatadorJsonRouteImport } from './routes/ferramentas/formatador-json'
+import { Route as FerramentasGeradorCartaoRouteImport } from './routes/ferramentas/gerador-cartao'
+import { Route as FerramentasGeradorCepRouteImport } from './routes/ferramentas/gerador-cep'
+import { Route as FerramentasGeradorCpfCnpjRouteImport } from './routes/ferramentas/gerador-cpf-cnpj'
+import { Route as FerramentasHashRouteImport } from './routes/ferramentas/hash'
+import { Route as FerramentasKeywordDensityRouteImport } from './routes/ferramentas/keyword-density'
+import { Route as FerramentasMarkdownHtmlRouteImport } from './routes/ferramentas/markdown-html'
+import { Route as FerramentasMetaTagsRouteImport } from './routes/ferramentas/meta-tags'
+import { Route as FerramentasMeuIpRouteImport } from './routes/ferramentas/meu-ip'
+import { Route as FerramentasOpenGraphRouteImport } from './routes/ferramentas/open-graph'
+import { Route as FerramentasPixelHelperRouteImport } from './routes/ferramentas/pixel-helper'
+import { Route as FerramentasPromptGeneratorRouteImport } from './routes/ferramentas/prompt-generator'
+import { Route as FerramentasQrCodeGeneratorRouteImport } from './routes/ferramentas/qr-code-generator'
+import { Route as FerramentasRewriterRouteImport } from './routes/ferramentas/rewriter'
+import { Route as FerramentasRobotsRouteImport } from './routes/ferramentas/robots'
+import { Route as FerramentasSchemaRouteImport } from './routes/ferramentas/schema'
+import { Route as FerramentasSitemapRouteImport } from './routes/ferramentas/sitemap'
+import { Route as FerramentasSummarizerRouteImport } from './routes/ferramentas/summarizer'
+import { Route as FerramentasTelefoneTemporarioRouteImport } from './routes/ferramentas/telefone-temporario'
+import { Route as FerramentasTestadorRegexRouteImport } from './routes/ferramentas/testador-regex'
+import { Route as FerramentasTranslatorRouteImport } from './routes/ferramentas/translator'
+import { Route as FerramentasUtmBuilderRouteImport } from './routes/ferramentas/utm-builder'
+import { Route as FerramentasUuidRouteImport } from './routes/ferramentas/uuid'
+import { Route as FerramentasValidadorCpfCnpjRouteImport } from './routes/ferramentas/validador-cpf-cnpj'
+import { Route as NoticiasIndexRouteImport } from './routes/noticias/index'
+import { Route as NoticiasSlugRouteImport } from './routes/noticias/$slug'
+import { Route as ProjetosIndexRouteImport } from './routes/projetos/index'
 
-const TermosRoute = TermosRouteImport.update({
-  id: '/termos',
-  path: '/termos',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SobreRoute = SobreRouteImport.update({
-  id: '/sobre',
-  path: '/sobre',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PoliticaDePrivacidadeRoute = PoliticaDePrivacidadeRouteImport.update({
-  id: '/politica-de-privacidade',
-  path: '/politica-de-privacidade',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FerramentasRoute = FerramentasRouteImport.update({
-  id: '/ferramentas',
-  path: '/ferramentas',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContatoRoute = ContatoRouteImport.update({
@@ -84,19 +64,44 @@ const ContatoRoute = ContatoRouteImport.update({
   path: '/contato',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const FerramentasRoute = FerramentasRouteImport.update({
+  id: '/ferramentas',
+  path: '/ferramentas',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProjetosIndexRoute = ProjetosIndexRouteImport.update({
-  id: '/projetos/',
-  path: '/projetos/',
+const PoliticaDePrivacidadeRoute = PoliticaDePrivacidadeRouteImport.update({
+  id: '/politica-de-privacidade',
+  path: '/politica-de-privacidade',
   getParentRoute: () => rootRouteImport,
 } as any)
-const NoticiasIndexRoute = NoticiasIndexRouteImport.update({
-  id: '/noticias/',
-  path: '/noticias/',
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SobreRoute = SobreRouteImport.update({
+  id: '/sobre',
+  path: '/sobre',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermosRoute = TermosRouteImport.update({
+  id: '/termos',
+  path: '/termos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArtigosIndexRoute = ArtigosIndexRouteImport.update({
+  id: '/artigos/',
+  path: '/artigos/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ArtigosSlugRoute = ArtigosSlugRouteImport.update({
+  id: '/artigos/$slug',
+  path: '/artigos/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CategoriasCategoriaRoute = CategoriasCategoriaRouteImport.update({
+  id: '/categorias/$categoria',
+  path: '/categorias/$categoria',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FerramentasIndexRoute = FerramentasIndexRouteImport.update({
@@ -104,160 +109,14 @@ const FerramentasIndexRoute = FerramentasIndexRouteImport.update({
   path: '/',
   getParentRoute: () => FerramentasRoute,
 } as any)
-const ArtigosIndexRoute = ArtigosIndexRouteImport.update({
-  id: '/artigos/',
-  path: '/artigos/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const NoticiasSlugRoute = NoticiasSlugRouteImport.update({
-  id: '/noticias/$slug',
-  path: '/noticias/$slug',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const FerramentasValidadorCpfCnpjRoute =
-  FerramentasValidadorCpfCnpjRouteImport.update({
-    id: '/validador-cpf-cnpj',
-    path: '/validador-cpf-cnpj',
-    getParentRoute: () => FerramentasRoute,
-  } as any)
-const FerramentasUuidRoute = FerramentasUuidRouteImport.update({
-  id: '/uuid',
-  path: '/uuid',
+const FerramentasBase64Route = FerramentasBase64RouteImport.update({
+  id: '/base64',
+  path: '/base64',
   getParentRoute: () => FerramentasRoute,
 } as any)
-const FerramentasUtmBuilderRoute = FerramentasUtmBuilderRouteImport.update({
-  id: '/utm-builder',
-  path: '/utm-builder',
-  getParentRoute: () => FerramentasRoute,
-} as any)
-const FerramentasTranslatorRoute = FerramentasTranslatorRouteImport.update({
-  id: '/translator',
-  path: '/translator',
-  getParentRoute: () => FerramentasRoute,
-} as any)
-const FerramentasTestadorRegexRoute =
-  FerramentasTestadorRegexRouteImport.update({
-    id: '/testador-regex',
-    path: '/testador-regex',
-    getParentRoute: () => FerramentasRoute,
-  } as any)
-const FerramentasTelefoneTemporarioRoute =
-  FerramentasTelefoneTemporarioRouteImport.update({
-    id: '/telefone-temporario',
-    path: '/telefone-temporario',
-    getParentRoute: () => FerramentasRoute,
-  } as any)
-const FerramentasSummarizerRoute = FerramentasSummarizerRouteImport.update({
-  id: '/summarizer',
-  path: '/summarizer',
-  getParentRoute: () => FerramentasRoute,
-} as any)
-const FerramentasSitemapRoute = FerramentasSitemapRouteImport.update({
-  id: '/sitemap',
-  path: '/sitemap',
-  getParentRoute: () => FerramentasRoute,
-} as any)
-const FerramentasSchemaRoute = FerramentasSchemaRouteImport.update({
-  id: '/schema',
-  path: '/schema',
-  getParentRoute: () => FerramentasRoute,
-} as any)
-const FerramentasRobotsRoute = FerramentasRobotsRouteImport.update({
-  id: '/robots',
-  path: '/robots',
-  getParentRoute: () => FerramentasRoute,
-} as any)
-const FerramentasRewriterRoute = FerramentasRewriterRouteImport.update({
-  id: '/rewriter',
-  path: '/rewriter',
-  getParentRoute: () => FerramentasRoute,
-} as any)
-const FerramentasQrCodeGeneratorRoute =
-  FerramentasQrCodeGeneratorRouteImport.update({
-    id: '/qr-code-generator',
-    path: '/qr-code-generator',
-    getParentRoute: () => FerramentasRoute,
-  } as any)
-const FerramentasPromptGeneratorRoute =
-  FerramentasPromptGeneratorRouteImport.update({
-    id: '/prompt-generator',
-    path: '/prompt-generator',
-    getParentRoute: () => FerramentasRoute,
-  } as any)
-const FerramentasPixelHelperRoute = FerramentasPixelHelperRouteImport.update({
-  id: '/pixel-helper',
-  path: '/pixel-helper',
-  getParentRoute: () => FerramentasRoute,
-} as any)
-const FerramentasOpenGraphRoute = FerramentasOpenGraphRouteImport.update({
-  id: '/open-graph',
-  path: '/open-graph',
-  getParentRoute: () => FerramentasRoute,
-} as any)
-const FerramentasMeuIpRoute = FerramentasMeuIpRouteImport.update({
-  id: '/meu-ip',
-  path: '/meu-ip',
-  getParentRoute: () => FerramentasRoute,
-} as any)
-const FerramentasMetaTagsRoute = FerramentasMetaTagsRouteImport.update({
-  id: '/meta-tags',
-  path: '/meta-tags',
-  getParentRoute: () => FerramentasRoute,
-} as any)
-const FerramentasMarkdownHtmlRoute = FerramentasMarkdownHtmlRouteImport.update({
-  id: '/markdown-html',
-  path: '/markdown-html',
-  getParentRoute: () => FerramentasRoute,
-} as any)
-const FerramentasKeywordDensityRoute =
-  FerramentasKeywordDensityRouteImport.update({
-    id: '/keyword-density',
-    path: '/keyword-density',
-    getParentRoute: () => FerramentasRoute,
-  } as any)
-const FerramentasHashRoute = FerramentasHashRouteImport.update({
-  id: '/hash',
-  path: '/hash',
-  getParentRoute: () => FerramentasRoute,
-} as any)
-const FerramentasGeradorCpfCnpjRoute =
-  FerramentasGeradorCpfCnpjRouteImport.update({
-    id: '/gerador-cpf-cnpj',
-    path: '/gerador-cpf-cnpj',
-    getParentRoute: () => FerramentasRoute,
-  } as any)
-const FerramentasGeradorCepRoute = FerramentasGeradorCepRouteImport.update({
-  id: '/gerador-cep',
-  path: '/gerador-cep',
-  getParentRoute: () => FerramentasRoute,
-} as any)
-const FerramentasGeradorCartaoRoute =
-  FerramentasGeradorCartaoRouteImport.update({
-    id: '/gerador-cartao',
-    path: '/gerador-cartao',
-    getParentRoute: () => FerramentasRoute,
-  } as any)
-const FerramentasFormatadorJsonRoute =
-  FerramentasFormatadorJsonRouteImport.update({
-    id: '/formatador-json',
-    path: '/formatador-json',
-    getParentRoute: () => FerramentasRoute,
-  } as any)
-const FerramentasEmailTemporarioRoute =
-  FerramentasEmailTemporarioRouteImport.update({
-    id: '/email-temporario',
-    path: '/email-temporario',
-    getParentRoute: () => FerramentasRoute,
-  } as any)
-const FerramentasConversorImagensRoute =
-  FerramentasConversorImagensRouteImport.update({
-    id: '/conversor-imagens',
-    path: '/conversor-imagens',
-    getParentRoute: () => FerramentasRoute,
-  } as any)
-const FerramentasColorPickerRoute = FerramentasColorPickerRouteImport.update({
-  id: '/color-picker',
-  path: '/color-picker',
+const FerramentasCanonicalRoute = FerramentasCanonicalRouteImport.update({
+  id: '/canonical',
+  path: '/canonical',
   getParentRoute: () => FerramentasRoute,
 } as any)
 const FerramentasChecadorSenhaRoute =
@@ -266,24 +125,165 @@ const FerramentasChecadorSenhaRoute =
     path: '/checador-senha',
     getParentRoute: () => FerramentasRoute,
   } as any)
-const FerramentasCanonicalRoute = FerramentasCanonicalRouteImport.update({
-  id: '/canonical',
-  path: '/canonical',
+const FerramentasColorPickerRoute = FerramentasColorPickerRouteImport.update({
+  id: '/color-picker',
+  path: '/color-picker',
   getParentRoute: () => FerramentasRoute,
 } as any)
-const FerramentasBase64Route = FerramentasBase64RouteImport.update({
-  id: '/base64',
-  path: '/base64',
+const FerramentasConversorImagensRoute =
+  FerramentasConversorImagensRouteImport.update({
+    id: '/conversor-imagens',
+    path: '/conversor-imagens',
+    getParentRoute: () => FerramentasRoute,
+  } as any)
+const FerramentasEmailTemporarioRoute =
+  FerramentasEmailTemporarioRouteImport.update({
+    id: '/email-temporario',
+    path: '/email-temporario',
+    getParentRoute: () => FerramentasRoute,
+  } as any)
+const FerramentasFormatadorJsonRoute =
+  FerramentasFormatadorJsonRouteImport.update({
+    id: '/formatador-json',
+    path: '/formatador-json',
+    getParentRoute: () => FerramentasRoute,
+  } as any)
+const FerramentasGeradorCartaoRoute =
+  FerramentasGeradorCartaoRouteImport.update({
+    id: '/gerador-cartao',
+    path: '/gerador-cartao',
+    getParentRoute: () => FerramentasRoute,
+  } as any)
+const FerramentasGeradorCepRoute = FerramentasGeradorCepRouteImport.update({
+  id: '/gerador-cep',
+  path: '/gerador-cep',
   getParentRoute: () => FerramentasRoute,
 } as any)
-const CategoriasCategoriaRoute = CategoriasCategoriaRouteImport.update({
-  id: '/categorias/$categoria',
-  path: '/categorias/$categoria',
+const FerramentasGeradorCpfCnpjRoute =
+  FerramentasGeradorCpfCnpjRouteImport.update({
+    id: '/gerador-cpf-cnpj',
+    path: '/gerador-cpf-cnpj',
+    getParentRoute: () => FerramentasRoute,
+  } as any)
+const FerramentasHashRoute = FerramentasHashRouteImport.update({
+  id: '/hash',
+  path: '/hash',
+  getParentRoute: () => FerramentasRoute,
+} as any)
+const FerramentasKeywordDensityRoute =
+  FerramentasKeywordDensityRouteImport.update({
+    id: '/keyword-density',
+    path: '/keyword-density',
+    getParentRoute: () => FerramentasRoute,
+  } as any)
+const FerramentasMarkdownHtmlRoute = FerramentasMarkdownHtmlRouteImport.update({
+  id: '/markdown-html',
+  path: '/markdown-html',
+  getParentRoute: () => FerramentasRoute,
+} as any)
+const FerramentasMetaTagsRoute = FerramentasMetaTagsRouteImport.update({
+  id: '/meta-tags',
+  path: '/meta-tags',
+  getParentRoute: () => FerramentasRoute,
+} as any)
+const FerramentasMeuIpRoute = FerramentasMeuIpRouteImport.update({
+  id: '/meu-ip',
+  path: '/meu-ip',
+  getParentRoute: () => FerramentasRoute,
+} as any)
+const FerramentasOpenGraphRoute = FerramentasOpenGraphRouteImport.update({
+  id: '/open-graph',
+  path: '/open-graph',
+  getParentRoute: () => FerramentasRoute,
+} as any)
+const FerramentasPixelHelperRoute = FerramentasPixelHelperRouteImport.update({
+  id: '/pixel-helper',
+  path: '/pixel-helper',
+  getParentRoute: () => FerramentasRoute,
+} as any)
+const FerramentasPromptGeneratorRoute =
+  FerramentasPromptGeneratorRouteImport.update({
+    id: '/prompt-generator',
+    path: '/prompt-generator',
+    getParentRoute: () => FerramentasRoute,
+  } as any)
+const FerramentasQrCodeGeneratorRoute =
+  FerramentasQrCodeGeneratorRouteImport.update({
+    id: '/qr-code-generator',
+    path: '/qr-code-generator',
+    getParentRoute: () => FerramentasRoute,
+  } as any)
+const FerramentasRewriterRoute = FerramentasRewriterRouteImport.update({
+  id: '/rewriter',
+  path: '/rewriter',
+  getParentRoute: () => FerramentasRoute,
+} as any)
+const FerramentasRobotsRoute = FerramentasRobotsRouteImport.update({
+  id: '/robots',
+  path: '/robots',
+  getParentRoute: () => FerramentasRoute,
+} as any)
+const FerramentasSchemaRoute = FerramentasSchemaRouteImport.update({
+  id: '/schema',
+  path: '/schema',
+  getParentRoute: () => FerramentasRoute,
+} as any)
+const FerramentasSitemapRoute = FerramentasSitemapRouteImport.update({
+  id: '/sitemap',
+  path: '/sitemap',
+  getParentRoute: () => FerramentasRoute,
+} as any)
+const FerramentasSummarizerRoute = FerramentasSummarizerRouteImport.update({
+  id: '/summarizer',
+  path: '/summarizer',
+  getParentRoute: () => FerramentasRoute,
+} as any)
+const FerramentasTelefoneTemporarioRoute =
+  FerramentasTelefoneTemporarioRouteImport.update({
+    id: '/telefone-temporario',
+    path: '/telefone-temporario',
+    getParentRoute: () => FerramentasRoute,
+  } as any)
+const FerramentasTestadorRegexRoute =
+  FerramentasTestadorRegexRouteImport.update({
+    id: '/testador-regex',
+    path: '/testador-regex',
+    getParentRoute: () => FerramentasRoute,
+  } as any)
+const FerramentasTranslatorRoute = FerramentasTranslatorRouteImport.update({
+  id: '/translator',
+  path: '/translator',
+  getParentRoute: () => FerramentasRoute,
+} as any)
+const FerramentasUtmBuilderRoute = FerramentasUtmBuilderRouteImport.update({
+  id: '/utm-builder',
+  path: '/utm-builder',
+  getParentRoute: () => FerramentasRoute,
+} as any)
+const FerramentasUuidRoute = FerramentasUuidRouteImport.update({
+  id: '/uuid',
+  path: '/uuid',
+  getParentRoute: () => FerramentasRoute,
+} as any)
+const FerramentasValidadorCpfCnpjRoute =
+  FerramentasValidadorCpfCnpjRouteImport.update({
+    id: '/validador-cpf-cnpj',
+    path: '/validador-cpf-cnpj',
+    getParentRoute: () => FerramentasRoute,
+  } as any)
+const NoticiasIndexRoute = NoticiasIndexRouteImport.update({
+  id: '/noticias/',
+  path: '/noticias/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ArtigosSlugRoute = ArtigosSlugRouteImport.update({
-  id: '/artigos/$slug',
-  path: '/artigos/$slug',
+const NoticiasSlugRoute = NoticiasSlugRouteImport.update({
+  id: '/noticias/$slug',
+  path: '/noticias/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjetosIndexRoute = ProjetosIndexRouteImport.update({
+  id: '/projetos/',
+  path: '/projetos/',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -583,39 +583,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/termos': {
-      id: '/termos'
-      path: '/termos'
-      fullPath: '/termos'
-      preLoaderRoute: typeof TermosRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sobre': {
-      id: '/sobre'
-      path: '/sobre'
-      fullPath: '/sobre'
-      preLoaderRoute: typeof SobreRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/politica-de-privacidade': {
-      id: '/politica-de-privacidade'
-      path: '/politica-de-privacidade'
-      fullPath: '/politica-de-privacidade'
-      preLoaderRoute: typeof PoliticaDePrivacidadeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/ferramentas': {
-      id: '/ferramentas'
-      path: '/ferramentas'
-      fullPath: '/ferramentas'
-      preLoaderRoute: typeof FerramentasRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contato': {
@@ -625,25 +597,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContatoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/ferramentas': {
+      id: '/ferramentas'
+      path: '/ferramentas'
+      fullPath: '/ferramentas'
+      preLoaderRoute: typeof FerramentasRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/projetos/': {
-      id: '/projetos/'
-      path: '/projetos'
-      fullPath: '/projetos/'
-      preLoaderRoute: typeof ProjetosIndexRouteImport
+    '/politica-de-privacidade': {
+      id: '/politica-de-privacidade'
+      path: '/politica-de-privacidade'
+      fullPath: '/politica-de-privacidade'
+      preLoaderRoute: typeof PoliticaDePrivacidadeRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/noticias/': {
-      id: '/noticias/'
-      path: '/noticias'
-      fullPath: '/noticias/'
-      preLoaderRoute: typeof NoticiasIndexRouteImport
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sobre': {
+      id: '/sobre'
+      path: '/sobre'
+      fullPath: '/sobre'
+      preLoaderRoute: typeof SobreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/termos': {
+      id: '/termos'
+      path: '/termos'
+      fullPath: '/termos'
+      preLoaderRoute: typeof TermosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/artigos/': {
+      id: '/artigos/'
+      path: '/artigos'
+      fullPath: '/artigos/'
+      preLoaderRoute: typeof ArtigosIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/artigos/$slug': {
+      id: '/artigos/$slug'
+      path: '/artigos/$slug'
+      fullPath: '/artigos/$slug'
+      preLoaderRoute: typeof ArtigosSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/categorias/$categoria': {
+      id: '/categorias/$categoria'
+      path: '/categorias/$categoria'
+      fullPath: '/categorias/$categoria'
+      preLoaderRoute: typeof CategoriasCategoriaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ferramentas/': {
@@ -653,214 +660,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FerramentasIndexRouteImport
       parentRoute: typeof FerramentasRoute
     }
-    '/artigos/': {
-      id: '/artigos/'
-      path: '/artigos'
-      fullPath: '/artigos/'
-      preLoaderRoute: typeof ArtigosIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/noticias/$slug': {
-      id: '/noticias/$slug'
-      path: '/noticias/$slug'
-      fullPath: '/noticias/$slug'
-      preLoaderRoute: typeof NoticiasSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/ferramentas/validador-cpf-cnpj': {
-      id: '/ferramentas/validador-cpf-cnpj'
-      path: '/validador-cpf-cnpj'
-      fullPath: '/ferramentas/validador-cpf-cnpj'
-      preLoaderRoute: typeof FerramentasValidadorCpfCnpjRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/uuid': {
-      id: '/ferramentas/uuid'
-      path: '/uuid'
-      fullPath: '/ferramentas/uuid'
-      preLoaderRoute: typeof FerramentasUuidRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/utm-builder': {
-      id: '/ferramentas/utm-builder'
-      path: '/utm-builder'
-      fullPath: '/ferramentas/utm-builder'
-      preLoaderRoute: typeof FerramentasUtmBuilderRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/translator': {
-      id: '/ferramentas/translator'
-      path: '/translator'
-      fullPath: '/ferramentas/translator'
-      preLoaderRoute: typeof FerramentasTranslatorRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/testador-regex': {
-      id: '/ferramentas/testador-regex'
-      path: '/testador-regex'
-      fullPath: '/ferramentas/testador-regex'
-      preLoaderRoute: typeof FerramentasTestadorRegexRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/telefone-temporario': {
-      id: '/ferramentas/telefone-temporario'
-      path: '/telefone-temporario'
-      fullPath: '/ferramentas/telefone-temporario'
-      preLoaderRoute: typeof FerramentasTelefoneTemporarioRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/summarizer': {
-      id: '/ferramentas/summarizer'
-      path: '/summarizer'
-      fullPath: '/ferramentas/summarizer'
-      preLoaderRoute: typeof FerramentasSummarizerRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/sitemap': {
-      id: '/ferramentas/sitemap'
-      path: '/sitemap'
-      fullPath: '/ferramentas/sitemap'
-      preLoaderRoute: typeof FerramentasSitemapRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/schema': {
-      id: '/ferramentas/schema'
-      path: '/schema'
-      fullPath: '/ferramentas/schema'
-      preLoaderRoute: typeof FerramentasSchemaRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/robots': {
-      id: '/ferramentas/robots'
-      path: '/robots'
-      fullPath: '/ferramentas/robots'
-      preLoaderRoute: typeof FerramentasRobotsRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/rewriter': {
-      id: '/ferramentas/rewriter'
-      path: '/rewriter'
-      fullPath: '/ferramentas/rewriter'
-      preLoaderRoute: typeof FerramentasRewriterRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/qr-code-generator': {
-      id: '/ferramentas/qr-code-generator'
-      path: '/qr-code-generator'
-      fullPath: '/ferramentas/qr-code-generator'
-      preLoaderRoute: typeof FerramentasQrCodeGeneratorRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/prompt-generator': {
-      id: '/ferramentas/prompt-generator'
-      path: '/prompt-generator'
-      fullPath: '/ferramentas/prompt-generator'
-      preLoaderRoute: typeof FerramentasPromptGeneratorRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/pixel-helper': {
-      id: '/ferramentas/pixel-helper'
-      path: '/pixel-helper'
-      fullPath: '/ferramentas/pixel-helper'
-      preLoaderRoute: typeof FerramentasPixelHelperRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/open-graph': {
-      id: '/ferramentas/open-graph'
-      path: '/open-graph'
-      fullPath: '/ferramentas/open-graph'
-      preLoaderRoute: typeof FerramentasOpenGraphRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/meu-ip': {
-      id: '/ferramentas/meu-ip'
-      path: '/meu-ip'
-      fullPath: '/ferramentas/meu-ip'
-      preLoaderRoute: typeof FerramentasMeuIpRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/meta-tags': {
-      id: '/ferramentas/meta-tags'
-      path: '/meta-tags'
-      fullPath: '/ferramentas/meta-tags'
-      preLoaderRoute: typeof FerramentasMetaTagsRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/markdown-html': {
-      id: '/ferramentas/markdown-html'
-      path: '/markdown-html'
-      fullPath: '/ferramentas/markdown-html'
-      preLoaderRoute: typeof FerramentasMarkdownHtmlRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/keyword-density': {
-      id: '/ferramentas/keyword-density'
-      path: '/keyword-density'
-      fullPath: '/ferramentas/keyword-density'
-      preLoaderRoute: typeof FerramentasKeywordDensityRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/hash': {
-      id: '/ferramentas/hash'
-      path: '/hash'
-      fullPath: '/ferramentas/hash'
-      preLoaderRoute: typeof FerramentasHashRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/gerador-cpf-cnpj': {
-      id: '/ferramentas/gerador-cpf-cnpj'
-      path: '/gerador-cpf-cnpj'
-      fullPath: '/ferramentas/gerador-cpf-cnpj'
-      preLoaderRoute: typeof FerramentasGeradorCpfCnpjRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/gerador-cep': {
-      id: '/ferramentas/gerador-cep'
-      path: '/gerador-cep'
-      fullPath: '/ferramentas/gerador-cep'
-      preLoaderRoute: typeof FerramentasGeradorCepRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/gerador-cartao': {
-      id: '/ferramentas/gerador-cartao'
-      path: '/gerador-cartao'
-      fullPath: '/ferramentas/gerador-cartao'
-      preLoaderRoute: typeof FerramentasGeradorCartaoRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/formatador-json': {
-      id: '/ferramentas/formatador-json'
-      path: '/formatador-json'
-      fullPath: '/ferramentas/formatador-json'
-      preLoaderRoute: typeof FerramentasFormatadorJsonRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/email-temporario': {
-      id: '/ferramentas/email-temporario'
-      path: '/email-temporario'
-      fullPath: '/ferramentas/email-temporario'
-      preLoaderRoute: typeof FerramentasEmailTemporarioRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/conversor-imagens': {
-      id: '/ferramentas/conversor-imagens'
-      path: '/conversor-imagens'
-      fullPath: '/ferramentas/conversor-imagens'
-      preLoaderRoute: typeof FerramentasConversorImagensRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/color-picker': {
-      id: '/ferramentas/color-picker'
-      path: '/color-picker'
-      fullPath: '/ferramentas/color-picker'
-      preLoaderRoute: typeof FerramentasColorPickerRouteImport
-      parentRoute: typeof FerramentasRoute
-    }
-    '/ferramentas/checador-senha': {
-      id: '/ferramentas/checador-senha'
-      path: '/checador-senha'
-      fullPath: '/ferramentas/checador-senha'
-      preLoaderRoute: typeof FerramentasChecadorSenhaRouteImport
+    '/ferramentas/base64': {
+      id: '/ferramentas/base64'
+      path: '/base64'
+      fullPath: '/ferramentas/base64'
+      preLoaderRoute: typeof FerramentasBase64RouteImport
       parentRoute: typeof FerramentasRoute
     }
     '/ferramentas/canonical': {
@@ -870,25 +674,221 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FerramentasCanonicalRouteImport
       parentRoute: typeof FerramentasRoute
     }
-    '/ferramentas/base64': {
-      id: '/ferramentas/base64'
-      path: '/base64'
-      fullPath: '/ferramentas/base64'
-      preLoaderRoute: typeof FerramentasBase64RouteImport
+    '/ferramentas/checador-senha': {
+      id: '/ferramentas/checador-senha'
+      path: '/checador-senha'
+      fullPath: '/ferramentas/checador-senha'
+      preLoaderRoute: typeof FerramentasChecadorSenhaRouteImport
       parentRoute: typeof FerramentasRoute
     }
-    '/categorias/$categoria': {
-      id: '/categorias/$categoria'
-      path: '/categorias/$categoria'
-      fullPath: '/categorias/$categoria'
-      preLoaderRoute: typeof CategoriasCategoriaRouteImport
+    '/ferramentas/color-picker': {
+      id: '/ferramentas/color-picker'
+      path: '/color-picker'
+      fullPath: '/ferramentas/color-picker'
+      preLoaderRoute: typeof FerramentasColorPickerRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/conversor-imagens': {
+      id: '/ferramentas/conversor-imagens'
+      path: '/conversor-imagens'
+      fullPath: '/ferramentas/conversor-imagens'
+      preLoaderRoute: typeof FerramentasConversorImagensRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/email-temporario': {
+      id: '/ferramentas/email-temporario'
+      path: '/email-temporario'
+      fullPath: '/ferramentas/email-temporario'
+      preLoaderRoute: typeof FerramentasEmailTemporarioRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/formatador-json': {
+      id: '/ferramentas/formatador-json'
+      path: '/formatador-json'
+      fullPath: '/ferramentas/formatador-json'
+      preLoaderRoute: typeof FerramentasFormatadorJsonRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/gerador-cartao': {
+      id: '/ferramentas/gerador-cartao'
+      path: '/gerador-cartao'
+      fullPath: '/ferramentas/gerador-cartao'
+      preLoaderRoute: typeof FerramentasGeradorCartaoRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/gerador-cep': {
+      id: '/ferramentas/gerador-cep'
+      path: '/gerador-cep'
+      fullPath: '/ferramentas/gerador-cep'
+      preLoaderRoute: typeof FerramentasGeradorCepRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/gerador-cpf-cnpj': {
+      id: '/ferramentas/gerador-cpf-cnpj'
+      path: '/gerador-cpf-cnpj'
+      fullPath: '/ferramentas/gerador-cpf-cnpj'
+      preLoaderRoute: typeof FerramentasGeradorCpfCnpjRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/hash': {
+      id: '/ferramentas/hash'
+      path: '/hash'
+      fullPath: '/ferramentas/hash'
+      preLoaderRoute: typeof FerramentasHashRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/keyword-density': {
+      id: '/ferramentas/keyword-density'
+      path: '/keyword-density'
+      fullPath: '/ferramentas/keyword-density'
+      preLoaderRoute: typeof FerramentasKeywordDensityRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/markdown-html': {
+      id: '/ferramentas/markdown-html'
+      path: '/markdown-html'
+      fullPath: '/ferramentas/markdown-html'
+      preLoaderRoute: typeof FerramentasMarkdownHtmlRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/meta-tags': {
+      id: '/ferramentas/meta-tags'
+      path: '/meta-tags'
+      fullPath: '/ferramentas/meta-tags'
+      preLoaderRoute: typeof FerramentasMetaTagsRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/meu-ip': {
+      id: '/ferramentas/meu-ip'
+      path: '/meu-ip'
+      fullPath: '/ferramentas/meu-ip'
+      preLoaderRoute: typeof FerramentasMeuIpRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/open-graph': {
+      id: '/ferramentas/open-graph'
+      path: '/open-graph'
+      fullPath: '/ferramentas/open-graph'
+      preLoaderRoute: typeof FerramentasOpenGraphRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/pixel-helper': {
+      id: '/ferramentas/pixel-helper'
+      path: '/pixel-helper'
+      fullPath: '/ferramentas/pixel-helper'
+      preLoaderRoute: typeof FerramentasPixelHelperRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/prompt-generator': {
+      id: '/ferramentas/prompt-generator'
+      path: '/prompt-generator'
+      fullPath: '/ferramentas/prompt-generator'
+      preLoaderRoute: typeof FerramentasPromptGeneratorRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/qr-code-generator': {
+      id: '/ferramentas/qr-code-generator'
+      path: '/qr-code-generator'
+      fullPath: '/ferramentas/qr-code-generator'
+      preLoaderRoute: typeof FerramentasQrCodeGeneratorRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/rewriter': {
+      id: '/ferramentas/rewriter'
+      path: '/rewriter'
+      fullPath: '/ferramentas/rewriter'
+      preLoaderRoute: typeof FerramentasRewriterRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/robots': {
+      id: '/ferramentas/robots'
+      path: '/robots'
+      fullPath: '/ferramentas/robots'
+      preLoaderRoute: typeof FerramentasRobotsRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/schema': {
+      id: '/ferramentas/schema'
+      path: '/schema'
+      fullPath: '/ferramentas/schema'
+      preLoaderRoute: typeof FerramentasSchemaRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/sitemap': {
+      id: '/ferramentas/sitemap'
+      path: '/sitemap'
+      fullPath: '/ferramentas/sitemap'
+      preLoaderRoute: typeof FerramentasSitemapRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/summarizer': {
+      id: '/ferramentas/summarizer'
+      path: '/summarizer'
+      fullPath: '/ferramentas/summarizer'
+      preLoaderRoute: typeof FerramentasSummarizerRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/telefone-temporario': {
+      id: '/ferramentas/telefone-temporario'
+      path: '/telefone-temporario'
+      fullPath: '/ferramentas/telefone-temporario'
+      preLoaderRoute: typeof FerramentasTelefoneTemporarioRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/testador-regex': {
+      id: '/ferramentas/testador-regex'
+      path: '/testador-regex'
+      fullPath: '/ferramentas/testador-regex'
+      preLoaderRoute: typeof FerramentasTestadorRegexRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/translator': {
+      id: '/ferramentas/translator'
+      path: '/translator'
+      fullPath: '/ferramentas/translator'
+      preLoaderRoute: typeof FerramentasTranslatorRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/utm-builder': {
+      id: '/ferramentas/utm-builder'
+      path: '/utm-builder'
+      fullPath: '/ferramentas/utm-builder'
+      preLoaderRoute: typeof FerramentasUtmBuilderRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/uuid': {
+      id: '/ferramentas/uuid'
+      path: '/uuid'
+      fullPath: '/ferramentas/uuid'
+      preLoaderRoute: typeof FerramentasUuidRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/ferramentas/validador-cpf-cnpj': {
+      id: '/ferramentas/validador-cpf-cnpj'
+      path: '/validador-cpf-cnpj'
+      fullPath: '/ferramentas/validador-cpf-cnpj'
+      preLoaderRoute: typeof FerramentasValidadorCpfCnpjRouteImport
+      parentRoute: typeof FerramentasRoute
+    }
+    '/noticias/': {
+      id: '/noticias/'
+      path: '/noticias'
+      fullPath: '/noticias/'
+      preLoaderRoute: typeof NoticiasIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/artigos/$slug': {
-      id: '/artigos/$slug'
-      path: '/artigos/$slug'
-      fullPath: '/artigos/$slug'
-      preLoaderRoute: typeof ArtigosSlugRouteImport
+    '/noticias/$slug': {
+      id: '/noticias/$slug'
+      path: '/noticias/$slug'
+      fullPath: '/noticias/$slug'
+      preLoaderRoute: typeof NoticiasSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projetos/': {
+      id: '/projetos/'
+      path: '/projetos'
+      fullPath: '/projetos/'
+      preLoaderRoute: typeof ProjetosIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
