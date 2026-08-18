@@ -37,11 +37,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p content/artigos
+          mkdir -p conteudo/artigos
           shopt -s nullglob
 
           sources=(
-            ".agente-artigos/content/artigos"
+            ".agente-artigos/conteudo/artigos"
             ".agente-artigos/artigos"
             ".agente-artigos/posts"
           )
@@ -50,7 +50,7 @@ jobs:
           for source in "${sources[@]}"; do
             if [ -d "$source" ]; then
               for file in "$source"/*.md; do
-                cp "$file" content/artigos/
+                cp "$file" conteudo/artigos/
                 imported=$((imported + 1))
               done
             fi
@@ -66,4 +66,4 @@ jobs:
         with:
           branch: main
           commit_message: "feat: publica artigos do agente de IA"
-          file_pattern: content/artigos public/llms.txt
+          file_pattern: conteudo/artigos public/llms.txt
