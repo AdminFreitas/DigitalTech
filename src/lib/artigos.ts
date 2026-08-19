@@ -1,5 +1,7 @@
+// src/lib/artigos.ts
 import { createServerFn } from "@tanstack/react-start";
 import { sql } from "./db";
+
 export const getArtigos = createServerFn({ method: "GET" }).handler(async () => {
   const rows = await sql`
     SELECT 
@@ -12,13 +14,18 @@ export const getArtigos = createServerFn({ method: "GET" }).handler(async () => 
   `;
   return rows;
 });
+
 export const getArtigoPorSlug = createServerFn({ method: "GET" })
   .validator((slug: string) => slug)
   .handler(async ({ data: slug }) => {
     const rows = await sql`
-      SELECT *
-      FROM artigos
-      WHERE slug = ${slug} AND status = 'publicado'
+      SELECT 
+        a.*,
+        c.nome AS categoria,
+        c.slug AS categoria_slug
+      FROM artigos a
+      JOIN categorias c ON c.id = a.categoria_id
+      WHERE a.slug = ${slug} AND a.status = 'publicado'
       LIMIT 1
     `;
     return rows[0] ?? null;
