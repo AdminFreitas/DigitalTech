@@ -1,6 +1,15 @@
 import { perguntarOllama } from "./ollama-client.js";
 import type { ArtigoGerado, Topico } from "./types.js";
 
+function sanitizarJsonBruto(texto: string): string {
+  return texto.replace(/[\u0000-\u001F]/g, (char) => {
+    if (char === "\n") return "\\n";
+    if (char === "\t") return "\\t";
+    if (char === "\r") return "\\r";
+    return "";
+  });
+}
+
 function gerarSlug(titulo: string): string {
   return titulo
     .toLowerCase()
@@ -40,7 +49,9 @@ Responda SOMENTE com um JSON, sem texto antes ou depois, no formato:
 {"titulo": "...", "resumo": "1-2 frases de resumo para preview/SEO", "corpoMarkdown": "artigo completo em markdown", "tags": ["tag1", "tag2", "tag3"]}`;
 
   const resposta = await perguntarOllama(prompt);
-  const jsonLimpo = resposta.replace(/```json|```/g, "").trim();
+  const jsonLimpo = sanitizarJsonBruto(
+    resposta.replace(/```json|```/g, "").trim()
+  );
   const artigo = JSON.parse(jsonLimpo) as Omit<ArtigoGerado, "slug" | "categoria">;
 
   return {
