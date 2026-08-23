@@ -52,7 +52,15 @@ Responda SOMENTE com um JSON, sem texto antes ou depois, no formato:
   const jsonLimpo = sanitizarJsonBruto(
     resposta.replace(/```json|```/g, "").trim()
   );
-  const artigo = JSON.parse(jsonLimpo) as Omit<ArtigoGerado, "slug" | "categoria">;
+  let artigo: Omit<ArtigoGerado, "slug" | "categoria">;
+
+  try {
+    artigo = JSON.parse(jsonLimpo) as Omit<ArtigoGerado, "slug" | "categoria">;
+  } catch (erroParse) {
+    console.error("[gerar-artigo] JSON inválido recebido do Ollama:");
+    console.error(jsonLimpo);
+    throw erroParse;
+  }
 
   return {
     ...artigo,
