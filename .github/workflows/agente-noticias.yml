@@ -1,10 +1,10 @@
 name: Agente de Notícias DigitalTech
 
 on:
-  schedule:
-    # 09:00 e 15:00 (horário de Brasília = UTC-3) -> 12:00 e 18:00 UTC
-    - cron: "0 12,18 * * *"
   workflow_dispatch: {} # permite rodar manualmente pela aba Actions
+  # schedule desativado em 2026-08-23 — este projeto (TypeScript) publicava
+  # em paralelo com o agente Python (Agente-digitaltech), causando conteúdo
+  # duplicado no blog. O agente oficial agora é o Python.
 
 jobs:
   publicar-artigo:
