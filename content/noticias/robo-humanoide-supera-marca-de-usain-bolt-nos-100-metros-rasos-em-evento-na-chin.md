@@ -1,0 +1,3 @@
+No último sábado, o robô humanoide Tiangong Ultra superou o tempo de 9,58 segundos estabelecido por Usain Bolt em 2009 nos 100 metros rasos. Projetado pelo Centro de Inovação em Robôs Humanoides de Pequim, o robô concluiu o trajeto em 9,39 segundos durante uma bateria preliminar nos Jogos Mundiais de Robôs Humanoides, realizados na capital chinesa.
+
+O tempo foi registrado nas etapas classificatórias da competição. O feito evidencia avanços no equilíbrio mecânico e na aceleração de sistemas bípedes, ultrapassando os limites da velocidade humana no atletismo. Essa evolução impacta diretamente desenvolvedores, engenheiros de robótica e empresas voltadas para a automação e mobilidade sintética.
