@@ -1,0 +1,5 @@
+A agência federal norte-americana ATF (Bureau de Álcool, Tabaco, Armas de Fogo e Explosivos) informou formalmente o Congresso dos Estados Unidos sobre a ocorrência de um "incidente grave" em sua infraestrutura de cibersegurança, após um grupo de ransomware reivindicar a autoria de uma invasão aos seus sistemas.
+
+Até o momento, está confirmada a notificação oficial enviada pela ATF aos parlamentares norte-americanos, classificando a ocorrência como um evento de segurança cibernética de grande porte. Por outro lado, a alegação do grupo criminoso sobre a invasão e o volume de dados supostamente acessados ainda não foram confirmados de forma independente pelas autoridades.
+
+O caso evidencia a vulnerabilidade contínua de órgãos públicos, tornando a ATF a mais recente agência do governo federal dos EUA a registrar um comprometimento digital significativo nos últimos anos. Os impactos potenciais envolvem a segurança operacional do próprio órgão e a proteção de dados sob custódia governamental.
