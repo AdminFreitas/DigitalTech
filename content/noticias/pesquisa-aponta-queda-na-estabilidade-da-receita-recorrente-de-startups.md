@@ -1,0 +1,5 @@
+Uma pesquisa divulgada pelo TechCrunch indica que a receita recorrente anual (ARR) das startups tornou-se menos segura. O estudo aponta que o ecossistema de inovação enfrenta desafios inéditos na retenção e na previsibilidade de receitas.
+
+O levantamento confirma que o avanço da inteligência artificial alterou profundamente os padrões tradicionais de compra das grandes empresas. No entanto, ainda não está evidente como as startups vão se adaptar ou reestruturar seus processos de vendas para contornar esse cenário.
+
+A transformação é relevante porque o ARR é a principal métrica utilizada para avaliar a estabilidade financeira e o valor de mercado de empresas emergentes. A mudança afeta diretamente fundadores de startups, investidores e equipes de vendas B2B, que agora lidam com contratos corporativos mais voláteis.
