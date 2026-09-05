@@ -1,0 +1,3 @@
+A Clucky apresentou um novo aplicativo de despertador desenvolvido para mudar a rotina matinal dos usuários. A ferramenta acorda o público ao som do canto de um galo e exige o cumprimento de uma missão interativa para que o alarme seja desligado.
+
+A novidade é direcionada a pessoas que buscam métodos alternativos para evitar o hábito de adiar o alarme pela manhã. O funcionamento do aplicativo limita-se ao sinal sonoro temático e ao desafio obrigatório para a desativação, sem detalhes sobre outras funcionalidades até o momento.
