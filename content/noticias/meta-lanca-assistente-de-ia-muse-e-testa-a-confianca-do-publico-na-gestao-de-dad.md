@@ -1,0 +1,5 @@
+A Meta apresentou o Muse, um novo assistente pessoal movido por inteligência artificial voltado para o consumidor final.
+
+A ferramenta foi projetada para interagir diretamente com serviços essenciais do usuário, solicitando permissões de acesso a e-mails, calendários, sistemas de pagamento e dados de aplicativos de saúde. O desenvolvimento do assistente e de seus recursos de integração foi confirmado, mas resta saber se os consumidores estarão dispostos a conceder esse nível de acesso à empresa.
+
+Essa iniciativa representa a maior aposta direta da Meta no segmento de inteligência artificial para o público geral. O lançamento afeta diretamente os usuários das plataformas da empresa e serve como um teste decisivo sobre o grau de confiança depositado na organização para lidar com informações altamente sensíveis.
