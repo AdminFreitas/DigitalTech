@@ -1,0 +1,5 @@
+O ex-presidente dos Estados Unidos, Barack Obama, recomendou recentemente que o Partido Democrata coloque a inteligência artificial no centro de suas prioridades políticas. Segundo ele, é essencial que a legenda defina uma estratégia clara para lidar com as consequências econômicas e as exigências de segurança impostas pelo avanço tecnológico.
+
+A manifestação reforça a atenção de lideranças políticas às transformações digitais. No entanto, ainda não foram detalhadas propostas legislativas específicas nem diretrizes formais decorrentes dessa recomendação.
+
+O posicionamento impulsiona o debate sobre a regulamentação e a governança da tecnologia nos Estados Unidos. A definição de regras para a IA pode afetar diretamente empresas do setor de tecnologia, trabalhadores impactados pela automação e a sociedade em geral.
