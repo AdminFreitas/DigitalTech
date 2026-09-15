@@ -1,0 +1,5 @@
+A onda de oposição popular contra a construção de data centers nos Estados Unidos atingiu a cidade de Filadélfia. Autoridades municipais sugeriram a instalação de um centro de dados em um bairro historicamente impactado por uma antiga refinaria de petróleo desativada.
+
+O projeto envolve a administração municipal, a indústria de tecnologia voltada para inteligência artificial e a comunidade local. Até o momento, houve apenas a indicação do local pelas autoridades; a aprovação formal da obra e os detalhes operacionais ainda dependem de confirmação.
+
+A situação reflete como a demanda acelerada por infraestrutura para inteligência artificial entra em conflito com áreas urbanas que já lidam com os impactos da antiga grande indústria. O caso afeta diretamente os moradores da região e as empresas de tecnologia que buscam terrenos para expandir sua capacidade computacional.
