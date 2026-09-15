@@ -1,0 +1,5 @@
+Um novo levantamento compilou iniciativas, startups e ferramentas de inteligência artificial que foram descontinuadas ou não alcançaram as metas projetadas. O mapeamento destaca desde os sucessivos atrasos na atualização da assistente Siri, da Apple, até percalços no lançamento do aplicativo integrado da OpenAI.
+
+A compilação envolve grandes corporações do setor de tecnologia e empresas emergentes que enfrentaram obstáculos técnicos ou operacionais. Embora o cancelamento e o adiamento de projetos específicos já estejam confirmados, o cenário expõe as dificuldades reais enfrentadas pela indústria.
+
+Esse panorama evidencia que a alta demanda e os investimentos expressivos em IA não garantem viabilidade imediata nem cumprimento de prazos. O impacto atinge diretamente investidores, desenvolvedores e consumidores que aguardavam a entrega de novas funcionalidades.
