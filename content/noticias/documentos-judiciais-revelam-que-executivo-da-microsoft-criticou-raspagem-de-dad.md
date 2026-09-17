@@ -1,0 +1,5 @@
+Documentos judiciais deslacrados recentemente revelaram que um executivo da Microsoft classificou internamente a coleta automatizada de dados para inteligência artificial realizada pela OpenAI como uma grande apropriação indevida de trabalho.
+
+Segundo registros do processo movido pelo jornal *The New York Times*, ambas as companhias utilizaram conteúdos protegidos por *paywall* para construir suas bases de dados. Embora as empresas atuassem em parceria, arquivos internos comprovam que a própria Microsoft alertou em comunicações privadas que esse modelo de extração agressiva de dados poderia devastar financeiramente o setor editorial.
+
+O caso expõe as contradições e divergências privadas entre duas das maiores forças do setor de tecnologia. Os desdobramentos desse processo afetam diretamente veículos de imprensa, criadores de conteúdo e desenvolvedores de sistemas de inteligência artificial, podendo estabelecer novos precedentes regulatórios sobre o uso de materiais protegidos por direitos autorais.
