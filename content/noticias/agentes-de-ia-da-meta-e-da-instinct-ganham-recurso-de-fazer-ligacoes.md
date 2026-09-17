@@ -1,0 +1,5 @@
+Os agentes de inteligência artificial Instinct e Muse, este último desenvolvido pela Meta, integram a capacidade de realizar chamadas telefônicas em nome dos usuários. A novidade foi divulgada pelo portal TechCrunch.
+
+Com a funcionalidade confirmada, esses assistentes virtuais passam a executar tarefas operacionais por voz. O recurso permite, por exemplo, que as ferramentas façam reservas em restaurantes e solicitem o cancelamento de assinaturas de serviços sem a necessidade de intervenção direta do usuário durante a ligação.
+
+A inovação impacta pessoas que buscam otimizar o tempo e automatizar resoluções burocráticas do dia a dia, consolidando um passo importante no desenvolvimento de assistentes mais autônomos no setor de tecnologia. Essa funcionalidade confirma o avanço da inteligência artificial em tornar a vida mais prática e eficiente para os usuários, permitindo que eles se concentrem em tarefas mais importantes.
