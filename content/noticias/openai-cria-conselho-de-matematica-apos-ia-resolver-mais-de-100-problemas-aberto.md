@@ -1,0 +1,5 @@
+A OpenAI estabeleceu um comitê consultivo dedicado à área de matemática. A iniciativa ocorre após os sistemas de inteligência artificial da organização alcançarem a resolução de mais de uma centena de problemas matemáticos que continuavam em aberto na ciência.
+
+Foi confirmado que o grupo recém-criado não terá autonomia nem poder decisório para desacelerar ou alterar o rumo das pesquisas científicas em andamento na empresa. A função do comitê será estritamente consultiva, mantendo o ritmo de desenvolvimento sob controle interno.
+
+O acontecimento é relevante por evidenciar a evolução das ferramentas automatizadas em campos acadêmicos altamente complexos, o que pode impactar cientistas, educadores e desenvolvedores do setor tecnológico. Detalhes sobre a composição do conselho ou cronogramas específicos de atuação não foram divulgados.
