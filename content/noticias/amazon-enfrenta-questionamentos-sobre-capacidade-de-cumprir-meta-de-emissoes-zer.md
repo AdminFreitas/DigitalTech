@@ -1,0 +1,5 @@
+A discussão sobre a responsabilidade ambiental de grandes corporações ganhou destaque com o questionamento sobre a capacidade da Amazon de cumprir seu compromisso de zerar as emissões de carbono.
+
+Sendo uma das maiores empresas do mundo, a gigante do e-commerce e tecnologia assumiu publicamente a meta de atingir a neutralidade de carbono (*net-zero*). O que está confirmado é a existência desse compromisso corporativo; contudo, permanece incerto e não confirmado como a empresa conseguirá eliminar totalmente sua pegada ecológica na prática.
+
+A situação é relevante porque a Amazon estabelece parâmetros para todo o setor corporativo. Se uma organização com seu volume de recursos enfrenta incertezas na execução do plano, o impacto atinge o ecossistema de tecnologia global, os investidores e os consumidores que acompanham as metas de sustentabilidade do mercado.
