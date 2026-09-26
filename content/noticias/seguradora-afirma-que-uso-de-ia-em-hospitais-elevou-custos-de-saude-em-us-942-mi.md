@@ -1,0 +1,3 @@
+A seguradora de saúde Blue Cross Blue Shield declarou que a adoção de ferramentas de inteligência artificial por hospitais gerou um aumento nas despesas do setor. Segundo levantamento divulgado pela empresa, a utilização dessas tecnologias resultou em um gasto adicional de US$ 942 milhões ao longo de um período de dois anos.
+
+Os valores reportados são fundamentados em afirmações da própria seguradora com base em suas operações. O dado é relevante por indicar que a implementação recente da IA na medicina pode estar encarecendo a assistência hospitalar em vez de reduzi-la, afetando diretamente os custos operacionais do sistema de saúde, as seguradoras e os contratantes de planos.
