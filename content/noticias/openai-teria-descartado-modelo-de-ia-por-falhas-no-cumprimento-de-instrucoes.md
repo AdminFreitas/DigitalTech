@@ -1,0 +1,5 @@
+A OpenAI cancelou o desenvolvimento de um de seus modelos de inteligência artificial devido a preocupações com segurança. A informação foi divulgada pelo portal TechCrunch, com base em declarações prestadas por um alto executivo do laboratório ao *Wall Street Journal*.
+
+De acordo com o relato do executivo, o sistema em questão apresentou baixa capacidade de obedecer a orientações e comandos diretos. Embora a declaração tenha partido de uma liderança interna da organização, a OpenAI não emitiu um documento oficial com os detalhes do projeto, e a data em que o cancelamento ocorreu não foi especificada.
+
+O episódio reforça a importância dos testes de contenção e do alinhamento de segurança antes da disponibilização de novas tecnologias ao público. Essa cautela afeta diretamente o setor tecnológico, além de desenvolvedores e usuários que dependem de ferramentas confiáveis.
