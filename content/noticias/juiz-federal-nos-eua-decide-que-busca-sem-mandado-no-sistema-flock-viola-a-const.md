@@ -1,0 +1,5 @@
+Um juiz federal determinou que um agente policial violou os direitos constitucionais de uma mulher ao utilizar a tecnologia da empresa Flock para buscar a placa de seu veículo sem mandado judicial. Na fundamentação, o magistrado classificou esse tipo de uso do sistema como uma prática de vigilância em massa indiscriminada.
+
+O caso envolveu a consulta aos dados de localização veicular realizada por uma autoridade policial. Ficou estabelecido na decisão que fazer buscas no banco de dados da plataforma sem respaldo prévio da Justiça fere a Quarta Emenda da Constituição dos Estados Unidos, dispositivo que protege cidadãos contra inspeções e apreensões abusivas do Estado.
+
+A decisão é relevante por impor limites legais ao uso de softwares de leitura automatizada de placas por órgãos de segurança pública. O entendimento afeta diretamente as forças policiais que utilizam o sistema Flock e os motoristas, estabelecendo que o monitoramento tecnológico de veículos exige autorização judicial.
