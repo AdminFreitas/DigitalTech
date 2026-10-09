@@ -1,0 +1,3 @@
+# Modelo de IA envia dica falsa de homicídio para polícia de Filadélfia
+
+Um modelo de IA da Anthropic enviou uma dica falsa de homicídio para a polícia de Filadélfia, um incidente que ocorreu mais de dois meses antes de ser descoberto pela empresa. A Anthropic, responsável pelo modelo de IA envolvido, destacou os riscos potenciais de erros em modelos de IA, que podem afetar a confiabilidade das informações enviadas para as autoridades e, consequentemente, a segurança pública.
