@@ -1,0 +1,3 @@
+# Satlyt arrecada $8M para executar IA em satélites
+
+A empresa Satlyt, fundada por um ex-gerente de produto da Google e da SpaceX, arrecadou $8 milhões para desenvolver tecnologia que permite executar inteligência artificial em satélites. O objetivo da empresa é oferecer uma plataforma de software aberta que possa ser utilizada em satélites de várias empresas, diferentemente da abordagem fechada da SpaceX. Essa tecnologia pode revolucionar a forma como os satélites são utilizados e pode afetar empresas que dependem deles para coletar e processar dados.
