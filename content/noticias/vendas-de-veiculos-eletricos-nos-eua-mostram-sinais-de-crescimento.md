@@ -1,0 +1,3 @@
+# Vendas de veículos elétricos nos EUA
+
+O mercado de veículos elétricos nos Estados Unidos apresentou um crescimento nos últimos três trimestres consecutivos. De acordo com informações disponíveis, esse crescimento é um sinal positivo para o setor. O aumento nas vendas de veículos elétricos pode ser um indicador de que o mercado está se movendo em direção a uma adoção mais ampla de tecnologias sustentáveis. Isso pode afetar tanto os fabricantes de veículos quanto os consumidores, que podem ter mais opções de veículos ecológicos no futuro.
