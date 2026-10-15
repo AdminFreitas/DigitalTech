@@ -1,0 +1,5 @@
+A Meta apresentou o Muse Spark Open, seu novo modelo de inteligência artificial com pesos abertos, criado em parceria com a Apple. A novidade foi desenvolvida para ser executada de maneira local e direta em computadores Mac alimentados por chips Apple Silicon.
+
+O projeto reúne a empresa de redes sociais e a fabricante do Mac em uma colaboração focada em desempenho no próprio dispositivo. Até o momento, está confirmada a capacidade do modelo de rodar nativamente no hardware da Apple, sem que informações sobre outros sistemas tenham sido detalhadas.
+
+A novidade traz relevância, pois permite que recursos avançados de IA funcionem sem depender do processamento em nuvem, garantindo mais autonomia na execução de tarefas. Essa mudança impacta principalmente desenvolvedores, profissionais da área de tecnologia e proprietários de Macs interessados em soluções locais de inteligência artificial.
