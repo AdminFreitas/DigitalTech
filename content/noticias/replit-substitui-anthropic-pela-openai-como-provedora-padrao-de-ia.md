@@ -1,0 +1,5 @@
+A plataforma de desenvolvimento Replit alterou sua parceira padrão de inteligência artificial no último fim de semana. Segundo declarações do CEO da empresa, Amjad Masad, a OpenAI passará a ocupar o posto de provedora principal do serviço, substituindo a Anthropic.
+
+O executivo confirmou que, embora a OpenAI se torne a integração nativa e padrão, os modelos Claude, desenvolvidos pela Anthropic, não serão removidos e continuarão acessíveis como opção para os clientes da plataforma.
+
+A mudança impacta diretamente os programadores e criadores de software que utilizam o Replit, pois altera o modelo de linguagem que responde automaticamente no ambiente de desenvolvimento. O movimento é relevante por evidenciar novas disputas comerciais entre as principais empresas de IA para dominar ferramentas de programação.
