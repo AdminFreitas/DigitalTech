@@ -46,7 +46,7 @@ function PrivacyPage() {
           Política de Privacidade
         </h1>
         <p className="mt-3 text-[14px] text-[var(--text-secondary)]">
-          Última atualização: 24 de junho de 2026
+          Última atualização: 22 de outubro de 2026
         </p>
 
         <Section title="1. Quem somos">
@@ -79,8 +79,9 @@ function PrivacyPage() {
 
         <Section title="4. Com quem compartilhamos">
           Apenas com provedores estritamente necessários: hospedagem (GitHub Pages / Cloudflare),
-          CDN, e provedor de formulário (Formspree). Todos sob contrato e em conformidade com a
-          LGPD.
+          CDN, e provedor de formulário (Formspree). Também usamos serviços do Google (Google
+          Analytics, Google Tag Manager e Google Ads), ativados somente após o consentimento do
+          visitante. Todos sob contrato e em conformidade com a LGPD.
         </Section>
 
         <Section title="5. Seus direitos (LGPD)">
@@ -93,8 +94,12 @@ function PrivacyPage() {
         </Section>
 
         <Section title="6. Cookies">
-          Atualmente o site não utiliza cookies de rastreamento. Caso isso mude, você será informado
-          com um banner de consentimento.
+          O site usa cookies do Google Analytics 4 para medição de audiência, do Google Tag Manager
+          para gerenciamento de tags e do Google Ads para mensuração de conversões e remarketing.
+          Esses serviços só são ativados depois que você clica em “Aceitar” no aviso de cookies. Ao
+          clicar em “Recusar”, esses cookies permanecem desativados. Você pode alterar sua escolha a
+          qualquer momento em “Preferências de cookies”, no rodapé, ou bloquear cookies nas
+          configurações do seu navegador.
         </Section>
 
         <Section title="7. Retenção">

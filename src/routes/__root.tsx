@@ -12,6 +12,8 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/digital-error-reporting";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
+import { CookieConsent } from "../components/CookieConsent";
+import { consentDefaultScript, GTM_ID, gtmScript } from "../lib/gtm";
 
 function NotFoundComponent() {
   return (
@@ -97,6 +99,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@700&display=swap",
       },
     ],
+    scripts: import.meta.env.PROD
+      ? [{ children: consentDefaultScript }, { children: gtmScript }]
+      : [],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -111,6 +116,17 @@ function RootShell({ children }: { children: ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        {import.meta.env.PROD && (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+              height="0"
+              width="0"
+              style={{ display: "none", visibility: "hidden" }}
+              title="Google Tag Manager"
+            />
+          </noscript>
+        )}
         {children}
         <Scripts />
       </body>
@@ -128,6 +144,7 @@ function RootComponent() {
           <Outlet />
         </main>
         <Footer />
+        <CookieConsent />
       </div>
     </QueryClientProvider>
   );
