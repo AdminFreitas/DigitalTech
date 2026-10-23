@@ -1,15 +1,8 @@
 import { useState } from "react";
 import { cadastrarAssinante } from "@/lib/assinantes";
 import { Link } from "@tanstack/react-router";
-import {
-  Github,
-  Linkedin,
-  Instagram,
-  Youtube,
-  MessageCircle,
-  Mail,
-  ArrowUp,
-} from "lucide-react";
+import { Github, Linkedin, Instagram, Youtube, MessageCircle, Mail, ArrowUp } from "lucide-react";
+import { CONSENT_OPEN_EVENT } from "@/lib/gtm";
 
 type Canal = "email" | "whatsapp";
 
@@ -23,11 +16,16 @@ export function Footer() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!valor.trim()) { setErro("Preencha o campo obrigatório."); return; }
-    if (canal === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor)) {
-      setErro("E-mail inválido."); return;
+    if (!valor.trim()) {
+      setErro("Preencha o campo obrigatório.");
+      return;
     }
-    setErro(""); setEnviando(true);
+    if (canal === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valor)) {
+      setErro("E-mail inválido.");
+      return;
+    }
+    setErro("");
+    setEnviando(true);
     const resultado = await cadastrarAssinante({
       data: {
         nome: nome || "Assinante",
@@ -36,15 +34,19 @@ export function Footer() {
         receberEmail: canal === "email",
         receberWhatsapp: canal === "whatsapp",
         origem: "footer",
-      }
+      },
     });
     setEnviando(false);
-    if (resultado.ok) { setEnviado(true); setValor(""); setNome(""); }
-    else { setErro(resultado.mensagem); }
+    if (resultado.ok) {
+      setEnviado(true);
+      setValor("");
+      setNome("");
+    } else {
+      setErro(resultado.mensagem);
+    }
   };
 
-  const scrollTopo = () =>
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  const scrollTopo = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
     <>
@@ -64,25 +66,33 @@ export function Footer() {
               <div className="flex overflow-hidden rounded-lg border border-[var(--glass-border)] w-fit">
                 <button
                   type="button"
-                  onClick={() => { setCanal("email"); setValor(""); }}
-                  className={`px-4 py-2 text-sm ${canal==="email"?"font-bold":""}`}
+                  onClick={() => {
+                    setCanal("email");
+                    setValor("");
+                  }}
+                  className={`px-4 py-2 text-sm ${canal === "email" ? "font-bold" : ""}`}
                 >
-                  <Mail className="mr-2 inline h-4 w-4"/>E-mail
+                  <Mail className="mr-2 inline h-4 w-4" />
+                  E-mail
                 </button>
                 <button
                   type="button"
-                  onClick={() => { setCanal("whatsapp"); setValor(""); }}
-                  className={`px-4 py-2 text-sm ${canal==="whatsapp"?"font-bold":""}`}
+                  onClick={() => {
+                    setCanal("whatsapp");
+                    setValor("");
+                  }}
+                  className={`px-4 py-2 text-sm ${canal === "whatsapp" ? "font-bold" : ""}`}
                 >
-                  <MessageCircle className="mr-2 inline h-4 w-4"/>WhatsApp
+                  <MessageCircle className="mr-2 inline h-4 w-4" />
+                  WhatsApp
                 </button>
               </div>
 
               <div className="flex flex-col gap-2 sm:flex-row">
                 <input
                   value={valor}
-                  onChange={(e)=>setValor(e.target.value)}
-                  placeholder={canal==="email"?"Seu e-mail":"Seu WhatsApp"}
+                  onChange={(e) => setValor(e.target.value)}
+                  placeholder={canal === "email" ? "Seu e-mail" : "Seu WhatsApp"}
                   className="flex-1 rounded-lg border border-[var(--glass-border)] bg-transparent px-4 py-3 text-sm"
                 />
                 <button
@@ -108,19 +118,22 @@ export function Footer() {
               <span className="font-display text-[15px] font-bold tracking-[0.18em] text-[var(--text-primary)]">
                 DIGITALTECH
               </span>
-              <p className="mt-2 text-sm text-[var(--text-secondary)]">
-                Tecnologia em um Minuto
-              </p>
+              <p className="mt-2 text-sm text-[var(--text-secondary)]">Tecnologia em um Minuto</p>
 
               <div className="mt-5 flex gap-3">
                 {[
-                  ["https://github.com/michelfreitasdev", <Github className="h-4 w-4"/>],
-                  ["https://linkedin.com/in/michelfreitas-ads", <Linkedin className="h-4 w-4"/>],
-                  ["https://instagram.com/digitaltech00", <Instagram className="h-4 w-4"/>],
-                  ["https://youtube.com/@digitaltech00", <Youtube className="h-4 w-4"/>],
-                ].map(([href,icon],i)=>(
-                  <a key={i} href={href as string} target="_blank" rel="noopener noreferrer"
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--glass-border)] hover:text-[var(--text-primary)]">
+                  ["https://github.com/michelfreitasdev", <Github className="h-4 w-4" />],
+                  ["https://linkedin.com/in/michelfreitas-ads", <Linkedin className="h-4 w-4" />],
+                  ["https://instagram.com/digitaltech00", <Instagram className="h-4 w-4" />],
+                  ["https://youtube.com/@digitaltech00", <Youtube className="h-4 w-4" />],
+                ].map(([href, icon], i) => (
+                  <a
+                    key={i}
+                    href={href as string}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--glass-border)] hover:text-[var(--text-primary)]"
+                  >
                     {icon}
                   </a>
                 ))}
@@ -130,27 +143,54 @@ export function Footer() {
             <div>
               <h3 className="mb-3 font-semibold text-[var(--text-primary)]">Navegação</h3>
               <ul className="space-y-2 text-sm text-[var(--text-secondary)]">
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/noticias">Notícias</Link></li>
-                <li><Link to="/contato">Contato</Link></li>
+                <li>
+                  <Link to="/">Home</Link>
+                </li>
+                <li>
+                  <Link to="/noticias">Notícias</Link>
+                </li>
+                <li>
+                  <Link to="/contato">Contato</Link>
+                </li>
               </ul>
             </div>
 
             <div>
               <h3 className="mb-3 font-semibold text-[var(--text-primary)]">Comunidade</h3>
               <ul className="space-y-2 text-sm text-[var(--text-secondary)]">
-                <li><a href="#">Newsletter</a></li>
-                <li><a href="#">Sugestões</a></li>
-                <li><a href="#">Favoritos</a></li>
+                <li>
+                  <a href="#">Newsletter</a>
+                </li>
+                <li>
+                  <a href="#">Sugestões</a>
+                </li>
+                <li>
+                  <a href="#">Favoritos</a>
+                </li>
               </ul>
             </div>
 
             <div>
               <h3 className="mb-3 font-semibold text-[var(--text-primary)]">Sobre</h3>
               <ul className="space-y-2 text-sm text-[var(--text-secondary)]">
-                <li><Link to="/sobre">Sobre o DigitalTech</Link></li>
-                <li><Link to="/politica-de-privacidade">Política de Privacidade</Link></li>
-                <li><Link to="/termos">Termos de Uso</Link></li>
+                <li>
+                  <Link to="/sobre">Sobre o DigitalTech</Link>
+                </li>
+                <li>
+                  <Link to="/politica-de-privacidade">Política de Privacidade</Link>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => window.dispatchEvent(new Event(CONSENT_OPEN_EVENT))}
+                    className="text-left"
+                  >
+                    Preferências de cookies
+                  </button>
+                </li>
+                <li>
+                  <Link to="/termos">Termos de Uso</Link>
+                </li>
               </ul>
             </div>
           </div>
@@ -164,7 +204,7 @@ export function Footer() {
               onClick={scrollTopo}
               className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--glass-border)]"
             >
-              <ArrowUp className="h-4 w-4"/>
+              <ArrowUp className="h-4 w-4" />
             </button>
           </div>
         </div>

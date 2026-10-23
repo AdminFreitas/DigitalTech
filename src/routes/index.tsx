@@ -9,6 +9,7 @@ import { getNoticias } from "@/lib/noticias";
 import { pesquisar } from "@/lib/pesquisa";
 import type { Noticia } from "@/components/noticias/dados";
 import { NewsCardPequeno } from "@/components/noticias/NewsCard";
+import Shuffle from "@/components/Shuffle";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -115,7 +116,9 @@ export const Route = createFileRoute("/")({
   component: Home,
 });
 
-function paraNoticia(n: any): Noticia {
+type NoticiaRow = Awaited<ReturnType<typeof getNoticias>>[number];
+
+function paraNoticia(n: NoticiaRow): Noticia {
   const dataISO =
     n.data_publicacao instanceof Date
       ? n.data_publicacao.toISOString().slice(0, 10)
@@ -402,9 +405,30 @@ function Hero({ totalArtigos }: { totalArtigos: number }) {
       />
       <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-6 md:grid-cols-[1.2fr_1fr]">
         <div className="fade-up">
-          <h1 className="font-display text-[clamp(2.6rem,7vw,5rem)] font-bold leading-[1.05] tracking-[-0.02em] text-[var(--text-primary)]">
-            DIGITALTECH
-          </h1>
+          <Shuffle
+            tag="h1"
+            text="DIGITALTECH"
+            textAlign="left"
+            className="font-display text-[clamp(2.6rem,7vw,5rem)] font-bold leading-[1.05] tracking-[-0.02em] text-[var(--text-primary)]"
+            fontSpec='700 1em "Plus Jakarta Sans"'
+            effect="slide"
+            shuffleDirection="right"
+            duration={0.35}
+            animationMode="evenodd"
+            shuffleTimes={1}
+            ease="power3.out"
+            stagger={0.03}
+            threshold={0.1}
+            triggerOnce
+            triggerOnHover
+            hoverRadius={0}
+            motionBlur={false}
+            respectReducedMotion
+            maxDelay={0}
+            scrambleCharset=""
+            loop={false}
+            loopDelay={0}
+          />
           <h2 className="mt-2 font-display text-[clamp(1.1rem,2.5vw,1.6rem)] font-semibold text-[#3DDC97]">
             Tecnologia em um Minuto
           </h2>
@@ -417,7 +441,10 @@ function Hero({ totalArtigos }: { totalArtigos: number }) {
               Ler edição atual →
             </a>
             <span className="h-px w-10 bg-[var(--glass-border)]" />
-            <span>{totalArtigos} artigo{totalArtigos !== 1 ? "s" : ""} publicado{totalArtigos !== 1 ? "s" : ""}</span>
+            <span>
+              {totalArtigos} artigo{totalArtigos !== 1 ? "s" : ""} publicado
+              {totalArtigos !== 1 ? "s" : ""}
+            </span>
           </div>
         </div>
         <div ref={stageRef} className="relative hidden md:block planet-stage">
@@ -554,10 +581,7 @@ function Tools() {
         title="Pequenos utilitários, grandes economias de tempo"
       />
 
-      <div
-        ref={ref}
-        className="fade-in grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
-      >
+      <div ref={ref} className="fade-in grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {tools.map((t) =>
           t.href ? (
             <Link
@@ -594,7 +618,7 @@ function Tools() {
                 {t.desc}
               </p>
             </div>
-          )
+          ),
         )}
       </div>
     </section>
@@ -968,24 +992,58 @@ function Home() {
         <FAQ />
 
         <section className="mx-auto max-w-3xl px-6 pb-24">
-          <h2 className="font-display text-xl font-semibold text-[var(--text-primary)] md:text-2xl mb-6">Sobre</h2>
+          <h2 className="font-display text-xl font-semibold text-[var(--text-primary)] md:text-2xl mb-6">
+            Sobre
+          </h2>
           <div className="space-y-5 text-[15px] leading-relaxed text-[var(--text-secondary)]">
-            <p>Seja bem-vindo. Se você estava esperando mais um blog genérico feito em WordPress, errou de endereço.</p>
-            <p>Este projeto foi construído na unha, codificado linha por linha, com doses generosas de Inteligência Artificial, quantidades preocupantes de café e pouca inteligência humana.</p>
+            <p>
+              Seja bem-vindo. Se você estava esperando mais um blog genérico feito em WordPress,
+              errou de endereço.
+            </p>
+            <p>
+              Este projeto foi construído na unha, codificado linha por linha, com doses generosas
+              de Inteligência Artificial, quantidades preocupantes de café e pouca inteligência
+              humana.
+            </p>
             <div>
               <p className="font-semibold text-[var(--text-primary)] mb-1">O Propósito</p>
-              <p>O DigitalTech é um projeto acadêmico do curso de Análise e Desenvolvimento de Sistemas (ADS). Nasceu da necessidade de colocar a teoria em prática e virou um laboratório vivo de desenvolvimento de software, engenharia de prompt e testes de paciência.</p>
+              <p>
+                O DigitalTech é um projeto acadêmico do curso de Análise e Desenvolvimento de
+                Sistemas (ADS). Nasceu da necessidade de colocar a teoria em prática e virou um
+                laboratório vivo de desenvolvimento de software, engenharia de prompt e testes de
+                paciência.
+              </p>
             </div>
             <div>
-              <p className="font-semibold text-[var(--text-primary)] mb-3">O que você encontra aqui</p>
+              <p className="font-semibold text-[var(--text-primary)] mb-3">
+                O que você encontra aqui
+              </p>
               <ul className="space-y-2">
-                <li><span className="text-[var(--text-primary)] font-medium">Ferramentas Práticas</span> — Utilitários desenvolvidos para resolver problemas reais. Sem frescura, sem cadastro obrigatório.</li>
-                <li><span className="text-[var(--text-primary)] font-medium">Notícias & Artigos</span> — O que está acontecendo de relevante no mundo da tecnologia, novas linguagens, ferramentas e o que o mercado está exigindo.</li>
-                <li><span className="text-[var(--text-primary)] font-medium">Dev aos 40</span> — Histórias reais dos bastidores de quem decidiu entrar na área de tecnologia depois dos 40. Com direito a dores nas costas, código que não compila e a certeza de que sempre tem mais uma coisa para aprender.</li>
+                <li>
+                  <span className="text-[var(--text-primary)] font-medium">
+                    Ferramentas Práticas
+                  </span>{" "}
+                  — Utilitários desenvolvidos para resolver problemas reais. Sem frescura, sem
+                  cadastro obrigatório.
+                </li>
+                <li>
+                  <span className="text-[var(--text-primary)] font-medium">Notícias & Artigos</span>{" "}
+                  — O que está acontecendo de relevante no mundo da tecnologia, novas linguagens,
+                  ferramentas e o que o mercado está exigindo.
+                </li>
+                <li>
+                  <span className="text-[var(--text-primary)] font-medium">Dev aos 40</span> —
+                  Histórias reais dos bastidores de quem decidiu entrar na área de tecnologia depois
+                  dos 40. Com direito a dores nas costas, código que não compila e a certeza de que
+                  sempre tem mais uma coisa para aprender.
+                </li>
               </ul>
             </div>
             <p className="border-t border-[var(--glass-border)] pt-5 text-[13px]">
-              <span className="text-[var(--text-primary)] font-medium">Status do servidor:</span> rodando na base da gambiarra premium, IA e muita determinação. Sinta-se em casa para explorar, usar as ferramentas e olhar o código. Ele está no GitHub, sem vergonha nenhuma.
+              <span className="text-[var(--text-primary)] font-medium">Status do servidor:</span>{" "}
+              rodando na base da gambiarra premium, IA e muita determinação. Sinta-se em casa para
+              explorar, usar as ferramentas e olhar o código. Ele está no GitHub, sem vergonha
+              nenhuma.
             </p>
           </div>
         </section>
