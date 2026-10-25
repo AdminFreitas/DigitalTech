@@ -1,0 +1,5 @@
+Os moderadores da comunidade r/opensource no Reddit atualizaram as regras do fórum na noite de sábado para proibir a divulgação de software relacionado à inteligência artificial.
+
+A regra oficial veta projetos construídos por IA, que façam uso da tecnologia ou que tenham sido criados com o objetivo de atendê-la. De acordo com a moderação, o funcionamento atual da inteligência artificial destoa dos princípios defendidos pelo grupo. Ainda não há confirmação sobre os impactos do banimento na retenção de usuários do subfórum.
+
+O acontecimento reflete os conflitos conceituais entre o movimento de código aberto e as práticas recentes da indústria de IA. A decisão afeta desenvolvedores e criadores que utilizavam a comunidade para divulgar iniciativas tecnológicas baseadas em aprendizado de máquina.
